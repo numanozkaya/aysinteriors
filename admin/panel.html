@@ -6,13 +6,12 @@
 <title>Admin Paneli — Ays Interiors</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
 body{font-family:'Jost',sans-serif;font-weight:300;font-size:14px;background:#F0EDE8;color:#1C1A18}
 a{text-decoration:none;color:inherit}
-
-/* Layout */
 .layout{display:flex;height:100vh;overflow:hidden}
 .sidebar{width:240px;flex-shrink:0;background:#1C1A18;display:flex;flex-direction:column;overflow-y:auto}
 .sidebar-brand{padding:20px;border-bottom:1px solid rgba(255,255,255,.08)}
@@ -26,23 +25,16 @@ a{text-decoration:none;color:inherit}
 .sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08)}
 .logout-btn{width:100%;padding:8px;background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);font-family:'Jost',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .2s}
 .logout-btn:hover{border-color:rgba(255,255,255,.3);color:#fff}
-
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .topbar{height:56px;background:#fff;border-bottom:1px solid #E8E2D9;display:flex;align-items:center;justify-content:flex-end;padding:0 24px;flex-shrink:0;gap:10px}
 .topbar-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid #E8E2D9;background:transparent;font-family:'Jost',sans-serif;font-size:12px;color:#8C7B6E;cursor:pointer;transition:all .2s}
 .topbar-btn:hover{border-color:#1C1A18;color:#1C1A18}
 .content{flex:1;overflow-y:auto;padding:28px}
-
-.section{display:none}
-.section.active{display:block}
+.section{display:none}.section.active{display:block}
 .section-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:28px;margin-bottom:24px}
-
-/* Cards */
 .card{background:#fff;border:1px solid #E8E2D9;padding:20px;margin-bottom:20px}
 .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #E8E2D9}
 .card-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px}
-
-/* Buttons */
 .btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:12px;cursor:pointer;border:1px solid transparent;transition:all .2s}
 .btn-primary{background:#1C1A18;color:#fff;border-color:#1C1A18}
 .btn-primary:hover{background:#C8A97A;border-color:#C8A97A}
@@ -51,8 +43,6 @@ a{text-decoration:none;color:inherit}
 .btn-danger{background:#e74c3c;color:#fff;border-color:#e74c3c}
 .btn-danger:hover{background:#c0392b}
 .btn-sm{padding:4px 9px;font-size:11px}
-
-/* Forms */
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .form-group{margin-bottom:14px}
 .form-label{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#8C7B6E;margin-bottom:5px}
@@ -66,8 +56,6 @@ a{text-decoration:none;color:inherit}
 .check-row label{font-size:13px;cursor:pointer}
 .radio-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
 .radio-row label{display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer}
-
-/* Project list */
 .proj-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #E8E2D9}
 .proj-item:last-child{border-bottom:none}
 .proj-thumb{width:72px;height:54px;object-fit:cover;background:#E8E2D9;flex-shrink:0}
@@ -75,31 +63,34 @@ a{text-decoration:none;color:inherit}
 .proj-name{font-size:13px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .proj-meta{font-size:11px;color:#8C7B6E;margin-top:2px}
 .proj-actions{display:flex;gap:6px;flex-shrink:0}
-
-/* Category tags */
 .cat-tag{display:inline-flex;align-items:center;gap:5px;background:#F9F6F1;border:1px solid #E8E2D9;padding:4px 10px;margin:3px;font-size:12px}
 .cat-tag button{background:none;border:none;cursor:pointer;color:#8C7B6E;font-size:14px;line-height:1;padding:0 0 0 2px}
 .cat-tag button:hover{color:#e74c3c}
 
-/* Image grid (path-based) */
-.img-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.img-tile{position:relative;width:90px;height:68px;background:#E8E2D9;flex-shrink:0;overflow:hidden}
-.img-tile img{width:100%;height:100%;object-fit:cover}
-.img-tile .rm-btn{position:absolute;top:3px;right:3px;width:18px;height:18px;background:rgba(231,76,60,.9);color:#fff;border:none;border-radius:50%;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
-.img-tile .cover-star{position:absolute;bottom:3px;left:3px;font-size:14px;cursor:pointer;text-shadow:0 1px 3px rgba(0,0,0,.5)}
-.img-tile.is-cover{outline:2px solid #C8A97A}
-.img-tile .img-error{font-size:9px;color:#8C7B6E;text-align:center;padding:4px;word-break:break-all;line-height:1.2;position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+/* ── Image Upload Area ── */
+.img-upload-zone{border:2px dashed #E8E2D9;border-radius:2px;padding:28px 20px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative;margin-bottom:12px}
+.img-upload-zone:hover,.img-upload-zone.dragover{border-color:#C8A97A;background:#FFF9F0}
+.img-upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.img-upload-icon{color:#C8A97A;margin:0 auto 8px}
+.img-upload-text{font-size:13px;color:#8C7B6E;line-height:1.5}
+.img-upload-text strong{color:#1C1A18;display:block;margin-bottom:4px;font-size:14px;font-weight:400}
+.img-upload-text span{font-size:11px}
+.img-progress{display:none;margin-top:8px}
+.img-progress-bar{width:100%;height:4px;background:#E8E2D9;border-radius:2px;overflow:hidden}
+.img-progress-fill{height:100%;background:#C8A97A;width:0%;transition:width .15s}
+.img-progress-text{font-size:11px;color:#8C7B6E;margin-top:4px}
 
-/* Image add area */
-.img-add-box{border:1px dashed #E8E2D9;padding:16px;margin-top:12px;background:#F9F6F1}
-.img-add-box h4{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#8C7B6E;margin-bottom:10px}
-.img-add-tabs{display:flex;gap:0;margin-bottom:12px;border-bottom:1px solid #E8E2D9}
-.img-tab{padding:6px 14px;font-size:12px;cursor:pointer;border:none;background:none;color:#8C7B6E;border-bottom:2px solid transparent;font-family:'Jost',sans-serif}
-.img-tab.active{color:#1C1A18;border-bottom-color:#C8A97A}
-.img-tab-panel{display:none}
-.img-tab-panel.active{display:block}
-.path-hint{font-size:11px;color:#8C7B6E;margin-bottom:6px;line-height:1.5}
-.path-hint code{background:#E8E2D9;padding:1px 5px;font-size:10px}
+/* ── Image Grid ── */
+.img-grid{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;min-height:20px}
+.img-tile{position:relative;width:96px;height:72px;background:#E8E2D9;flex-shrink:0;overflow:hidden;cursor:default}
+.img-tile img{width:100%;height:100%;object-fit:cover;display:block}
+.img-tile .rm-btn{position:absolute;top:3px;right:3px;width:20px;height:20px;background:rgba(28,26,24,.75);color:#fff;border:none;border-radius:50%;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;opacity:0;transition:opacity .15s}
+.img-tile:hover .rm-btn{opacity:1}
+.img-tile .cover-btn{position:absolute;bottom:3px;left:3px;background:rgba(28,26,24,.6);border:none;color:rgba(255,255,255,.6);font-size:13px;cursor:pointer;padding:2px 5px;line-height:1;transition:color .15s}
+.img-tile .cover-btn:hover{color:#C8A97A}
+.img-tile.is-cover{outline:2px solid #C8A97A;outline-offset:-2px}
+.img-tile .cover-label{position:absolute;bottom:0;left:0;right:0;background:rgba(200,169,122,.85);color:#fff;font-size:9px;letter-spacing:1px;text-transform:uppercase;text-align:center;padding:2px 0}
+.img-count{font-size:11px;color:#8C7B6E;margin-bottom:8px}
 
 /* Messages */
 .msg-row{padding:12px 16px;border-bottom:1px solid #E8E2D9;cursor:pointer;transition:background .15s}
@@ -109,35 +100,20 @@ a{text-decoration:none;color:inherit}
 .msg-name{font-size:13px;font-weight:400}
 .msg-date{font-size:11px;color:#8C7B6E}
 .msg-preview{font-size:12px;color:#8C7B6E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-/* Modals */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(28,26,24,.55);z-index:500;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.open{display:flex}
-.modal-box{background:#fff;width:100%;max-width:700px;max-height:92vh;display:flex;flex-direction:column}
+.modal-box{background:#fff;width:100%;max-width:720px;max-height:92vh;display:flex;flex-direction:column}
 .modal-box.sm{max-width:520px}
 .modal-head{padding:16px 20px;border-bottom:1px solid #E8E2D9;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
 .modal-head-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px}
 .modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:#8C7B6E;line-height:1;padding:0 4px}
 .modal-body{padding:20px;flex:1;overflow-y:auto}
 .modal-foot{padding:14px 20px;border-top:1px solid #E8E2D9;display:flex;justify-content:flex-end;gap:8px;flex-shrink:0}
-
-/* Entry items (edu/cert) */
 .entry-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#F9F6F1;border:1px solid #E8E2D9;margin-bottom:6px;font-size:12px}
-
-/* Notification */
 .notif{position:fixed;bottom:24px;right:24px;background:#1C1A18;color:#fff;padding:12px 20px;font-size:13px;z-index:999;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
 .notif.show{opacity:1;transform:translateY(0)}
-
-/* Info box */
-.info-box{background:#FFF9F0;border:1px solid #E8D9B8;padding:14px 16px;font-size:12px;color:#7A6540;line-height:1.7;margin-bottom:16px}
-.info-box strong{display:block;margin-bottom:4px;color:#5A4520;font-size:11px;letter-spacing:1px;text-transform:uppercase}
-.info-box code{background:rgba(200,169,122,.2);padding:1px 5px;font-size:11px}
-
-.gold{color:#C8A97A}
-.taupe{color:#8C7B6E}
-.text-sm{font-size:12px}
-.mt-1{margin-top:8px}
-.mt-2{margin-top:16px}
+.gold{color:#C8A97A}.taupe{color:#8C7B6E}.text-sm{font-size:12px}
+.mt-1{margin-top:8px}.mt-2{margin-top:16px}
 .gap-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 </style>
 </head>
@@ -153,7 +129,7 @@ a{text-decoration:none;color:inherit}
       <div class="nav-item active" onclick="showSection('portfolio',this)"><i data-lucide="folder" width="15" height="15"></i> Portfolyo</div>
       <div class="nav-item" onclick="showSection('packages',this)"><i data-lucide="package" width="15" height="15"></i> Danışmanlık Paketleri</div>
       <div class="nav-item" onclick="showSection('profile',this)"><i data-lucide="user" width="15" height="15"></i> Hakkımda & Profil</div>
-      <div class="nav-item" id="navMessages" onclick="showSection('messages',this)">
+      <div class="nav-item" onclick="showSection('messages',this)">
         <i data-lucide="message-square" width="15" height="15"></i> Mesajlar
         <span class="nav-badge" id="unreadBadge" style="display:none">0</span>
       </div>
@@ -173,27 +149,19 @@ a{text-decoration:none;color:inherit}
       <!-- PORTFOLYO -->
       <div class="section active" id="sec-portfolio">
         <div class="section-title">Portfolyo Yönetimi</div>
-
-        <div class="info-box">
-          <strong>Görsel Sistemi — Dosya Tabanlı</strong>
-          Görseller <code>aysinteriors/images/[kategori]/</code> klasörüne atılır, admin panelinden sadece dosya yolu girilir.<br>
-          Örnek: <code>images/mutfak/foto1.jpg</code> &nbsp;|&nbsp; Harici URL de çalışır: <code>https://...</code>
-        </div>
-
         <div class="card">
           <div class="card-header"><span class="card-title">Kategoriler</span></div>
           <div id="catList" style="margin-bottom:12px"></div>
           <div class="gap-row">
-            <input type="text" id="newCatName" class="form-input" placeholder="Kategori adı (örn: Teras)" style="max-width:200px">
-            <input type="text" id="newCatSlug" class="form-input" placeholder="slug (örn: teras)" style="max-width:150px">
+            <input type="text" id="newCatName" class="form-input" placeholder="Kategori adı" style="max-width:180px">
+            <input type="text" id="newCatSlug" class="form-input" placeholder="slug (teras)" style="max-width:140px">
             <button onclick="addCategory()" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Ekle</button>
           </div>
         </div>
-
         <div class="card">
           <div class="card-header">
             <span class="card-title">Projeler</span>
-            <button onclick="openProjectModal(null)" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Yeni Proje / Galeri</button>
+            <button onclick="openProjectModal(null)" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Yeni Proje</button>
           </div>
           <div id="projectList"></div>
         </div>
@@ -229,8 +197,11 @@ a{text-decoration:none;color:inherit}
               <div class="form-group"><label class="form-label">Pinterest</label><input type="text" class="form-input" id="pPinterest"></div>
               <div class="form-group"><label class="form-label">LinkedIn</label><input type="text" class="form-input" id="pLinkedin"></div>
               <div class="form-group">
-                <label class="form-label">Profil Görseli Yolu</label>
-                <input type="text" class="form-input" id="pImagePath" placeholder="images/genel/profil.jpg">
+                <label class="form-label">Profil Görseli</label>
+                <div class="img-upload-zone" id="profileUploadZone" style="padding:16px">
+                  <input type="file" id="profileImageInput" accept="image/*" onchange="handleProfileImage(this)">
+                  <div style="font-size:12px;color:#8C7B6E">Tıkla veya sürükle</div>
+                </div>
                 <div id="pImagePreview" class="mt-1"></div>
               </div>
             </div>
@@ -246,7 +217,7 @@ a{text-decoration:none;color:inherit}
             <div><label class="form-label">Okul</label><input type="text" class="form-input" id="newEduSchool" placeholder="Üniversite"></div>
             <div><label class="form-label">Bölüm</label><input type="text" class="form-input" id="newEduDept"></div>
             <div><label class="form-label">Yıl</label><input type="text" class="form-input" id="newEduYear" placeholder="2014"></div>
-            <button onclick="addEducation()" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Ekle</button>
+            <button onclick="addEducation()" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i></button>
           </div>
         </div>
         <div class="card">
@@ -256,7 +227,7 @@ a{text-decoration:none;color:inherit}
             <div><label class="form-label">Sertifika</label><input type="text" class="form-input" id="newCertName"></div>
             <div><label class="form-label">Kurum</label><input type="text" class="form-input" id="newCertOrg"></div>
             <div><label class="form-label">Yıl</label><input type="text" class="form-input" id="newCertYear"></div>
-            <button onclick="addCertificate()" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Ekle</button>
+            <button onclick="addCertificate()" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i></button>
           </div>
         </div>
       </div>
@@ -276,9 +247,11 @@ a{text-decoration:none;color:inherit}
           <div class="form-group"><label class="form-label">SEO Açıklaması</label><textarea class="form-textarea" id="sSeoDesc" rows="2"></textarea></div>
           <div class="form-group"><label class="form-label">Footer Metni</label><input type="text" class="form-input" id="sFooter"></div>
           <div class="form-group">
-            <label class="form-label">Ana Sayfa Hero Görseli Yolu</label>
-            <input type="text" class="form-input" id="sHeroPath" placeholder="images/genel/hero.jpg veya https://...">
-            <button onclick="previewHero()" class="btn btn-outline mt-1" style="font-size:11px;">Önizle</button>
+            <label class="form-label">Ana Sayfa Hero Görseli</label>
+            <div class="img-upload-zone" style="padding:16px">
+              <input type="file" id="heroImageInput" accept="image/*" onchange="handleHeroImage(this)">
+              <div style="font-size:12px;color:#8C7B6E">Tıkla veya sürükle — tek görsel</div>
+            </div>
             <div id="sHeroPreview" class="mt-1"></div>
           </div>
           <button onclick="saveSettings()" class="btn btn-primary"><i data-lucide="save" width="13" height="13"></i> Kaydet</button>
@@ -312,7 +285,7 @@ a{text-decoration:none;color:inherit}
     <div class="modal-body">
       <input type="hidden" id="projId">
       <div class="form-row">
-        <div class="form-group"><label class="form-label">Proje / Galeri Adı *</label><input type="text" class="form-input" id="projTitle"></div>
+        <div class="form-group"><label class="form-label">Proje Adı *</label><input type="text" class="form-input" id="projTitle"></div>
         <div class="form-group"><label class="form-label">Kategori</label><select class="form-select" id="projCategory"></select></div>
       </div>
       <div class="form-row">
@@ -326,61 +299,29 @@ a{text-decoration:none;color:inherit}
         </div>
       </div>
       <div class="form-group"><label class="form-label">Açıklama</label><textarea class="form-textarea" id="projDesc" rows="2"></textarea></div>
-      <div class="form-group"><label class="form-label">Kullanılan Malzemeler (virgülle)</label><input type="text" class="form-input" id="projMaterials" placeholder="Mermer, Ahşap, Paslanmaz Çelik"></div>
+      <div class="form-group"><label class="form-label">Kullanılan Malzemeler (virgülle)</label><input type="text" class="form-input" id="projMaterials" placeholder="Mermer, Ahşap, Çelik"></div>
 
-      <!-- IMAGE SECTION -->
-      <div style="margin-top:6px">
+      <!-- GÖRSELLER -->
+      <div>
         <label class="form-label">Görseller</label>
+        <div id="projImgCount" class="img-count"></div>
         <div id="projImgGrid" class="img-grid"></div>
 
-        <div class="img-add-box">
-          <h4>Görsel Ekle</h4>
-          <div class="img-add-tabs">
-            <button class="img-tab active" onclick="switchImgTab('single',this)">Tekli Ekle</button>
-            <button class="img-tab" onclick="switchImgTab('bulk',this)">Toplu Ekle</button>
-            <button class="img-tab" onclick="switchImgTab('pattern',this)">Sıralı Ekle</button>
+        <!-- Upload zone -->
+        <div class="img-upload-zone" id="imgUploadZone">
+          <input type="file" id="projImgInput" accept="image/*" multiple onchange="handleImageUpload(this)">
+          <div class="img-upload-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           </div>
-
-          <!-- Tekli -->
-          <div class="img-tab-panel active" id="tab-single">
-            <p class="path-hint">Dosya yolu (<code>images/mutfak/foto1.jpg</code>) veya harici URL girin:</p>
-            <div class="gap-row">
-              <input type="text" id="singlePath" class="form-input" placeholder="images/mutfak/foto1.jpg veya https://..." style="flex:1">
-              <button onclick="addSingleImage()" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Ekle</button>
-            </div>
+          <div class="img-upload-text">
+            <strong>Görsel Yükle</strong>
+            Tıkla veya sürükle &amp; bırak<br>
+            <span>Birden fazla seçebilirsin (JPG, PNG, WEBP)</span>
           </div>
-
-          <!-- Toplu -->
-          <div class="img-tab-panel" id="tab-bulk">
-            <p class="path-hint">Her satıra bir dosya yolu veya URL yazın. Klasör ve uzantı otomatik tamamlanabilir:</p>
-            <div class="form-group" style="margin-bottom:6px">
-              <label class="form-label">Ortak klasör (opsiyonel)</label>
-              <input type="text" id="bulkPrefix" class="form-input" placeholder="images/mutfak/" style="max-width:240px">
-            </div>
-            <textarea id="bulkPaths" class="form-textarea" rows="6" placeholder="foto1.jpg&#10;foto2.jpg&#10;foto3.jpg&#10;...veya tam yol: images/mutfak/foto4.jpg"></textarea>
-            <button onclick="addBulkImages()" class="btn btn-primary mt-1"><i data-lucide="plus" width="13" height="13"></i> Tümünü Ekle</button>
-          </div>
-
-          <!-- Sıralı (pattern) -->
-          <div class="img-tab-panel" id="tab-pattern">
-            <p class="path-hint">Sıralı isimli dosyalar için (örn: mutfak-01.jpg → mutfak-50.jpg)</p>
-            <div class="form-row" style="gap:8px">
-              <div><label class="form-label">Klasör</label><input type="text" id="patternFolder" class="form-input" placeholder="images/mutfak/"></div>
-              <div><label class="form-label">Dosya adı şablonu</label><input type="text" id="patternName" class="form-input" placeholder="mutfak-{n}.jpg"></div>
-            </div>
-            <div class="form-row" style="gap:8px">
-              <div><label class="form-label">Başlangıç</label><input type="number" id="patternStart" class="form-input" value="1"></div>
-              <div><label class="form-label">Bitiş</label><input type="number" id="patternEnd" class="form-input" value="10"></div>
-              <div><label class="form-label">Sıfır doldur</label>
-                <select id="patternPad" class="form-select">
-                  <option value="0">Yok (1, 2, 3...)</option>
-                  <option value="2" selected>2 basamak (01, 02...)</option>
-                  <option value="3">3 basamak (001, 002...)</option>
-                </select>
-              </div>
-            </div>
-            <button onclick="addPatternImages()" class="btn btn-primary mt-1"><i data-lucide="plus" width="13" height="13"></i> Oluştur ve Ekle</button>
-          </div>
+        </div>
+        <div class="img-progress" id="imgProgress">
+          <div class="img-progress-bar"><div class="img-progress-fill" id="imgProgressFill"></div></div>
+          <div class="img-progress-text" id="imgProgressText"></div>
         </div>
       </div>
     </div>
@@ -407,7 +348,7 @@ a{text-decoration:none;color:inherit}
       </div>
       <div class="form-group"><label class="form-label">Özellikler (her satır bir madde)</label><textarea class="form-textarea" id="pkgFeatures" rows="5"></textarea></div>
       <div class="form-group"><label class="form-label">CTA Buton Metni</label><input type="text" class="form-input" id="pkgCta" placeholder="Bu Paketi Seç"></div>
-      <div class="check-row"><input type="checkbox" id="pkgFeatured"><label for="pkgFeatured">Öne Çıkan Paket (altın border)</label></div>
+      <div class="check-row"><input type="checkbox" id="pkgFeatured"><label for="pkgFeatured">Öne Çıkan Paket</label></div>
       <div class="form-group mt-2"><label class="form-label">Kart Teması</label>
         <div class="radio-row">
           <label><input type="radio" name="pkgTheme" value="standard" checked> Standart</label>
@@ -447,7 +388,10 @@ const KEYS={projects:'ays_projects',categories:'ays_categories',packages:'ays_pa
 const getData=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}};
 const setData=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 
-const notify=msg=>{const e=document.getElementById('notif');e.textContent=msg;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2500);};
+// localforage instance for images (IndexedDB)
+localforage.config({name:'aysinteriors',storeName:'images'});
+
+const notify=msg=>{const e=document.getElementById('notif');e.textContent=msg;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2800);};
 
 function showSection(name,el){
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
@@ -460,10 +404,99 @@ function showSection(name,el){
   else if(name==='messages')renderMessages();
   else if(name==='settings')renderSettings();
 }
-
 function logout(){sessionStorage.removeItem('aysAdminLoggedIn');window.location.href='login.html';}
 function openModal(id){document.getElementById(id).classList.add('open');lucide.createIcons();}
 function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+// ── IMAGE HELPERS ──
+// Image ref format:
+//   "idb:img_1234"  → stored in IndexedDB
+//   "https://..."   → external URL
+//   "images/..."    → local file path
+
+async function getImgSrc(ref){
+  if(!ref) return '';
+  if(ref.startsWith('http')) return ref;
+  if(ref.startsWith('idb:')){
+    try{
+      const data=await localforage.getItem(ref.slice(4));
+      return data||'';
+    }catch(e){return '';}
+  }
+  return ref; // relative path
+}
+
+async function renderImgTile(ref, idx, coverIdx, onRemove, onCover){
+  const src = await getImgSrc(ref);
+  const div=document.createElement('div');
+  div.className='img-tile'+(idx===coverIdx?' is-cover':'');
+  div.innerHTML=`<img src="${src}" onerror="this.style.opacity='.2'">
+    <button class="rm-btn" title="Kaldır">×</button>
+    <button class="cover-btn" title="Kapak yap">★</button>
+    ${idx===coverIdx?'<div class="cover-label">Kapak</div>':''}`;
+  div.querySelector('.rm-btn').onclick=e=>{e.stopPropagation();onRemove(idx);};
+  div.querySelector('.cover-btn').onclick=e=>{e.stopPropagation();onCover(idx);};
+  return div;
+}
+
+// ── PROJECT IMAGE UPLOAD ──
+let projImages=[]; // array of refs (idb:key or url)
+let projCoverIdx=0;
+
+async function renderProjImages(){
+  const grid=document.getElementById('projImgGrid');
+  const count=document.getElementById('projImgCount');
+  grid.innerHTML='';
+  count.textContent=projImages.length?`${projImages.length} görsel · ★ kapak seçmek için yıldıza tıkla`:'';
+  for(let i=0;i<projImages.length;i++){
+    const tile=await renderImgTile(projImages[i],i,projCoverIdx,
+      idx=>{projImages.splice(idx,1);if(projCoverIdx>=projImages.length)projCoverIdx=0;renderProjImages();},
+      idx=>{projCoverIdx=idx;renderProjImages();}
+    );
+    grid.appendChild(tile);
+  }
+}
+
+async function handleImageUpload(input){
+  const files=Array.from(input.files);
+  if(!files.length)return;
+  const progress=document.getElementById('imgProgress');
+  const fill=document.getElementById('imgProgressFill');
+  const txt=document.getElementById('imgProgressText');
+  progress.style.display='block';
+  for(let i=0;i<files.length;i++){
+    txt.textContent=`Yükleniyor: ${i+1} / ${files.length} — ${files[i].name}`;
+    fill.style.width=((i/files.length)*100)+'%';
+    const key='img_'+Date.now()+'_'+i;
+    await new Promise(resolve=>{
+      const reader=new FileReader();
+      reader.onload=async e=>{
+        await localforage.setItem(key,e.target.result);
+        projImages.push('idb:'+key);
+        resolve();
+      };
+      reader.readAsDataURL(files[i]);
+    });
+  }
+  fill.style.width='100%';
+  txt.textContent=`${files.length} görsel yüklendi.`;
+  setTimeout(()=>{progress.style.display='none';fill.style.width='0%';},2000);
+  input.value='';
+  await renderProjImages();
+}
+
+// Drag & drop
+const zone=document.getElementById('imgUploadZone');
+zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('dragover');});
+zone.addEventListener('dragleave',()=>zone.classList.remove('dragover'));
+zone.addEventListener('drop',e=>{
+  e.preventDefault();zone.classList.remove('dragover');
+  const dt=e.dataTransfer;
+  if(dt.files.length){
+    const fakeInput={files:dt.files,value:''};
+    handleImageUpload(fakeInput);
+  }
+});
 
 // ── CATEGORIES ──
 function renderCategories(){
@@ -473,109 +506,53 @@ function renderCategories(){
     :'<span class="taupe text-sm">Henüz kategori yok.</span>';
 }
 function addCategory(){
-  const name=document.getElementById('newCatName').value.trim();
-  if(!name)return;
+  const name=document.getElementById('newCatName').value.trim();if(!name)return;
   let slug=document.getElementById('newCatSlug').value.trim()||name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'');
   const cats=getData(KEYS.categories,[]);
-  cats.push({id:'cat_'+Date.now(),name,slug});
-  setData(KEYS.categories,cats);
+  cats.push({id:'cat_'+Date.now(),name,slug});setData(KEYS.categories,cats);
   document.getElementById('newCatName').value='';document.getElementById('newCatSlug').value='';
   renderCategories();notify('Kategori eklendi.');
 }
 function deleteCategory(id){
   if(!confirm('Kategoriyi sil?'))return;
-  setData(KEYS.categories,getData(KEYS.categories,[]).filter(c=>c.id!==id));
-  renderCategories();
+  setData(KEYS.categories,getData(KEYS.categories,[]).filter(c=>c.id!==id));renderCategories();
 }
-
-// ── IMAGE MANAGEMENT (path-based) ──
-let projImages=[]; // array of strings (paths or URLs)
-let coverIdx=0;
-
-function switchImgTab(name,el){
-  document.querySelectorAll('.img-tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.img-tab-panel').forEach(p=>p.classList.remove('active'));
-  el.classList.add('active');
-  document.getElementById('tab-'+name).classList.add('active');
-}
-
-function renderProjImages(){
-  const el=document.getElementById('projImgGrid');
-  if(!projImages.length){el.innerHTML='<span class="taupe text-sm">Henüz görsel yok.</span>';return;}
-  el.innerHTML=projImages.map((src,i)=>`
-    <div class="img-tile${i===coverIdx?' is-cover':''}" title="${src}">
-      <img src="${src}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-      <div class="img-error" style="display:none">${src.split('/').pop()}</div>
-      <button class="rm-btn" onclick="removeImg(${i})">×</button>
-      <span class="cover-star" onclick="setCover(${i})" title="Kapak yap">${i===coverIdx?'★':'☆'}</span>
-    </div>`).join('');
-}
-
-function addSingleImage(){
-  const v=document.getElementById('singlePath').value.trim();
-  if(!v)return;
-  if(!projImages.includes(v)){projImages.push(v);renderProjImages();}
-  document.getElementById('singlePath').value='';
-}
-function addBulkImages(){
-  const prefix=document.getElementById('bulkPrefix').value.trim();
-  const lines=document.getElementById('bulkPaths').value.split('\n').map(l=>l.trim()).filter(Boolean);
-  lines.forEach(l=>{
-    const path=(l.startsWith('http')||l.startsWith('images/')||l.startsWith('/'))?l:(prefix+l);
-    if(!projImages.includes(path))projImages.push(path);
-  });
-  renderProjImages();
-  document.getElementById('bulkPaths').value='';
-  notify(`${lines.length} görsel eklendi.`);
-}
-function addPatternImages(){
-  const folder=document.getElementById('patternFolder').value.trim();
-  const tpl=document.getElementById('patternName').value.trim();
-  const start=parseInt(document.getElementById('patternStart').value)||1;
-  const end=parseInt(document.getElementById('patternEnd').value)||10;
-  const pad=parseInt(document.getElementById('patternPad').value)||0;
-  if(!tpl)return;
-  let added=0;
-  for(let i=start;i<=end;i++){
-    const n=pad>0?String(i).padStart(pad,'0'):String(i);
-    const path=folder+tpl.replace('{n}',n);
-    if(!projImages.includes(path)){projImages.push(path);added++;}
-  }
-  renderProjImages();notify(`${added} görsel eklendi.`);
-}
-function removeImg(i){
-  projImages.splice(i,1);
-  if(coverIdx>=projImages.length)coverIdx=0;
-  renderProjImages();
-}
-function setCover(i){coverIdx=i;renderProjImages();}
 
 // ── PROJECTS ──
-function renderPortfolio(){
+async function renderPortfolio(){
   renderCategories();
   const list=getData(KEYS.projects,[]);
   const el=document.getElementById('projectList');
   if(!list.length){el.innerHTML='<p class="taupe text-sm" style="padding:12px 0">Henüz proje yok.</p>';return;}
-  el.innerHTML=list.map(p=>`
-    <div class="proj-item">
-      <div class="proj-thumb" style="overflow:hidden;background:#E8E2D9;">
-        ${p.images?.length?`<img src="../${p.images[p.coverIndex||0]}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">`:''}</div>
+  el.innerHTML='';
+  for(const p of list){
+    const coverRef=(p.images||[])[p.coverIndex||0]||'';
+    const thumbSrc=coverRef?await getImgSrc(coverRef):'';
+    const row=document.createElement('div');
+    row.className='proj-item';
+    row.innerHTML=`
+      <div style="width:72px;height:54px;background:#E8E2D9;flex-shrink:0;overflow:hidden">
+        ${thumbSrc?`<img src="${thumbSrc}" class="proj-thumb" style="width:100%;height:100%;object-fit:cover">`:''}</div>
       <div class="proj-info">
         <div class="proj-name">${p.title}${p.featured?' <span class="gold">★</span>':''}</div>
-        <div class="proj-meta">${p.category||''} ${p.location?'· '+p.location:''} ${p.year?'· '+p.year:''} · ${p.images?.length||0} görsel</div>
+        <div class="proj-meta">${p.category||''} ${p.location?'· '+p.location:''} ${p.year?'· '+p.year:''} · ${(p.images||[]).length} görsel</div>
       </div>
       <div class="proj-actions">
         <button onclick="openProjectModal('${p.id}')" class="btn btn-outline btn-sm"><i data-lucide="edit-2" width="12" height="12"></i></button>
         <button onclick="deleteProject('${p.id}')" class="btn btn-danger btn-sm"><i data-lucide="trash-2" width="12" height="12"></i></button>
-      </div>
-    </div>`).join('');
+      </div>`;
+    el.appendChild(row);
+  }
   lucide.createIcons();
 }
 
-function openProjectModal(id){
-  projImages=[];coverIdx=0;
-  document.getElementById('projImgGrid').innerHTML='<span class="taupe text-sm">Henüz görsel yok.</span>';
-  document.getElementById('projModalTitle').textContent=id?'Proje Düzenle':'Yeni Proje / Galeri Ekle';
+async function openProjectModal(id){
+  projImages=[];projCoverIdx=0;
+  document.getElementById('projImgGrid').innerHTML='';
+  document.getElementById('projImgCount').textContent='';
+  document.getElementById('projImgInput').value='';
+  document.getElementById('imgProgress').style.display='none';
+  document.getElementById('projModalTitle').textContent=id?'Proje Düzenle':'Yeni Proje Ekle';
   const cats=getData(KEYS.categories,[]);
   document.getElementById('projCategory').innerHTML='<option value="">Kategori seç</option>'+cats.map(c=>`<option value="${c.slug}">${c.name}</option>`).join('');
   if(id){
@@ -590,30 +567,30 @@ function openProjectModal(id){
     document.getElementById('projDesc').value=p.description||'';
     document.getElementById('projMaterials').value=(p.materials||[]).join(', ');
     projImages=[...(p.images||[])];
-    coverIdx=p.coverIndex||0;
-    renderProjImages();
+    projCoverIdx=p.coverIndex||0;
+    await renderProjImages();
   }else{
     document.getElementById('projId').value='';
-    ['projTitle','projLocation','projYear','projArea','projDesc','projMaterials'].forEach(id=>document.getElementById(id).value='');
+    ['projTitle','projLocation','projYear','projArea','projDesc','projMaterials'].forEach(i=>document.getElementById(i).value='');
     document.getElementById('projFeatured').checked=false;
   }
-  // reset bulk inputs
-  document.getElementById('singlePath').value='';
-  document.getElementById('bulkPaths').value='';
   openModal('projModal');
 }
+
 function saveProject(){
   const title=document.getElementById('projTitle').value.trim();
   if(!title){alert('Proje adı gerekli.');return;}
   const projects=getData(KEYS.projects,[]);
   const id=document.getElementById('projId').value||'proj_'+Date.now();
-  const proj={id,title,category:document.getElementById('projCategory').value,location:document.getElementById('projLocation').value,year:parseInt(document.getElementById('projYear').value)||null,area:parseInt(document.getElementById('projArea').value)||null,featured:document.getElementById('projFeatured').checked,description:document.getElementById('projDesc').value,materials:document.getElementById('projMaterials').value.split(',').map(s=>s.trim()).filter(Boolean),images:projImages,coverIndex:coverIdx,createdAt:new Date().toISOString()};
+  const proj={id,title,category:document.getElementById('projCategory').value,location:document.getElementById('projLocation').value,year:parseInt(document.getElementById('projYear').value)||null,area:parseInt(document.getElementById('projArea').value)||null,featured:document.getElementById('projFeatured').checked,description:document.getElementById('projDesc').value,materials:document.getElementById('projMaterials').value.split(',').map(s=>s.trim()).filter(Boolean),images:projImages,coverIndex:projCoverIdx,createdAt:new Date().toISOString()};
   const idx=projects.findIndex(p=>p.id===id);
   if(idx>=0)projects[idx]=proj;else projects.unshift(proj);
   setData(KEYS.projects,projects);closeModal('projModal');renderPortfolio();notify('Proje kaydedildi.');
 }
 function deleteProject(id){
-  if(!confirm('Projeyi sil?'))return;
+  if(!confirm('Projeyi ve görsellerini sil?'))return;
+  const p=getData(KEYS.projects,[]).find(x=>x.id===id);
+  if(p)(p.images||[]).filter(r=>r.startsWith('idb:')).forEach(r=>localforage.removeItem(r.slice(4)));
   setData(KEYS.projects,getData(KEYS.projects,[]).filter(p=>p.id!==id));renderPortfolio();notify('Silindi.');
 }
 
@@ -656,8 +633,7 @@ function openPackageModal(id){
   openModal('pkgModal');
 }
 function savePackage(){
-  const title=document.getElementById('pkgTitle').value.trim();
-  if(!title){alert('Paket başlığı gerekli.');return;}
+  const title=document.getElementById('pkgTitle').value.trim();if(!title){alert('Başlık gerekli.');return;}
   const pkgs=getData(KEYS.packages,[]);
   const id=document.getElementById('pkgId').value||'pkg_'+Date.now();
   const pkg={id,title,slogan:document.getElementById('pkgSlogan').value,price:document.getElementById('pkgPrice').value,features:document.getElementById('pkgFeatures').value.split('\n').map(s=>s.trim()).filter(Boolean),ctaText:document.getElementById('pkgCta').value||'Paket Hakkında Bilgi Al',featured:document.getElementById('pkgFeatured').checked,theme:document.querySelector('input[name="pkgTheme"]:checked').value,order:pkgs.length};
@@ -670,22 +646,32 @@ function deletePackage(id){
 }
 
 // ── PROFILE ──
-function renderProfile(){
+async function renderProfile(){
   const p=getData(KEYS.profile,{});
-  ['pName','pTitle','pEmail','pPhone','pLocation','pInstagram','pPinterest','pLinkedin','pShortBio','pLongBio'].forEach(id=>{
-    const map={pName:'name',pTitle:'title',pEmail:'email',pPhone:'phone',pLocation:'location',pInstagram:'instagram',pPinterest:'pinterest',pLinkedin:'linkedin',pShortBio:'shortBio',pLongBio:'longBio'};
-    document.getElementById(id).value=p[map[id]]||'';
-  });
-  const imgPath=p.profileImagePath||'';
-  document.getElementById('pImagePath').value=imgPath;
-  document.getElementById('pImagePreview').innerHTML=imgPath?`<img src="../${imgPath}" style="width:72px;height:72px;object-fit:cover;margin-top:6px" onerror="this.style.display='none'">`:'' ;
+  const map={pName:'name',pTitle:'title',pEmail:'email',pPhone:'phone',pLocation:'location',pInstagram:'instagram',pPinterest:'pinterest',pLinkedin:'linkedin',pShortBio:'shortBio',pLongBio:'longBio'};
+  Object.entries(map).forEach(([id,key])=>document.getElementById(id).value=p[key]||'');
+  if(p.profileImageRef){
+    const src=await getImgSrc(p.profileImageRef);
+    document.getElementById('pImagePreview').innerHTML=src?`<img src="${src}" style="width:72px;height:72px;object-fit:cover">`:'' ;
+  }
   renderEducation();renderCertificates();
+}
+async function handleProfileImage(input){
+  if(!input.files[0])return;
+  const key='profile_img_'+Date.now();
+  const reader=new FileReader();
+  reader.onload=async e=>{
+    await localforage.setItem(key,e.target.result);
+    const p=getData(KEYS.profile,{});p.profileImageRef='idb:'+key;setData(KEYS.profile,p);
+    document.getElementById('pImagePreview').innerHTML=`<img src="${e.target.result}" style="width:72px;height:72px;object-fit:cover">`;
+    notify('Profil görseli yüklendi.');
+  };
+  reader.readAsDataURL(input.files[0]);
 }
 function saveProfile(){
   const p=getData(KEYS.profile,{});
   const map={pName:'name',pTitle:'title',pEmail:'email',pPhone:'phone',pLocation:'location',pInstagram:'instagram',pPinterest:'pinterest',pLinkedin:'linkedin',pShortBio:'shortBio',pLongBio:'longBio'};
   Object.entries(map).forEach(([id,key])=>p[key]=document.getElementById(id).value);
-  p.profileImagePath=document.getElementById('pImagePath').value.trim();
   setData(KEYS.profile,p);notify('Profil kaydedildi.');
 }
 function renderEducation(){
@@ -749,24 +735,33 @@ function deleteCurrentMsg(){
 }
 
 // ── SETTINGS ──
-function renderSettings(){
+async function renderSettings(){
   const s=getData(KEYS.settings,{});
   document.getElementById('sTitle').value=s.siteTitle||'Ays Interiors';
   document.getElementById('sSeoDesc').value=s.seoDesc||'';
   document.getElementById('sFooter').value=s.footerText||'';
-  document.getElementById('sHeroPath').value=s.heroImagePath||'';
+  if(s.heroImageRef){
+    const src=await getImgSrc(s.heroImageRef);
+    if(src)document.getElementById('sHeroPreview').innerHTML=`<img src="${src}" style="max-width:280px;max-height:90px;object-fit:cover;margin-top:6px">`;
+  }
 }
-function previewHero(){
-  const path=document.getElementById('sHeroPath').value.trim();if(!path)return;
-  const src=path.startsWith('http')?path:'../'+path;
-  document.getElementById('sHeroPreview').innerHTML=`<img src="${src}" style="max-width:280px;max-height:100px;object-fit:cover;margin-top:6px" onerror="this.alt='Görsel bulunamadı';this.style.border='1px solid #e74c3c'">`;
+async function handleHeroImage(input){
+  if(!input.files[0])return;
+  const key='hero_img_'+Date.now();
+  const reader=new FileReader();
+  reader.onload=async e=>{
+    await localforage.setItem(key,e.target.result);
+    const s=getData(KEYS.settings,{});s.heroImageRef='idb:'+key;setData(KEYS.settings,s);
+    document.getElementById('sHeroPreview').innerHTML=`<img src="${e.target.result}" style="max-width:280px;max-height:90px;object-fit:cover;margin-top:6px">`;
+    notify('Hero görseli yüklendi.');
+  };
+  reader.readAsDataURL(input.files[0]);
 }
 function saveSettings(){
   const s=getData(KEYS.settings,{});
   s.siteTitle=document.getElementById('sTitle').value;
   s.seoDesc=document.getElementById('sSeoDesc').value;
   s.footerText=document.getElementById('sFooter').value;
-  s.heroImagePath=document.getElementById('sHeroPath').value.trim();
   setData(KEYS.settings,s);notify('Ayarlar kaydedildi.');
 }
 function changePassword(){
@@ -800,10 +795,11 @@ function seedData(){
     {id:'pkg_002',title:'Profesyonel Paket',slogan:'Kapsamlı tasarım deneyimi',price:"₺7.500'den başlayan",features:['3 oda tasarımı','Tam 3D modelleme','Malzeme & tedarikçi listesi','Uygulama takibi','5 revizyon hakkı','Mobilya seçim danışmanlığı'],ctaText:'Bu Paketi Seç',featured:true,theme:'gold',order:2},
     {id:'pkg_003',title:'Premium Tam Hizmet',slogan:'Anahtar teslim tasarım çözümü',price:'Teklif alın',features:['Tüm mekan tasarımı','Mimari çizimler','Müteahhit koordinasyonu','Alışveriş danışmanlığı','Sınırsız revizyon','1 yıl destek'],ctaText:'Teklif Al',featured:false,theme:'dark',order:3}
   ]);
-  setData(KEYS.profile,{name:'Ayşe Kaya',title:'İç Mimar & Tasarım Danışmanı',email:'info@aysinteriors.com',phone:'+90 532 000 00 00',location:'Ankara, Türkiye',instagram:'@aysinteriors',pinterest:'aysinteriors',linkedin:'aysinteriors',shortBio:'10 yılı aşkın deneyimle, her mekânı yaşayanın ruhunu yansıtan bir hikâyeye dönüştürüyorum.',longBio:'Ankara Gazi Üniversitesi İç Mimarlık bölümünden mezun olduktan sonra kariyerime büyük projelerde devam ettim. 2014 yılında Ays Interiors\'ı kurarak 127\'den fazla projeyi hayata geçirdim.',education:[{school:'Gazi Üniversitesi',dept:'İç Mimarlık ve Çevre Tasarımı',year:'2010-2014'}],certificates:[{name:'LEED Green Associate',org:'US Green Building Council',year:'2016'}],profileImagePath:''});
+  setData(KEYS.profile,{name:'Ayşe Kaya',title:'İç Mimar & Tasarım Danışmanı',email:'info@aysinteriors.com',phone:'+90 532 000 00 00',location:'Ankara, Türkiye',instagram:'@aysinteriors',pinterest:'aysinteriors',linkedin:'aysinteriors',shortBio:'10 yılı aşkın deneyimle, her mekânı yaşayanın ruhunu yansıtan bir hikâyeye dönüştürüyorum.',longBio:"Ankara Gazi Üniversitesi İç Mimarlık bölümünden mezun olduktan sonra kariyerime büyük projelerde devam ettim. 2014 yılında Ays Interiors'ı kurarak 127'den fazla projeyi hayata geçirdim.",education:[{school:'Gazi Üniversitesi',dept:'İç Mimarlık ve Çevre Tasarımı',year:'2010-2014'}],certificates:[{name:'LEED Green Associate',org:'US Green Building Council',year:'2016'}],profileImageRef:''});
 }
 
-seedData();renderPortfolio();
+seedData();
+renderPortfolio();
 const _u=getData(KEYS.messages,[]).filter(m=>!m.read).length;
 const _b=document.getElementById('unreadBadge');_b.textContent=_u;_b.style.display=_u?'inline':'none';
 lucide.createIcons();

@@ -53,6 +53,7 @@
 
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
 
   <!-- Global Stylesheet -->
   <link rel="stylesheet" href="css/style.css" />
@@ -683,43 +684,45 @@
         return;
       }
 
-      const categoryLabels = {
-        salon: 'Salon',
-        mutfak: 'Mutfak',
-        banyo: 'Banyo',
-        'yatak-odasi': 'Yatak Odası',
-        ofis: 'Ofis',
-      };
+      const cats = (() => { try { return JSON.parse(localStorage.getItem('ays_categories')) || []; } catch(e) { return []; } })();
+      function getCatLabel(slug) {
+        const c = cats.find(x => x.slug === slug);
+        return c ? c.name : (slug || '');
+      }
 
-      // Regenerate grid layout
-      // First card spans 2 rows (large), rest fill right column
       grid.innerHTML = '';
       grid.style.display = 'grid';
       grid.style.gridTemplateColumns = '2fr 1fr';
       grid.style.gap = '20px';
 
-      featured.forEach((proj, index) => {
-        const label = categoryLabels[proj.category] || proj.category;
+      for (let index = 0; index < featured.length; index++) {
+        const proj = featured[index];
+        const label = getCatLabel(proj.category);
         const isLarge = index === 0;
+
+        // resolve image: support idb: keys, http urls, and paths
+        const coverRef = (proj.images && proj.images.length) ? proj.images[proj.coverIndex || 0] : (proj.image || '');
+        let coverSrc = coverRef;
+        if (coverRef && coverRef.startsWith('idb:')) {
+          try { coverSrc = (await localforage.getItem(coverRef.slice(4))) || ''; } catch(e) { coverSrc = ''; }
+        }
 
         const card = document.createElement('article');
         card.className = `project-card${isLarge ? ' project-card--large' : ''} reveal delay-${index + 1}`;
-        if (isLarge) {
-          card.style.gridRow = 'span 2';
-        }
+        if (isLarge) card.style.gridRow = 'span 2';
         card.setAttribute('aria-label', proj.title);
 
         card.innerHTML = `
           <img
             class="project-card__img"
-            src="${escapeHtml(proj.image)}"
+            src="${escapeHtml(coverSrc)}"
             alt="${escapeHtml(proj.title)}"
             loading="${index === 0 ? 'eager' : 'lazy'}"
           />
           <div class="project-card__overlay">
             <span class="project-card__category">${escapeHtml(label)}</span>
             <h3 class="project-card__name">${escapeHtml(proj.title)}</h3>
-            <p class="project-card__meta">${escapeHtml(proj.city)} · ${proj.year} · ${escapeHtml(proj.area)}</p>
+            <p class="project-card__meta">${escapeHtml(proj.location || proj.city || '')} · ${proj.year || ''}</p>
           </div>
           <a
             href="portfolio.html?id=${encodeURIComponent(proj.id)}"
@@ -731,17 +734,11 @@
         `;
 
         grid.appendChild(card);
-      });
+      }
 
-      // Re-init icons for dynamically added elements
       lucide.createIcons();
-
-      // Trigger reveal for newly added cards
       setTimeout(() => {
-        const newCards = grid.querySelectorAll('.reveal');
-        newCards.forEach(el => {
-          revealObserver.observe(el);
-        });
+        grid.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
       }, 50);
     }
 
