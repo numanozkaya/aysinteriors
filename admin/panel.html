@@ -7,175 +7,166 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
-body { font-family: 'Jost', sans-serif; font-weight: 300; font-size: 14px; background: #F0EDE8; color: #1C1A18; }
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
-img { max-width: 100%; display: block; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Jost',sans-serif;font-weight:300;font-size:14px;background:#F0EDE8;color:#1C1A18}
+a{text-decoration:none;color:inherit}
 
 /* Layout */
-.layout { display: flex; height: 100vh; overflow: hidden; }
+.layout{display:flex;height:100vh;overflow:hidden}
+.sidebar{width:240px;flex-shrink:0;background:#1C1A18;display:flex;flex-direction:column;overflow-y:auto}
+.sidebar-brand{padding:20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.sidebar-brand-name{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:#fff}
+.sidebar-brand-sub{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-top:2px}
+.sidebar-nav{flex:1;padding:8px 0}
+.nav-item{display:flex;align-items:center;gap:10px;padding:11px 20px;font-size:13px;color:rgba(255,255,255,.5);cursor:pointer;border-left:2px solid transparent;transition:all .2s}
+.nav-item:hover{background:rgba(255,255,255,.04);color:#fff}
+.nav-item.active{background:rgba(200,169,122,.12);color:#C8A97A;border-left-color:#C8A97A}
+.nav-badge{background:#C8A97A;color:#fff;font-size:10px;padding:1px 6px;border-radius:10px;margin-left:auto}
+.sidebar-footer{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08)}
+.logout-btn{width:100%;padding:8px;background:transparent;border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.4);font-family:'Jost',sans-serif;font-size:11px;letter-spacing:1px;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .2s}
+.logout-btn:hover{border-color:rgba(255,255,255,.3);color:#fff}
 
-/* Sidebar */
-.sidebar { width: 240px; flex-shrink: 0; background: #1C1A18; color: #fff; display: flex; flex-direction: column; overflow-y: auto; }
-.sidebar-brand { padding: 20px 20px 16px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.sidebar-brand-name { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; color: #fff; }
-.sidebar-brand-sub { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-top: 2px; }
-.sidebar-nav { flex: 1; padding: 8px 0; }
-.nav-item { display: flex; align-items: center; gap: 10px; padding: 11px 20px; font-size: 13px; color: rgba(255,255,255,0.5); cursor: pointer; border-left: 2px solid transparent; transition: all 0.2s; }
-.nav-item:hover { background: rgba(255,255,255,0.04); color: #fff; }
-.nav-item.active { background: rgba(200,169,122,0.12); color: #C8A97A; border-left-color: #C8A97A; }
-.nav-badge { background: #C8A97A; color: #fff; font-size: 10px; padding: 1px 6px; border-radius: 10px; margin-left: auto; }
-.sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.08); }
-.logout-btn { width: 100%; padding: 8px; background: transparent; border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.4); font-family: 'Jost', sans-serif; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: all 0.2s; }
-.logout-btn:hover { border-color: rgba(255,255,255,0.3); color: #fff; }
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.topbar{height:56px;background:#fff;border-bottom:1px solid #E8E2D9;display:flex;align-items:center;justify-content:flex-end;padding:0 24px;flex-shrink:0;gap:10px}
+.topbar-btn{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border:1px solid #E8E2D9;background:transparent;font-family:'Jost',sans-serif;font-size:12px;color:#8C7B6E;cursor:pointer;transition:all .2s}
+.topbar-btn:hover{border-color:#1C1A18;color:#1C1A18}
+.content{flex:1;overflow-y:auto;padding:28px}
 
-/* Main area */
-.main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-.topbar { height: 56px; background: #fff; border-bottom: 1px solid #E8E2D9; display: flex; align-items: center; justify-content: flex-end; padding: 0 24px; flex-shrink: 0; gap: 10px; }
-.topbar-btn { display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border: 1px solid #E8E2D9; background: transparent; font-family: 'Jost', sans-serif; font-size: 12px; color: #8C7B6E; cursor: pointer; transition: all 0.2s; }
-.topbar-btn:hover { border-color: #1C1A18; color: #1C1A18; }
-.content { flex: 1; overflow-y: auto; padding: 28px; }
-
-/* Section titles */
-.section-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 28px; margin-bottom: 24px; }
-
-/* Sections */
-.section { display: none; }
-.section.active { display: block; }
+.section{display:none}
+.section.active{display:block}
+.section-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:28px;margin-bottom:24px}
 
 /* Cards */
-.card { background: #fff; border: 1px solid #E8E2D9; padding: 20px; margin-bottom: 20px; }
-.card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; padding-bottom: 14px; border-bottom: 1px solid #E8E2D9; }
-.card-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 18px; }
+.card{background:#fff;border:1px solid #E8E2D9;padding:20px;margin-bottom:20px}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-bottom:14px;border-bottom:1px solid #E8E2D9}
+.card-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px}
 
 /* Buttons */
-.btn { display: inline-flex; align-items: center; gap: 5px; padding: 7px 14px; font-family: 'Jost', sans-serif; font-size: 12px; letter-spacing: .5px; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
-.btn-primary { background: #1C1A18; color: #fff; border-color: #1C1A18; }
-.btn-primary:hover { background: #C8A97A; border-color: #C8A97A; }
-.btn-outline { background: transparent; color: #1C1A18; border-color: #E8E2D9; }
-.btn-outline:hover { border-color: #1C1A18; }
-.btn-danger { background: #e74c3c; color: #fff; border-color: #e74c3c; }
-.btn-danger:hover { background: #c0392b; }
-.btn-gold { background: #C8A97A; color: #fff; border-color: #C8A97A; }
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;font-family:'Jost',sans-serif;font-size:12px;cursor:pointer;border:1px solid transparent;transition:all .2s}
+.btn-primary{background:#1C1A18;color:#fff;border-color:#1C1A18}
+.btn-primary:hover{background:#C8A97A;border-color:#C8A97A}
+.btn-outline{background:transparent;color:#1C1A18;border-color:#E8E2D9}
+.btn-outline:hover{border-color:#1C1A18}
+.btn-danger{background:#e74c3c;color:#fff;border-color:#e74c3c}
+.btn-danger:hover{background:#c0392b}
+.btn-sm{padding:4px 9px;font-size:11px}
 
-/* Form elements */
-.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 0; }
-.form-group { margin-bottom: 14px; }
-.form-label { display: block; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; color: #8C7B6E; margin-bottom: 5px; }
-.form-input { width: 100%; border: 1px solid #E8E2D9; padding: 8px 10px; font-family: 'Jost', sans-serif; font-size: 13px; color: #1C1A18; outline: none; background: #F9F6F1; transition: border-color 0.2s; }
-.form-input:focus { border-color: #C8A97A; }
-.form-textarea { width: 100%; border: 1px solid #E8E2D9; padding: 8px 10px; font-family: 'Jost', sans-serif; font-size: 13px; color: #1C1A18; outline: none; background: #F9F6F1; resize: vertical; min-height: 90px; }
-.form-textarea:focus { border-color: #C8A97A; }
-.form-select { width: 100%; border: 1px solid #E8E2D9; padding: 8px 10px; font-family: 'Jost', sans-serif; font-size: 13px; color: #1C1A18; outline: none; background: #F9F6F1; }
+/* Forms */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-group{margin-bottom:14px}
+.form-label{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#8C7B6E;margin-bottom:5px}
+.form-input{width:100%;border:1px solid #E8E2D9;padding:8px 10px;font-family:'Jost',sans-serif;font-size:13px;color:#1C1A18;outline:none;background:#F9F6F1;transition:border-color .2s}
+.form-input:focus{border-color:#C8A97A}
+.form-textarea{width:100%;border:1px solid #E8E2D9;padding:8px 10px;font-family:'Jost',sans-serif;font-size:13px;color:#1C1A18;outline:none;background:#F9F6F1;resize:vertical;min-height:80px}
+.form-textarea:focus{border-color:#C8A97A}
+.form-select{width:100%;border:1px solid #E8E2D9;padding:8px 10px;font-family:'Jost',sans-serif;font-size:13px;color:#1C1A18;outline:none;background:#F9F6F1}
+.check-row{display:flex;align-items:center;gap:8px;margin:8px 0}
+.check-row input[type=checkbox]{width:15px;height:15px;accent-color:#C8A97A}
+.check-row label{font-size:13px;cursor:pointer}
+.radio-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.radio-row label{display:flex;align-items:center;gap:5px;font-size:13px;cursor:pointer}
 
 /* Project list */
-.proj-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid #E8E2D9; }
-.proj-item:last-child { border-bottom: none; }
-.proj-thumb { width: 64px; height: 48px; object-fit: cover; background: #E8E2D9; flex-shrink: 0; }
-.proj-info { flex: 1; min-width: 0; }
-.proj-name { font-size: 13px; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.proj-meta { font-size: 11px; color: #8C7B6E; margin-top: 2px; }
-.proj-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.proj-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #E8E2D9}
+.proj-item:last-child{border-bottom:none}
+.proj-thumb{width:72px;height:54px;object-fit:cover;background:#E8E2D9;flex-shrink:0}
+.proj-info{flex:1;min-width:0}
+.proj-name{font-size:13px;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.proj-meta{font-size:11px;color:#8C7B6E;margin-top:2px}
+.proj-actions{display:flex;gap:6px;flex-shrink:0}
 
 /* Category tags */
-.cat-tag-item { display: inline-flex; align-items: center; gap: 5px; background: #F9F6F1; border: 1px solid #E8E2D9; padding: 4px 10px; margin: 3px; font-size: 12px; }
-.cat-tag-item button { background: none; border: none; cursor: pointer; color: #8C7B6E; font-size: 14px; line-height: 1; padding: 0 0 0 2px; }
-.cat-tag-item button:hover { color: #e74c3c; }
+.cat-tag{display:inline-flex;align-items:center;gap:5px;background:#F9F6F1;border:1px solid #E8E2D9;padding:4px 10px;margin:3px;font-size:12px}
+.cat-tag button{background:none;border:none;cursor:pointer;color:#8C7B6E;font-size:14px;line-height:1;padding:0 0 0 2px}
+.cat-tag button:hover{color:#e74c3c}
+
+/* Image grid (path-based) */
+.img-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.img-tile{position:relative;width:90px;height:68px;background:#E8E2D9;flex-shrink:0;overflow:hidden}
+.img-tile img{width:100%;height:100%;object-fit:cover}
+.img-tile .rm-btn{position:absolute;top:3px;right:3px;width:18px;height:18px;background:rgba(231,76,60,.9);color:#fff;border:none;border-radius:50%;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+.img-tile .cover-star{position:absolute;bottom:3px;left:3px;font-size:14px;cursor:pointer;text-shadow:0 1px 3px rgba(0,0,0,.5)}
+.img-tile.is-cover{outline:2px solid #C8A97A}
+.img-tile .img-error{font-size:9px;color:#8C7B6E;text-align:center;padding:4px;word-break:break-all;line-height:1.2;position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+
+/* Image add area */
+.img-add-box{border:1px dashed #E8E2D9;padding:16px;margin-top:12px;background:#F9F6F1}
+.img-add-box h4{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:#8C7B6E;margin-bottom:10px}
+.img-add-tabs{display:flex;gap:0;margin-bottom:12px;border-bottom:1px solid #E8E2D9}
+.img-tab{padding:6px 14px;font-size:12px;cursor:pointer;border:none;background:none;color:#8C7B6E;border-bottom:2px solid transparent;font-family:'Jost',sans-serif}
+.img-tab.active{color:#1C1A18;border-bottom-color:#C8A97A}
+.img-tab-panel{display:none}
+.img-tab-panel.active{display:block}
+.path-hint{font-size:11px;color:#8C7B6E;margin-bottom:6px;line-height:1.5}
+.path-hint code{background:#E8E2D9;padding:1px 5px;font-size:10px}
 
 /* Messages */
-.msg-row { padding: 12px 16px; border-bottom: 1px solid #E8E2D9; cursor: pointer; transition: background 0.15s; }
-.msg-row:hover { background: #F9F6F1; }
-.msg-row.unread { border-left: 3px solid #C8A97A; }
-.msg-row-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
-.msg-name { font-size: 13px; font-weight: 400; }
-.msg-date { font-size: 11px; color: #8C7B6E; }
-.msg-preview { font-size: 12px; color: #8C7B6E; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.msg-row{padding:12px 16px;border-bottom:1px solid #E8E2D9;cursor:pointer;transition:background .15s}
+.msg-row:hover{background:#F9F6F1}
+.msg-row.unread{border-left:3px solid #C8A97A}
+.msg-row-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px}
+.msg-name{font-size:13px;font-weight:400}
+.msg-date{font-size:11px;color:#8C7B6E}
+.msg-preview{font-size:12px;color:#8C7B6E;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* Modal */
-.modal-overlay { display: none; position: fixed; inset: 0; background: rgba(28,26,24,0.55); z-index: 500; align-items: center; justify-content: center; padding: 16px; }
-.modal-overlay.open { display: flex; }
-.modal-box { background: #fff; width: 100%; max-width: 680px; max-height: 90vh; overflow-y: auto; display: flex; flex-direction: column; }
-.modal-box.sm { max-width: 520px; }
-.modal-head { padding: 16px 20px; border-bottom: 1px solid #E8E2D9; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
-.modal-head-title { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 20px; }
-.modal-close { background: none; border: none; font-size: 22px; cursor: pointer; color: #8C7B6E; line-height: 1; padding: 0 4px; }
-.modal-body { padding: 20px; flex: 1; overflow-y: auto; }
-.modal-foot { padding: 14px 20px; border-top: 1px solid #E8E2D9; display: flex; justify-content: flex-end; gap: 8px; flex-shrink: 0; }
+/* Modals */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(28,26,24,.55);z-index:500;align-items:center;justify-content:center;padding:16px}
+.modal-overlay.open{display:flex}
+.modal-box{background:#fff;width:100%;max-width:700px;max-height:92vh;display:flex;flex-direction:column}
+.modal-box.sm{max-width:520px}
+.modal-head{padding:16px 20px;border-bottom:1px solid #E8E2D9;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.modal-head-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px}
+.modal-close{background:none;border:none;font-size:22px;cursor:pointer;color:#8C7B6E;line-height:1;padding:0 4px}
+.modal-body{padding:20px;flex:1;overflow-y:auto}
+.modal-foot{padding:14px 20px;border-top:1px solid #E8E2D9;display:flex;justify-content:flex-end;gap:8px;flex-shrink:0}
 
-/* Image previews */
-.img-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
-.img-item { position: relative; width: 80px; height: 60px; }
-.img-item img { width: 100%; height: 100%; object-fit: cover; }
-.img-item .rm { position: absolute; top: -6px; right: -6px; width: 18px; height: 18px; background: #e74c3c; color: #fff; border: none; border-radius: 50%; font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-
-/* Checkbox row */
-.check-row { display: flex; align-items: center; gap: 8px; margin: 8px 0; }
-.check-row input[type=checkbox] { width: 15px; height: 15px; accent-color: #C8A97A; }
-.check-row label { font-size: 13px; cursor: pointer; }
-.radio-row { display: flex; gap: 16px; align-items: center; margin: 8px 0; flex-wrap: wrap; }
-.radio-row label { display: flex; align-items: center; gap: 5px; font-size: 13px; cursor: pointer; }
-
-/* Timeline entries */
-.entry-item { display: flex; justify-content: space-between; align-items: center; padding: 8px 12px; background: #F9F6F1; border: 1px solid #E8E2D9; margin-bottom: 6px; font-size: 12px; }
-.entry-info { flex: 1; }
+/* Entry items (edu/cert) */
+.entry-item{display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:#F9F6F1;border:1px solid #E8E2D9;margin-bottom:6px;font-size:12px}
 
 /* Notification */
-.notif { position: fixed; bottom: 24px; right: 24px; background: #1C1A18; color: #fff; padding: 12px 20px; font-size: 13px; z-index: 999; opacity: 0; transform: translateY(10px); transition: all 0.3s; pointer-events: none; }
-.notif.show { opacity: 1; transform: translateY(0); }
+.notif{position:fixed;bottom:24px;right:24px;background:#1C1A18;color:#fff;padding:12px 20px;font-size:13px;z-index:999;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
+.notif.show{opacity:1;transform:translateY(0)}
 
-/* Utilities */
-.gold { color: #C8A97A; }
-.taupe { color: #8C7B6E; }
-.text-sm { font-size: 12px; }
-.mt-1 { margin-top: 8px; }
-.mt-2 { margin-top: 16px; }
-.gap-row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.divider { border: none; border-top: 1px solid #E8E2D9; margin: 16px 0; }
+/* Info box */
+.info-box{background:#FFF9F0;border:1px solid #E8D9B8;padding:14px 16px;font-size:12px;color:#7A6540;line-height:1.7;margin-bottom:16px}
+.info-box strong{display:block;margin-bottom:4px;color:#5A4520;font-size:11px;letter-spacing:1px;text-transform:uppercase}
+.info-box code{background:rgba(200,169,122,.2);padding:1px 5px;font-size:11px}
+
+.gold{color:#C8A97A}
+.taupe{color:#8C7B6E}
+.text-sm{font-size:12px}
+.mt-1{margin-top:8px}
+.mt-2{margin-top:16px}
+.gap-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 </style>
 </head>
 <body>
 
 <div class="layout">
-
-  <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-brand">
       <div class="sidebar-brand-name">ays interiors</div>
       <div class="sidebar-brand-sub">Admin Paneli</div>
     </div>
     <nav class="sidebar-nav">
-      <div class="nav-item active" onclick="showSection('portfolio',this)">
-        <i data-lucide="folder" width="15" height="15"></i> Portfolyo
-      </div>
-      <div class="nav-item" onclick="showSection('packages',this)">
-        <i data-lucide="package" width="15" height="15"></i> Danışmanlık Paketleri
-      </div>
-      <div class="nav-item" onclick="showSection('profile',this)">
-        <i data-lucide="user" width="15" height="15"></i> Hakkımda & Profil
-      </div>
+      <div class="nav-item active" onclick="showSection('portfolio',this)"><i data-lucide="folder" width="15" height="15"></i> Portfolyo</div>
+      <div class="nav-item" onclick="showSection('packages',this)"><i data-lucide="package" width="15" height="15"></i> Danışmanlık Paketleri</div>
+      <div class="nav-item" onclick="showSection('profile',this)"><i data-lucide="user" width="15" height="15"></i> Hakkımda & Profil</div>
       <div class="nav-item" id="navMessages" onclick="showSection('messages',this)">
         <i data-lucide="message-square" width="15" height="15"></i> Mesajlar
         <span class="nav-badge" id="unreadBadge" style="display:none">0</span>
       </div>
-      <div class="nav-item" onclick="showSection('settings',this)">
-        <i data-lucide="settings" width="15" height="15"></i> Site Ayarları
-      </div>
+      <div class="nav-item" onclick="showSection('settings',this)"><i data-lucide="settings" width="15" height="15"></i> Site Ayarları</div>
     </nav>
     <div class="sidebar-footer">
-      <button class="logout-btn" onclick="logout()">
-        <i data-lucide="log-out" width="13" height="13"></i> Çıkış Yap
-      </button>
+      <button class="logout-btn" onclick="logout()"><i data-lucide="log-out" width="13" height="13"></i> Çıkış Yap</button>
     </div>
   </aside>
 
-  <!-- Main -->
   <div class="main">
     <div class="topbar">
-      <a href="../index.html" target="_blank" class="topbar-btn">
-        <i data-lucide="external-link" width="13" height="13"></i> Siteyi Görüntüle
-      </a>
+      <a href="../index.html" target="_blank" class="topbar-btn"><i data-lucide="external-link" width="13" height="13"></i> Siteyi Görüntüle</a>
     </div>
     <div class="content">
 
@@ -183,25 +174,26 @@ img { max-width: 100%; display: block; }
       <div class="section active" id="sec-portfolio">
         <div class="section-title">Portfolyo Yönetimi</div>
 
+        <div class="info-box">
+          <strong>Görsel Sistemi — Dosya Tabanlı</strong>
+          Görseller <code>aysinteriors/images/[kategori]/</code> klasörüne atılır, admin panelinden sadece dosya yolu girilir.<br>
+          Örnek: <code>images/mutfak/foto1.jpg</code> &nbsp;|&nbsp; Harici URL de çalışır: <code>https://...</code>
+        </div>
+
         <div class="card">
-          <div class="card-header">
-            <span class="card-title">Kategoriler</span>
-          </div>
-          <div id="catList" style="margin-bottom:12px;"></div>
+          <div class="card-header"><span class="card-title">Kategoriler</span></div>
+          <div id="catList" style="margin-bottom:12px"></div>
           <div class="gap-row">
-            <input type="text" id="newCatName" class="form-input" placeholder="Yeni kategori adı" style="max-width:220px;">
-            <button onclick="addCategory()" class="btn btn-primary">
-              <i data-lucide="plus" width="13" height="13"></i> Ekle
-            </button>
+            <input type="text" id="newCatName" class="form-input" placeholder="Kategori adı (örn: Teras)" style="max-width:200px">
+            <input type="text" id="newCatSlug" class="form-input" placeholder="slug (örn: teras)" style="max-width:150px">
+            <button onclick="addCategory()" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Ekle</button>
           </div>
         </div>
 
         <div class="card">
           <div class="card-header">
             <span class="card-title">Projeler</span>
-            <button onclick="openProjectModal(null)" class="btn btn-primary">
-              <i data-lucide="plus" width="13" height="13"></i> Yeni Proje
-            </button>
+            <button onclick="openProjectModal(null)" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Yeni Proje / Galeri</button>
           </div>
           <div id="projectList"></div>
         </div>
@@ -213,9 +205,7 @@ img { max-width: 100%; display: block; }
         <div class="card">
           <div class="card-header">
             <span class="card-title">Paketler</span>
-            <button onclick="openPackageModal(null)" class="btn btn-primary">
-              <i data-lucide="plus" width="13" height="13"></i> Yeni Paket
-            </button>
+            <button onclick="openPackageModal(null)" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Yeni Paket</button>
           </div>
           <div id="packageList"></div>
         </div>
@@ -224,100 +214,49 @@ img { max-width: 100%; display: block; }
       <!-- PROFİL -->
       <div class="section" id="sec-profile">
         <div class="section-title">Hakkımda & Profil</div>
-
         <div class="card">
           <div class="card-header"><span class="card-title">Profil Bilgileri</span></div>
           <div class="form-row">
             <div>
-              <div class="form-group">
-                <label class="form-label">Ad Soyad</label>
-                <input type="text" class="form-input" id="pName">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Unvan</label>
-                <input type="text" class="form-input" id="pTitle">
-              </div>
-              <div class="form-group">
-                <label class="form-label">E-posta</label>
-                <input type="email" class="form-input" id="pEmail">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Telefon</label>
-                <input type="text" class="form-input" id="pPhone">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Konum</label>
-                <input type="text" class="form-input" id="pLocation">
-              </div>
+              <div class="form-group"><label class="form-label">Ad Soyad</label><input type="text" class="form-input" id="pName"></div>
+              <div class="form-group"><label class="form-label">Unvan</label><input type="text" class="form-input" id="pTitle"></div>
+              <div class="form-group"><label class="form-label">E-posta</label><input type="email" class="form-input" id="pEmail"></div>
+              <div class="form-group"><label class="form-label">Telefon</label><input type="text" class="form-input" id="pPhone"></div>
+              <div class="form-group"><label class="form-label">Konum</label><input type="text" class="form-input" id="pLocation"></div>
             </div>
             <div>
+              <div class="form-group"><label class="form-label">Instagram</label><input type="text" class="form-input" id="pInstagram" placeholder="@kullanici"></div>
+              <div class="form-group"><label class="form-label">Pinterest</label><input type="text" class="form-input" id="pPinterest"></div>
+              <div class="form-group"><label class="form-label">LinkedIn</label><input type="text" class="form-input" id="pLinkedin"></div>
               <div class="form-group">
-                <label class="form-label">Instagram</label>
-                <input type="text" class="form-input" id="pInstagram" placeholder="@kullanici">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Pinterest</label>
-                <input type="text" class="form-input" id="pPinterest">
-              </div>
-              <div class="form-group">
-                <label class="form-label">LinkedIn</label>
-                <input type="text" class="form-input" id="pLinkedin">
-              </div>
-              <div class="form-group">
-                <label class="form-label">Profil Görseli</label>
-                <input type="file" id="pImage" accept="image/*" onchange="handleProfileImage(this)" style="font-size:12px;">
+                <label class="form-label">Profil Görseli Yolu</label>
+                <input type="text" class="form-input" id="pImagePath" placeholder="images/genel/profil.jpg">
                 <div id="pImagePreview" class="mt-1"></div>
               </div>
             </div>
           </div>
-          <div class="form-group">
-            <label class="form-label">Kısa Bio</label>
-            <textarea class="form-textarea" id="pShortBio" rows="2"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Uzun Bio</label>
-            <textarea class="form-textarea" id="pLongBio" rows="4"></textarea>
-          </div>
+          <div class="form-group"><label class="form-label">Kısa Bio</label><textarea class="form-textarea" id="pShortBio" rows="2"></textarea></div>
+          <div class="form-group"><label class="form-label">Uzun Bio</label><textarea class="form-textarea" id="pLongBio" rows="4"></textarea></div>
           <button onclick="saveProfile()" class="btn btn-primary"><i data-lucide="save" width="13" height="13"></i> Kaydet</button>
         </div>
-
         <div class="card">
           <div class="card-header"><span class="card-title">Eğitim</span></div>
-          <div id="eduList" style="margin-bottom:12px;"></div>
-          <div class="form-row" style="grid-template-columns:1fr 1fr 100px auto;gap:8px;align-items:flex-end;">
-            <div>
-              <label class="form-label">Okul</label>
-              <input type="text" class="form-input" id="newEduSchool" placeholder="Üniversite adı">
-            </div>
-            <div>
-              <label class="form-label">Bölüm</label>
-              <input type="text" class="form-input" id="newEduDept" placeholder="Bölüm">
-            </div>
-            <div>
-              <label class="form-label">Yıl</label>
-              <input type="text" class="form-input" id="newEduYear" placeholder="2014">
-            </div>
-            <button onclick="addEducation()" class="btn btn-primary" style="margin-top:18px;"><i data-lucide="plus" width="13" height="13"></i> Ekle</button>
+          <div id="eduList" style="margin-bottom:12px"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 110px auto;gap:8px;align-items:flex-end">
+            <div><label class="form-label">Okul</label><input type="text" class="form-input" id="newEduSchool" placeholder="Üniversite"></div>
+            <div><label class="form-label">Bölüm</label><input type="text" class="form-input" id="newEduDept"></div>
+            <div><label class="form-label">Yıl</label><input type="text" class="form-input" id="newEduYear" placeholder="2014"></div>
+            <button onclick="addEducation()" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Ekle</button>
           </div>
         </div>
-
         <div class="card">
           <div class="card-header"><span class="card-title">Sertifikalar</span></div>
-          <div id="certList" style="margin-bottom:12px;"></div>
-          <div class="form-row" style="grid-template-columns:1fr 1fr 100px auto;gap:8px;align-items:flex-end;">
-            <div>
-              <label class="form-label">Sertifika Adı</label>
-              <input type="text" class="form-input" id="newCertName" placeholder="Sertifika">
-            </div>
-            <div>
-              <label class="form-label">Kurum</label>
-              <input type="text" class="form-input" id="newCertOrg" placeholder="Kurum">
-            </div>
-            <div>
-              <label class="form-label">Yıl</label>
-              <input type="text" class="form-input" id="newCertYear" placeholder="2020">
-            </div>
-            <button onclick="addCertificate()" class="btn btn-primary" style="margin-top:18px;"><i data-lucide="plus" width="13" height="13"></i> Ekle</button>
+          <div id="certList" style="margin-bottom:12px"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 110px auto;gap:8px;align-items:flex-end">
+            <div><label class="form-label">Sertifika</label><input type="text" class="form-input" id="newCertName"></div>
+            <div><label class="form-label">Kurum</label><input type="text" class="form-input" id="newCertOrg"></div>
+            <div><label class="form-label">Yıl</label><input type="text" class="form-input" id="newCertYear"></div>
+            <button onclick="addCertificate()" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Ekle</button>
           </div>
         </div>
       </div>
@@ -325,9 +264,7 @@ img { max-width: 100%; display: block; }
       <!-- MESAJLAR -->
       <div class="section" id="sec-messages">
         <div class="section-title">Mesajlar</div>
-        <div class="card" style="padding:0;overflow:hidden;">
-          <div id="messageList"></div>
-        </div>
+        <div class="card" style="padding:0;overflow:hidden"><div id="messageList"></div></div>
       </div>
 
       <!-- AYARLAR -->
@@ -335,55 +272,37 @@ img { max-width: 100%; display: block; }
         <div class="section-title">Site Ayarları</div>
         <div class="card">
           <div class="card-header"><span class="card-title">Genel</span></div>
+          <div class="form-group"><label class="form-label">Site Başlığı</label><input type="text" class="form-input" id="sTitle"></div>
+          <div class="form-group"><label class="form-label">SEO Açıklaması</label><textarea class="form-textarea" id="sSeoDesc" rows="2"></textarea></div>
+          <div class="form-group"><label class="form-label">Footer Metni</label><input type="text" class="form-input" id="sFooter"></div>
           <div class="form-group">
-            <label class="form-label">Site Başlığı</label>
-            <input type="text" class="form-input" id="sTitle">
-          </div>
-          <div class="form-group">
-            <label class="form-label">SEO Açıklaması</label>
-            <textarea class="form-textarea" id="sSeoDesc" rows="2"></textarea>
-          </div>
-          <div class="form-group">
-            <label class="form-label">Footer Metni</label>
-            <input type="text" class="form-input" id="sFooter">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Ana Sayfa Hero Görseli</label>
-            <input type="file" id="sHeroImage" accept="image/*" onchange="handleHeroImage(this)" style="font-size:12px;">
+            <label class="form-label">Ana Sayfa Hero Görseli Yolu</label>
+            <input type="text" class="form-input" id="sHeroPath" placeholder="images/genel/hero.jpg veya https://...">
+            <button onclick="previewHero()" class="btn btn-outline mt-1" style="font-size:11px;">Önizle</button>
             <div id="sHeroPreview" class="mt-1"></div>
           </div>
           <button onclick="saveSettings()" class="btn btn-primary"><i data-lucide="save" width="13" height="13"></i> Kaydet</button>
         </div>
-
         <div class="card">
           <div class="card-header"><span class="card-title">Şifre Değiştir</span></div>
           <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Mevcut Şifre</label>
-              <input type="password" class="form-input" id="oldPass">
-            </div>
+            <div class="form-group"><label class="form-label">Mevcut Şifre</label><input type="password" class="form-input" id="oldPass"></div>
             <div></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label class="form-label">Yeni Şifre</label>
-              <input type="password" class="form-input" id="newPass">
-            </div>
-            <div class="form-group">
-              <label class="form-label">Yeni Şifre (Tekrar)</label>
-              <input type="password" class="form-input" id="newPass2">
-            </div>
+            <div class="form-group"><label class="form-label">Yeni Şifre</label><input type="password" class="form-input" id="newPass"></div>
+            <div class="form-group"><label class="form-label">Tekrar</label><input type="password" class="form-input" id="newPass2"></div>
           </div>
-          <div id="passMsg" style="font-size:12px;margin-bottom:8px;"></div>
-          <button onclick="changePassword()" class="btn btn-primary">Şifreyi Güncelle</button>
+          <div id="passMsg" style="font-size:12px;margin-bottom:8px"></div>
+          <button onclick="changePassword()" class="btn btn-primary">Güncelle</button>
         </div>
       </div>
 
-    </div><!-- /content -->
-  </div><!-- /main -->
-</div><!-- /layout -->
+    </div>
+  </div>
+</div>
 
-<!-- Project Modal -->
+<!-- PROJECT MODAL -->
 <div class="modal-overlay" id="projModal">
   <div class="modal-box">
     <div class="modal-head">
@@ -393,49 +312,76 @@ img { max-width: 100%; display: block; }
     <div class="modal-body">
       <input type="hidden" id="projId">
       <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Proje Adı *</label>
-          <input type="text" class="form-input" id="projTitle">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Kategori</label>
-          <select class="form-select" id="projCategory"></select>
-        </div>
+        <div class="form-group"><label class="form-label">Proje / Galeri Adı *</label><input type="text" class="form-input" id="projTitle"></div>
+        <div class="form-group"><label class="form-label">Kategori</label><select class="form-select" id="projCategory"></select></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Konum / Şehir</label>
-          <input type="text" class="form-input" id="projLocation">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Yıl</label>
-          <input type="number" class="form-input" id="projYear" placeholder="2024">
-        </div>
+        <div class="form-group"><label class="form-label">Konum / Şehir</label><input type="text" class="form-input" id="projLocation"></div>
+        <div class="form-group"><label class="form-label">Yıl</label><input type="number" class="form-input" id="projYear" placeholder="2024"></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Alan (m²)</label>
-          <input type="number" class="form-input" id="projArea">
+        <div class="form-group"><label class="form-label">Alan (m²)</label><input type="number" class="form-input" id="projArea"></div>
+        <div style="padding-top:18px">
+          <div class="check-row"><input type="checkbox" id="projFeatured"><label for="projFeatured">Anasayfada öne çıkar</label></div>
         </div>
-        <div style="padding-top:20px;">
-          <div class="check-row">
-            <input type="checkbox" id="projFeatured">
-            <label for="projFeatured">Anasayfada öne çıkar</label>
+      </div>
+      <div class="form-group"><label class="form-label">Açıklama</label><textarea class="form-textarea" id="projDesc" rows="2"></textarea></div>
+      <div class="form-group"><label class="form-label">Kullanılan Malzemeler (virgülle)</label><input type="text" class="form-input" id="projMaterials" placeholder="Mermer, Ahşap, Paslanmaz Çelik"></div>
+
+      <!-- IMAGE SECTION -->
+      <div style="margin-top:6px">
+        <label class="form-label">Görseller</label>
+        <div id="projImgGrid" class="img-grid"></div>
+
+        <div class="img-add-box">
+          <h4>Görsel Ekle</h4>
+          <div class="img-add-tabs">
+            <button class="img-tab active" onclick="switchImgTab('single',this)">Tekli Ekle</button>
+            <button class="img-tab" onclick="switchImgTab('bulk',this)">Toplu Ekle</button>
+            <button class="img-tab" onclick="switchImgTab('pattern',this)">Sıralı Ekle</button>
+          </div>
+
+          <!-- Tekli -->
+          <div class="img-tab-panel active" id="tab-single">
+            <p class="path-hint">Dosya yolu (<code>images/mutfak/foto1.jpg</code>) veya harici URL girin:</p>
+            <div class="gap-row">
+              <input type="text" id="singlePath" class="form-input" placeholder="images/mutfak/foto1.jpg veya https://..." style="flex:1">
+              <button onclick="addSingleImage()" class="btn btn-primary"><i data-lucide="plus" width="13" height="13"></i> Ekle</button>
+            </div>
+          </div>
+
+          <!-- Toplu -->
+          <div class="img-tab-panel" id="tab-bulk">
+            <p class="path-hint">Her satıra bir dosya yolu veya URL yazın. Klasör ve uzantı otomatik tamamlanabilir:</p>
+            <div class="form-group" style="margin-bottom:6px">
+              <label class="form-label">Ortak klasör (opsiyonel)</label>
+              <input type="text" id="bulkPrefix" class="form-input" placeholder="images/mutfak/" style="max-width:240px">
+            </div>
+            <textarea id="bulkPaths" class="form-textarea" rows="6" placeholder="foto1.jpg&#10;foto2.jpg&#10;foto3.jpg&#10;...veya tam yol: images/mutfak/foto4.jpg"></textarea>
+            <button onclick="addBulkImages()" class="btn btn-primary mt-1"><i data-lucide="plus" width="13" height="13"></i> Tümünü Ekle</button>
+          </div>
+
+          <!-- Sıralı (pattern) -->
+          <div class="img-tab-panel" id="tab-pattern">
+            <p class="path-hint">Sıralı isimli dosyalar için (örn: mutfak-01.jpg → mutfak-50.jpg)</p>
+            <div class="form-row" style="gap:8px">
+              <div><label class="form-label">Klasör</label><input type="text" id="patternFolder" class="form-input" placeholder="images/mutfak/"></div>
+              <div><label class="form-label">Dosya adı şablonu</label><input type="text" id="patternName" class="form-input" placeholder="mutfak-{n}.jpg"></div>
+            </div>
+            <div class="form-row" style="gap:8px">
+              <div><label class="form-label">Başlangıç</label><input type="number" id="patternStart" class="form-input" value="1"></div>
+              <div><label class="form-label">Bitiş</label><input type="number" id="patternEnd" class="form-input" value="10"></div>
+              <div><label class="form-label">Sıfır doldur</label>
+                <select id="patternPad" class="form-select">
+                  <option value="0">Yok (1, 2, 3...)</option>
+                  <option value="2" selected>2 basamak (01, 02...)</option>
+                  <option value="3">3 basamak (001, 002...)</option>
+                </select>
+              </div>
+            </div>
+            <button onclick="addPatternImages()" class="btn btn-primary mt-1"><i data-lucide="plus" width="13" height="13"></i> Oluştur ve Ekle</button>
           </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Açıklama</label>
-        <textarea class="form-textarea" id="projDesc" rows="3"></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Kullanılan Malzemeler (virgülle ayırın)</label>
-        <input type="text" class="form-input" id="projMaterials" placeholder="Mermer, Ahşap, Paslanmaz Çelik">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Görseller</label>
-        <input type="file" id="projImages" accept="image/*" multiple onchange="handleProjectImages(this)" style="font-size:12px;">
-        <div class="img-grid" id="projImgGrid"></div>
       </div>
     </div>
     <div class="modal-foot">
@@ -445,7 +391,7 @@ img { max-width: 100%; display: block; }
   </div>
 </div>
 
-<!-- Package Modal -->
+<!-- PACKAGE MODAL -->
 <div class="modal-overlay" id="pkgModal">
   <div class="modal-box">
     <div class="modal-head">
@@ -454,34 +400,15 @@ img { max-width: 100%; display: block; }
     </div>
     <div class="modal-body">
       <input type="hidden" id="pkgId">
-      <div class="form-group">
-        <label class="form-label">Paket Başlığı *</label>
-        <input type="text" class="form-input" id="pkgTitle">
-      </div>
+      <div class="form-group"><label class="form-label">Paket Başlığı *</label><input type="text" class="form-input" id="pkgTitle"></div>
       <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Slogan</label>
-          <input type="text" class="form-input" id="pkgSlogan">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Fiyat</label>
-          <input type="text" class="form-input" id="pkgPrice" placeholder="₺2.500'den başlayan">
-        </div>
+        <div class="form-group"><label class="form-label">Slogan</label><input type="text" class="form-input" id="pkgSlogan"></div>
+        <div class="form-group"><label class="form-label">Fiyat</label><input type="text" class="form-input" id="pkgPrice" placeholder="₺2.500'den başlayan"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Özellikler (her satır bir madde)</label>
-        <textarea class="form-textarea" id="pkgFeatures" rows="5" placeholder="1 oda konsept tasarımı&#10;3D görselleştirme&#10;Malzeme önerileri"></textarea>
-      </div>
-      <div class="form-group">
-        <label class="form-label">CTA Buton Metni</label>
-        <input type="text" class="form-input" id="pkgCta" placeholder="Bu Paketi Seç">
-      </div>
-      <div class="check-row">
-        <input type="checkbox" id="pkgFeatured">
-        <label for="pkgFeatured">Öne Çıkan Paket (altın border)</label>
-      </div>
-      <div class="form-group mt-2">
-        <label class="form-label">Kart Teması</label>
+      <div class="form-group"><label class="form-label">Özellikler (her satır bir madde)</label><textarea class="form-textarea" id="pkgFeatures" rows="5"></textarea></div>
+      <div class="form-group"><label class="form-label">CTA Buton Metni</label><input type="text" class="form-input" id="pkgCta" placeholder="Bu Paketi Seç"></div>
+      <div class="check-row"><input type="checkbox" id="pkgFeatured"><label for="pkgFeatured">Öne Çıkan Paket (altın border)</label></div>
+      <div class="form-group mt-2"><label class="form-label">Kart Teması</label>
         <div class="radio-row">
           <label><input type="radio" name="pkgTheme" value="standard" checked> Standart</label>
           <label><input type="radio" name="pkgTheme" value="gold"> Altın kenarlık</label>
@@ -496,7 +423,7 @@ img { max-width: 100%; display: block; }
   </div>
 </div>
 
-<!-- Message Modal -->
+<!-- MESSAGE MODAL -->
 <div class="modal-overlay" id="msgModal">
   <div class="modal-box sm">
     <div class="modal-head">
@@ -511,155 +438,207 @@ img { max-width: 100%; display: block; }
   </div>
 </div>
 
-<!-- Notification -->
 <div class="notif" id="notif"></div>
 
 <script>
-// Auth
-if (sessionStorage.getItem('aysAdminLoggedIn') !== 'true') window.location.href = 'login.html';
+if(sessionStorage.getItem('aysAdminLoggedIn')!=='true') window.location.href='login.html';
 
-const KEYS = { projects:'ays_projects', categories:'ays_categories', packages:'ays_packages', profile:'ays_profile', messages:'ays_messages', settings:'ays_settings' };
-function getData(k,d) { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch(e) { return d; } }
-function setData(k,v) { localStorage.setItem(k,JSON.stringify(v)); }
+const KEYS={projects:'ays_projects',categories:'ays_categories',packages:'ays_packages',profile:'ays_profile',messages:'ays_messages',settings:'ays_settings'};
+const getData=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}};
+const setData=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 
-function notify(msg) {
-  const el = document.getElementById('notif');
-  el.textContent = msg; el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2500);
-}
+const notify=msg=>{const e=document.getElementById('notif');e.textContent=msg;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2500);};
 
-function showSection(name, el) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('sec-' + name).classList.add('active');
+function showSection(name,el){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
   el.classList.add('active');
-  if (name === 'portfolio') renderPortfolio();
-  else if (name === 'packages') renderPackages();
-  else if (name === 'profile') renderProfile();
-  else if (name === 'messages') renderMessages();
-  else if (name === 'settings') renderSettings();
+  if(name==='portfolio')renderPortfolio();
+  else if(name==='packages')renderPackages();
+  else if(name==='profile')renderProfile();
+  else if(name==='messages')renderMessages();
+  else if(name==='settings')renderSettings();
 }
 
-function logout() { sessionStorage.removeItem('aysAdminLoggedIn'); window.location.href = 'login.html'; }
-function openModal(id) { document.getElementById(id).classList.add('open'); lucide.createIcons(); }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function logout(){sessionStorage.removeItem('aysAdminLoggedIn');window.location.href='login.html';}
+function openModal(id){document.getElementById(id).classList.add('open');lucide.createIcons();}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
 
 // ── CATEGORIES ──
-function renderCategories() {
-  const cats = getData(KEYS.categories, []);
-  document.getElementById('catList').innerHTML = cats.length
-    ? cats.map(c => `<span class="cat-tag-item">${c.name}<button onclick="deleteCategory('${c.id}')">×</button></span>`).join('')
-    : '<span class="taupe text-sm">Henüz kategori yok.</span>';
+function renderCategories(){
+  const cats=getData(KEYS.categories,[]);
+  document.getElementById('catList').innerHTML=cats.length
+    ?cats.map(c=>`<span class="cat-tag">${c.name} <span class="taupe text-sm">(${c.slug})</span><button onclick="deleteCategory('${c.id}')">×</button></span>`).join('')
+    :'<span class="taupe text-sm">Henüz kategori yok.</span>';
 }
-function addCategory() {
-  const inp = document.getElementById('newCatName');
-  const name = inp.value.trim(); if (!name) return;
-  const cats = getData(KEYS.categories, []);
-  cats.push({ id: 'cat_'+Date.now(), name, slug: name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'') });
-  setData(KEYS.categories, cats); inp.value = ''; renderCategories();
+function addCategory(){
+  const name=document.getElementById('newCatName').value.trim();
+  if(!name)return;
+  let slug=document.getElementById('newCatSlug').value.trim()||name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'');
+  const cats=getData(KEYS.categories,[]);
+  cats.push({id:'cat_'+Date.now(),name,slug});
+  setData(KEYS.categories,cats);
+  document.getElementById('newCatName').value='';document.getElementById('newCatSlug').value='';
+  renderCategories();notify('Kategori eklendi.');
 }
-function deleteCategory(id) {
-  if (!confirm('Kategoriyi sil?')) return;
-  setData(KEYS.categories, getData(KEYS.categories,[]).filter(c=>c.id!==id)); renderCategories();
+function deleteCategory(id){
+  if(!confirm('Kategoriyi sil?'))return;
+  setData(KEYS.categories,getData(KEYS.categories,[]).filter(c=>c.id!==id));
+  renderCategories();
 }
+
+// ── IMAGE MANAGEMENT (path-based) ──
+let projImages=[]; // array of strings (paths or URLs)
+let coverIdx=0;
+
+function switchImgTab(name,el){
+  document.querySelectorAll('.img-tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.img-tab-panel').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+name).classList.add('active');
+}
+
+function renderProjImages(){
+  const el=document.getElementById('projImgGrid');
+  if(!projImages.length){el.innerHTML='<span class="taupe text-sm">Henüz görsel yok.</span>';return;}
+  el.innerHTML=projImages.map((src,i)=>`
+    <div class="img-tile${i===coverIdx?' is-cover':''}" title="${src}">
+      <img src="${src}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="img-error" style="display:none">${src.split('/').pop()}</div>
+      <button class="rm-btn" onclick="removeImg(${i})">×</button>
+      <span class="cover-star" onclick="setCover(${i})" title="Kapak yap">${i===coverIdx?'★':'☆'}</span>
+    </div>`).join('');
+}
+
+function addSingleImage(){
+  const v=document.getElementById('singlePath').value.trim();
+  if(!v)return;
+  if(!projImages.includes(v)){projImages.push(v);renderProjImages();}
+  document.getElementById('singlePath').value='';
+}
+function addBulkImages(){
+  const prefix=document.getElementById('bulkPrefix').value.trim();
+  const lines=document.getElementById('bulkPaths').value.split('\n').map(l=>l.trim()).filter(Boolean);
+  lines.forEach(l=>{
+    const path=(l.startsWith('http')||l.startsWith('images/')||l.startsWith('/'))?l:(prefix+l);
+    if(!projImages.includes(path))projImages.push(path);
+  });
+  renderProjImages();
+  document.getElementById('bulkPaths').value='';
+  notify(`${lines.length} görsel eklendi.`);
+}
+function addPatternImages(){
+  const folder=document.getElementById('patternFolder').value.trim();
+  const tpl=document.getElementById('patternName').value.trim();
+  const start=parseInt(document.getElementById('patternStart').value)||1;
+  const end=parseInt(document.getElementById('patternEnd').value)||10;
+  const pad=parseInt(document.getElementById('patternPad').value)||0;
+  if(!tpl)return;
+  let added=0;
+  for(let i=start;i<=end;i++){
+    const n=pad>0?String(i).padStart(pad,'0'):String(i);
+    const path=folder+tpl.replace('{n}',n);
+    if(!projImages.includes(path)){projImages.push(path);added++;}
+  }
+  renderProjImages();notify(`${added} görsel eklendi.`);
+}
+function removeImg(i){
+  projImages.splice(i,1);
+  if(coverIdx>=projImages.length)coverIdx=0;
+  renderProjImages();
+}
+function setCover(i){coverIdx=i;renderProjImages();}
 
 // ── PROJECTS ──
-let projImages = [];
-
-function renderPortfolio() {
+function renderPortfolio(){
   renderCategories();
-  const list = getData(KEYS.projects, []);
-  const el = document.getElementById('projectList');
-  if (!list.length) { el.innerHTML = '<p class="taupe text-sm" style="padding:12px 0;">Henüz proje yok.</p>'; return; }
-  el.innerHTML = list.map(p => `
+  const list=getData(KEYS.projects,[]);
+  const el=document.getElementById('projectList');
+  if(!list.length){el.innerHTML='<p class="taupe text-sm" style="padding:12px 0">Henüz proje yok.</p>';return;}
+  el.innerHTML=list.map(p=>`
     <div class="proj-item">
-      <div style="width:64px;height:48px;background:#E8E2D9;flex-shrink:0;overflow:hidden;">
-        ${p.images?.length ? `<img class="proj-thumb" src="${p.images[p.coverIndex||0]}">` : ''}
-      </div>
+      <div class="proj-thumb" style="overflow:hidden;background:#E8E2D9;">
+        ${p.images?.length?`<img src="../${p.images[p.coverIndex||0]}" style="width:100%;height:100%;object-fit:cover" onerror="this.style.display='none'">`:''}</div>
       <div class="proj-info">
-        <div class="proj-name">${p.title} ${p.featured ? '<span class="gold">★</span>' : ''}</div>
-        <div class="proj-meta">${p.category||''} ${p.location?'· '+p.location:''} ${p.year?'· '+p.year:''}</div>
+        <div class="proj-name">${p.title}${p.featured?' <span class="gold">★</span>':''}</div>
+        <div class="proj-meta">${p.category||''} ${p.location?'· '+p.location:''} ${p.year?'· '+p.year:''} · ${p.images?.length||0} görsel</div>
       </div>
       <div class="proj-actions">
-        <button onclick="openProjectModal('${p.id}')" class="btn btn-outline" style="padding:5px 10px;"><i data-lucide="edit-2" width="12" height="12"></i></button>
-        <button onclick="deleteProject('${p.id}')" class="btn btn-danger" style="padding:5px 10px;"><i data-lucide="trash-2" width="12" height="12"></i></button>
+        <button onclick="openProjectModal('${p.id}')" class="btn btn-outline btn-sm"><i data-lucide="edit-2" width="12" height="12"></i></button>
+        <button onclick="deleteProject('${p.id}')" class="btn btn-danger btn-sm"><i data-lucide="trash-2" width="12" height="12"></i></button>
       </div>
     </div>`).join('');
   lucide.createIcons();
 }
 
-function openProjectModal(id) {
-  projImages = [];
-  document.getElementById('projImgGrid').innerHTML = '';
-  document.getElementById('projImages').value = '';
-  document.getElementById('projModalTitle').textContent = id ? 'Proje Düzenle' : 'Yeni Proje Ekle';
-  const cats = getData(KEYS.categories,[]);
-  document.getElementById('projCategory').innerHTML = '<option value="">Kategori seç</option>' + cats.map(c=>`<option value="${c.slug}">${c.name}</option>`).join('');
-  if (id) {
-    const p = getData(KEYS.projects,[]).find(x=>x.id===id); if (!p) return;
-    document.getElementById('projId').value = p.id;
-    document.getElementById('projTitle').value = p.title||'';
-    document.getElementById('projCategory').value = p.category||'';
-    document.getElementById('projLocation').value = p.location||'';
-    document.getElementById('projYear').value = p.year||'';
-    document.getElementById('projArea').value = p.area||'';
-    document.getElementById('projFeatured').checked = !!p.featured;
-    document.getElementById('projDesc').value = p.description||'';
-    document.getElementById('projMaterials').value = (p.materials||[]).join(', ');
-    projImages = [...(p.images||[])]; renderProjImages();
-  } else {
+function openProjectModal(id){
+  projImages=[];coverIdx=0;
+  document.getElementById('projImgGrid').innerHTML='<span class="taupe text-sm">Henüz görsel yok.</span>';
+  document.getElementById('projModalTitle').textContent=id?'Proje Düzenle':'Yeni Proje / Galeri Ekle';
+  const cats=getData(KEYS.categories,[]);
+  document.getElementById('projCategory').innerHTML='<option value="">Kategori seç</option>'+cats.map(c=>`<option value="${c.slug}">${c.name}</option>`).join('');
+  if(id){
+    const p=getData(KEYS.projects,[]).find(x=>x.id===id);if(!p)return;
+    document.getElementById('projId').value=p.id;
+    document.getElementById('projTitle').value=p.title||'';
+    document.getElementById('projCategory').value=p.category||'';
+    document.getElementById('projLocation').value=p.location||'';
+    document.getElementById('projYear').value=p.year||'';
+    document.getElementById('projArea').value=p.area||'';
+    document.getElementById('projFeatured').checked=!!p.featured;
+    document.getElementById('projDesc').value=p.description||'';
+    document.getElementById('projMaterials').value=(p.materials||[]).join(', ');
+    projImages=[...(p.images||[])];
+    coverIdx=p.coverIndex||0;
+    renderProjImages();
+  }else{
     document.getElementById('projId').value='';
-    ['projTitle','projLocation','projYear','projArea','projDesc','projMaterials'].forEach(i=>document.getElementById(i).value='');
+    ['projTitle','projLocation','projYear','projArea','projDesc','projMaterials'].forEach(id=>document.getElementById(id).value='');
     document.getElementById('projFeatured').checked=false;
   }
+  // reset bulk inputs
+  document.getElementById('singlePath').value='';
+  document.getElementById('bulkPaths').value='';
   openModal('projModal');
 }
-function handleProjectImages(input) {
-  Array.from(input.files).forEach(file => {
-    const r = new FileReader(); r.onload = e => { projImages.push(e.target.result); renderProjImages(); }; r.readAsDataURL(file);
-  });
+function saveProject(){
+  const title=document.getElementById('projTitle').value.trim();
+  if(!title){alert('Proje adı gerekli.');return;}
+  const projects=getData(KEYS.projects,[]);
+  const id=document.getElementById('projId').value||'proj_'+Date.now();
+  const proj={id,title,category:document.getElementById('projCategory').value,location:document.getElementById('projLocation').value,year:parseInt(document.getElementById('projYear').value)||null,area:parseInt(document.getElementById('projArea').value)||null,featured:document.getElementById('projFeatured').checked,description:document.getElementById('projDesc').value,materials:document.getElementById('projMaterials').value.split(',').map(s=>s.trim()).filter(Boolean),images:projImages,coverIndex:coverIdx,createdAt:new Date().toISOString()};
+  const idx=projects.findIndex(p=>p.id===id);
+  if(idx>=0)projects[idx]=proj;else projects.unshift(proj);
+  setData(KEYS.projects,projects);closeModal('projModal');renderPortfolio();notify('Proje kaydedildi.');
 }
-function renderProjImages() {
-  document.getElementById('projImgGrid').innerHTML = projImages.map((s,i)=>`
-    <div class="img-item"><img src="${s}"><button class="rm" onclick="projImages.splice(${i},1);renderProjImages()">×</button></div>`).join('');
-}
-function saveProject() {
-  const title = document.getElementById('projTitle').value.trim();
-  if (!title) { alert('Proje adı gerekli.'); return; }
-  const projects = getData(KEYS.projects,[]);
-  const id = document.getElementById('projId').value || 'proj_'+Date.now();
-  const proj = { id, title, category:document.getElementById('projCategory').value, location:document.getElementById('projLocation').value, year:parseInt(document.getElementById('projYear').value)||null, area:parseInt(document.getElementById('projArea').value)||null, featured:document.getElementById('projFeatured').checked, description:document.getElementById('projDesc').value, materials:document.getElementById('projMaterials').value.split(',').map(s=>s.trim()).filter(Boolean), images:projImages, coverIndex:0, createdAt:new Date().toISOString() };
-  const idx = projects.findIndex(p=>p.id===id);
-  if (idx>=0) projects[idx]=proj; else projects.unshift(proj);
-  setData(KEYS.projects,projects); closeModal('projModal'); renderPortfolio(); notify('Proje kaydedildi.');
-}
-function deleteProject(id) {
-  if (!confirm('Projeyi sil?')) return;
-  setData(KEYS.projects,getData(KEYS.projects,[]).filter(p=>p.id!==id)); renderPortfolio(); notify('Proje silindi.');
+function deleteProject(id){
+  if(!confirm('Projeyi sil?'))return;
+  setData(KEYS.projects,getData(KEYS.projects,[]).filter(p=>p.id!==id));renderPortfolio();notify('Silindi.');
 }
 
 // ── PACKAGES ──
-function renderPackages() {
-  const list = getData(KEYS.packages,[]);
-  const el = document.getElementById('packageList');
-  if (!list.length) { el.innerHTML = '<p class="taupe text-sm" style="padding:12px 0;">Henüz paket yok.</p>'; return; }
-  el.innerHTML = list.map(p=>`
+function renderPackages(){
+  const list=getData(KEYS.packages,[]);
+  const el=document.getElementById('packageList');
+  if(!list.length){el.innerHTML='<p class="taupe text-sm" style="padding:12px 0">Henüz paket yok.</p>';return;}
+  el.innerHTML=list.map(p=>`
     <div class="proj-item">
       <div class="proj-info">
-        <div class="proj-name">${p.title} ${p.featured?'<span class="gold">⭐</span>':''}</div>
+        <div class="proj-name">${p.title}${p.featured?' <span class="gold">⭐</span>':''}</div>
         <div class="proj-meta">${p.price||'Fiyat yok'} · ${(p.features||[]).length} özellik · ${p.theme||'standard'}</div>
       </div>
       <div class="proj-actions">
-        <button onclick="openPackageModal('${p.id}')" class="btn btn-outline" style="padding:5px 10px;"><i data-lucide="edit-2" width="12" height="12"></i></button>
-        <button onclick="deletePackage('${p.id}')" class="btn btn-danger" style="padding:5px 10px;"><i data-lucide="trash-2" width="12" height="12"></i></button>
+        <button onclick="openPackageModal('${p.id}')" class="btn btn-outline btn-sm"><i data-lucide="edit-2" width="12" height="12"></i></button>
+        <button onclick="deletePackage('${p.id}')" class="btn btn-danger btn-sm"><i data-lucide="trash-2" width="12" height="12"></i></button>
       </div>
     </div>`).join('');
   lucide.createIcons();
 }
-function openPackageModal(id) {
-  document.getElementById('pkgModalTitle').textContent = id ? 'Paketi Düzenle' : 'Yeni Paket Ekle';
-  if (id) {
-    const p = getData(KEYS.packages,[]).find(x=>x.id===id); if (!p) return;
+function openPackageModal(id){
+  document.getElementById('pkgModalTitle').textContent=id?'Paketi Düzenle':'Yeni Paket Ekle';
+  if(id){
+    const p=getData(KEYS.packages,[]).find(x=>x.id===id);if(!p)return;
     document.getElementById('pkgId').value=p.id;
     document.getElementById('pkgTitle').value=p.title||'';
     document.getElementById('pkgSlogan').value=p.slogan||'';
@@ -667,9 +646,8 @@ function openPackageModal(id) {
     document.getElementById('pkgFeatures').value=(p.features||[]).join('\n');
     document.getElementById('pkgCta').value=p.ctaText||'';
     document.getElementById('pkgFeatured').checked=!!p.featured;
-    const r = document.querySelector(`input[name="pkgTheme"][value="${p.theme||'standard'}"]`);
-    if(r) r.checked=true;
-  } else {
+    const r=document.querySelector(`input[name="pkgTheme"][value="${p.theme||'standard'}"]`);if(r)r.checked=true;
+  }else{
     document.getElementById('pkgId').value='';
     ['pkgTitle','pkgSlogan','pkgPrice','pkgFeatures','pkgCta'].forEach(i=>document.getElementById(i).value='');
     document.getElementById('pkgFeatured').checked=false;
@@ -677,166 +655,157 @@ function openPackageModal(id) {
   }
   openModal('pkgModal');
 }
-function savePackage() {
-  const title = document.getElementById('pkgTitle').value.trim();
-  if (!title) { alert('Paket başlığı gerekli.'); return; }
-  const pkgs = getData(KEYS.packages,[]);
-  const id = document.getElementById('pkgId').value||'pkg_'+Date.now();
-  const pkg = { id, title, slogan:document.getElementById('pkgSlogan').value, price:document.getElementById('pkgPrice').value, features:document.getElementById('pkgFeatures').value.split('\n').map(s=>s.trim()).filter(Boolean), ctaText:document.getElementById('pkgCta').value||'Paket Hakkında Bilgi Al', featured:document.getElementById('pkgFeatured').checked, theme:document.querySelector('input[name="pkgTheme"]:checked').value, order:pkgs.length };
-  const idx=pkgs.findIndex(p=>p.id===id);
-  if(idx>=0) pkgs[idx]=pkg; else pkgs.push(pkg);
-  setData(KEYS.packages,pkgs); closeModal('pkgModal'); renderPackages(); notify('Paket kaydedildi.');
+function savePackage(){
+  const title=document.getElementById('pkgTitle').value.trim();
+  if(!title){alert('Paket başlığı gerekli.');return;}
+  const pkgs=getData(KEYS.packages,[]);
+  const id=document.getElementById('pkgId').value||'pkg_'+Date.now();
+  const pkg={id,title,slogan:document.getElementById('pkgSlogan').value,price:document.getElementById('pkgPrice').value,features:document.getElementById('pkgFeatures').value.split('\n').map(s=>s.trim()).filter(Boolean),ctaText:document.getElementById('pkgCta').value||'Paket Hakkında Bilgi Al',featured:document.getElementById('pkgFeatured').checked,theme:document.querySelector('input[name="pkgTheme"]:checked').value,order:pkgs.length};
+  const idx=pkgs.findIndex(p=>p.id===id);if(idx>=0)pkgs[idx]=pkg;else pkgs.push(pkg);
+  setData(KEYS.packages,pkgs);closeModal('pkgModal');renderPackages();notify('Paket kaydedildi.');
 }
-function deletePackage(id) {
-  if (!confirm('Paketi sil?')) return;
-  setData(KEYS.packages,getData(KEYS.packages,[]).filter(p=>p.id!==id)); renderPackages(); notify('Paket silindi.');
+function deletePackage(id){
+  if(!confirm('Paketi sil?'))return;
+  setData(KEYS.packages,getData(KEYS.packages,[]).filter(p=>p.id!==id));renderPackages();
 }
 
 // ── PROFILE ──
-function renderProfile() {
-  const p = getData(KEYS.profile,{});
-  document.getElementById('pName').value=p.name||''; document.getElementById('pTitle').value=p.title||'';
-  document.getElementById('pEmail').value=p.email||''; document.getElementById('pPhone').value=p.phone||'';
-  document.getElementById('pLocation').value=p.location||''; document.getElementById('pInstagram').value=p.instagram||'';
-  document.getElementById('pPinterest').value=p.pinterest||''; document.getElementById('pLinkedin').value=p.linkedin||'';
-  document.getElementById('pShortBio').value=p.shortBio||''; document.getElementById('pLongBio').value=p.longBio||'';
-  if (p.profileImage) document.getElementById('pImagePreview').innerHTML=`<img src="${p.profileImage}" style="width:72px;height:72px;object-fit:cover;">`;
-  renderEducation(); renderCertificates();
-}
-function handleProfileImage(input) {
-  if (!input.files[0]) return;
-  const r=new FileReader(); r.onload=e=>{ const p=getData(KEYS.profile,{}); p.profileImage=e.target.result; setData(KEYS.profile,p); document.getElementById('pImagePreview').innerHTML=`<img src="${e.target.result}" style="width:72px;height:72px;object-fit:cover;">`; }; r.readAsDataURL(input.files[0]);
-}
-function saveProfile() {
+function renderProfile(){
   const p=getData(KEYS.profile,{});
   ['pName','pTitle','pEmail','pPhone','pLocation','pInstagram','pPinterest','pLinkedin','pShortBio','pLongBio'].forEach(id=>{
-    const key=id.replace('p','').charAt(0).toLowerCase()+id.replace('p','').slice(1);
     const map={pName:'name',pTitle:'title',pEmail:'email',pPhone:'phone',pLocation:'location',pInstagram:'instagram',pPinterest:'pinterest',pLinkedin:'linkedin',pShortBio:'shortBio',pLongBio:'longBio'};
-    p[map[id]]=document.getElementById(id).value;
+    document.getElementById(id).value=p[map[id]]||'';
   });
-  setData(KEYS.profile,p); notify('Profil kaydedildi.');
+  const imgPath=p.profileImagePath||'';
+  document.getElementById('pImagePath').value=imgPath;
+  document.getElementById('pImagePreview').innerHTML=imgPath?`<img src="../${imgPath}" style="width:72px;height:72px;object-fit:cover;margin-top:6px" onerror="this.style.display='none'">`:'' ;
+  renderEducation();renderCertificates();
 }
-function renderEducation() {
-  const p=getData(KEYS.profile,{}); const edu=p.education||[];
-  document.getElementById('eduList').innerHTML = edu.length ? edu.map((e,i)=>`<div class="entry-item"><div class="entry-info"><strong>${e.school}</strong> — ${e.dept} (${e.year})</div><button onclick="removeEdu(${i})" class="btn btn-danger" style="padding:3px 8px;font-size:11px;">Sil</button></div>`).join('') : '<p class="taupe text-sm">Eğitim eklenmemiş.</p>';
+function saveProfile(){
+  const p=getData(KEYS.profile,{});
+  const map={pName:'name',pTitle:'title',pEmail:'email',pPhone:'phone',pLocation:'location',pInstagram:'instagram',pPinterest:'pinterest',pLinkedin:'linkedin',pShortBio:'shortBio',pLongBio:'longBio'};
+  Object.entries(map).forEach(([id,key])=>p[key]=document.getElementById(id).value);
+  p.profileImagePath=document.getElementById('pImagePath').value.trim();
+  setData(KEYS.profile,p);notify('Profil kaydedildi.');
 }
-function addEducation() {
-  const school=document.getElementById('newEduSchool').value.trim(); if(!school) return;
-  const p=getData(KEYS.profile,{}); p.education=p.education||[];
+function renderEducation(){
+  const p=getData(KEYS.profile,{});const edu=p.education||[];
+  document.getElementById('eduList').innerHTML=edu.length?edu.map((e,i)=>`<div class="entry-item"><div>${e.school} — ${e.dept} (${e.year})</div><button onclick="removeEdu(${i})" class="btn btn-danger btn-sm">Sil</button></div>`).join(''):'<p class="taupe text-sm">Eğitim eklenmemiş.</p>';
+}
+function addEducation(){
+  const school=document.getElementById('newEduSchool').value.trim();if(!school)return;
+  const p=getData(KEYS.profile,{});p.education=p.education||[];
   p.education.push({school,dept:document.getElementById('newEduDept').value,year:document.getElementById('newEduYear').value});
-  setData(KEYS.profile,p); ['newEduSchool','newEduDept','newEduYear'].forEach(i=>document.getElementById(i).value=''); renderEducation();
+  setData(KEYS.profile,p);['newEduSchool','newEduDept','newEduYear'].forEach(id=>document.getElementById(id).value='');renderEducation();
 }
-function removeEdu(i) { const p=getData(KEYS.profile,{}); p.education.splice(i,1); setData(KEYS.profile,p); renderEducation(); }
-function renderCertificates() {
-  const p=getData(KEYS.profile,{}); const certs=p.certificates||[];
-  document.getElementById('certList').innerHTML = certs.length ? certs.map((c,i)=>`<div class="entry-item"><div class="entry-info"><strong>${c.name}</strong> — ${c.org} (${c.year})</div><button onclick="removeCert(${i})" class="btn btn-danger" style="padding:3px 8px;font-size:11px;">Sil</button></div>`).join('') : '<p class="taupe text-sm">Sertifika eklenmemiş.</p>';
+function removeEdu(i){const p=getData(KEYS.profile,{});p.education.splice(i,1);setData(KEYS.profile,p);renderEducation();}
+function renderCertificates(){
+  const p=getData(KEYS.profile,{});const certs=p.certificates||[];
+  document.getElementById('certList').innerHTML=certs.length?certs.map((c,i)=>`<div class="entry-item"><div>${c.name} — ${c.org} (${c.year})</div><button onclick="removeCert(${i})" class="btn btn-danger btn-sm">Sil</button></div>`).join(''):'<p class="taupe text-sm">Sertifika eklenmemiş.</p>';
 }
-function addCertificate() {
-  const name=document.getElementById('newCertName').value.trim(); if(!name) return;
-  const p=getData(KEYS.profile,{}); p.certificates=p.certificates||[];
+function addCertificate(){
+  const name=document.getElementById('newCertName').value.trim();if(!name)return;
+  const p=getData(KEYS.profile,{});p.certificates=p.certificates||[];
   p.certificates.push({name,org:document.getElementById('newCertOrg').value,year:document.getElementById('newCertYear').value});
-  setData(KEYS.profile,p); ['newCertName','newCertOrg','newCertYear'].forEach(i=>document.getElementById(i).value=''); renderCertificates();
+  setData(KEYS.profile,p);['newCertName','newCertOrg','newCertYear'].forEach(id=>document.getElementById(id).value='');renderCertificates();
 }
-function removeCert(i) { const p=getData(KEYS.profile,{}); p.certificates.splice(i,1); setData(KEYS.profile,p); renderCertificates(); }
+function removeCert(i){const p=getData(KEYS.profile,{});p.certificates.splice(i,1);setData(KEYS.profile,p);renderCertificates();}
 
 // ── MESSAGES ──
 let currentMsgId=null;
-function renderMessages() {
+function renderMessages(){
   const msgs=getData(KEYS.messages,[]);
   const unread=msgs.filter(m=>!m.read).length;
-  const b=document.getElementById('unreadBadge'); b.textContent=unread; b.style.display=unread?'inline':'none';
+  const b=document.getElementById('unreadBadge');b.textContent=unread;b.style.display=unread?'inline':'none';
   const el=document.getElementById('messageList');
-  if(!msgs.length){el.innerHTML='<p class="taupe text-sm" style="padding:16px;">Henüz mesaj yok.</p>';return;}
+  if(!msgs.length){el.innerHTML='<p class="taupe text-sm" style="padding:16px">Henüz mesaj yok.</p>';return;}
   el.innerHTML=msgs.map(m=>`
     <div class="msg-row ${m.read?'':'unread'}" onclick="openMsg('${m.id}')">
-      <div class="msg-row-top">
-        <span class="msg-name">${m.name} <span class="taupe text-sm">&lt;${m.email}&gt;</span></span>
-        <span class="msg-date">${new Date(m.date).toLocaleDateString('tr-TR')}</span>
-      </div>
+      <div class="msg-row-top"><span class="msg-name">${m.name} <span class="taupe text-sm">&lt;${m.email}&gt;</span></span><span class="msg-date">${new Date(m.date).toLocaleDateString('tr-TR')}</span></div>
       <div class="msg-preview">${m.service?'['+m.service+'] ':''}${m.message}</div>
     </div>`).join('');
 }
-function openMsg(id) {
-  const msgs=getData(KEYS.messages,[]); const m=msgs.find(x=>x.id===id); if(!m) return;
-  currentMsgId=id; m.read=true; setData(KEYS.messages,msgs);
+function openMsg(id){
+  const msgs=getData(KEYS.messages,[]);const m=msgs.find(x=>x.id===id);if(!m)return;
+  currentMsgId=id;m.read=true;setData(KEYS.messages,msgs);
   document.getElementById('msgModalBody').innerHTML=`
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
-      <div><div class="form-label">Gönderen</div><div>${m.name}</div></div>
-      <div><div class="form-label">E-posta</div><div><a href="mailto:${m.email}" style="color:#C8A97A;">${m.email}</a></div></div>
-      ${m.phone?`<div><div class="form-label">Telefon</div><div>${m.phone}</div></div>`:''}
-      ${m.service?`<div><div class="form-label">Hizmet</div><div>${m.service}</div></div>`:''}
-      <div><div class="form-label">Tarih</div><div>${new Date(m.date).toLocaleString('tr-TR')}</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
+      <div><div class="form-label">Gönderen</div>${m.name}</div>
+      <div><div class="form-label">E-posta</div><a href="mailto:${m.email}" style="color:#C8A97A">${m.email}</a></div>
+      ${m.phone?`<div><div class="form-label">Telefon</div>${m.phone}</div>`:''}
+      ${m.service?`<div><div class="form-label">Hizmet</div>${m.service}</div>`:''}
+      <div><div class="form-label">Tarih</div>${new Date(m.date).toLocaleString('tr-TR')}</div>
     </div>
-    <div style="background:#F9F6F1;padding:14px;border-left:3px solid #C8A97A;">
-      <div class="form-label" style="margin-bottom:6px;">Mesaj</div>
-      <div style="font-size:13px;line-height:1.7;">${m.message}</div>
+    <div style="background:#F9F6F1;padding:14px;border-left:3px solid #C8A97A">
+      <div class="form-label" style="margin-bottom:6px">Mesaj</div>
+      <div style="font-size:13px;line-height:1.7">${m.message}</div>
     </div>`;
-  openModal('msgModal'); renderMessages();
+  openModal('msgModal');renderMessages();
 }
-function deleteCurrentMsg() {
-  if(!currentMsgId||!confirm('Mesajı sil?')) return;
+function deleteCurrentMsg(){
+  if(!currentMsgId||!confirm('Mesajı sil?'))return;
   setData(KEYS.messages,getData(KEYS.messages,[]).filter(m=>m.id!==currentMsgId));
-  closeModal('msgModal'); renderMessages(); notify('Mesaj silindi.');
+  closeModal('msgModal');renderMessages();notify('Silindi.');
 }
 
 // ── SETTINGS ──
-function renderSettings() {
+function renderSettings(){
   const s=getData(KEYS.settings,{});
   document.getElementById('sTitle').value=s.siteTitle||'Ays Interiors';
   document.getElementById('sSeoDesc').value=s.seoDesc||'';
   document.getElementById('sFooter').value=s.footerText||'';
+  document.getElementById('sHeroPath').value=s.heroImagePath||'';
 }
-function handleHeroImage(input) {
-  if(!input.files[0]) return;
-  const r=new FileReader(); r.onload=e=>{ const s=getData(KEYS.settings,{}); s.heroImage=e.target.result; setData(KEYS.settings,s); document.getElementById('sHeroPreview').innerHTML=`<img src="${e.target.result}" style="max-width:200px;max-height:80px;object-fit:cover;margin-top:6px;">`; }; r.readAsDataURL(input.files[0]);
+function previewHero(){
+  const path=document.getElementById('sHeroPath').value.trim();if(!path)return;
+  const src=path.startsWith('http')?path:'../'+path;
+  document.getElementById('sHeroPreview').innerHTML=`<img src="${src}" style="max-width:280px;max-height:100px;object-fit:cover;margin-top:6px" onerror="this.alt='Görsel bulunamadı';this.style.border='1px solid #e74c3c'">`;
 }
-function saveSettings() {
+function saveSettings(){
   const s=getData(KEYS.settings,{});
   s.siteTitle=document.getElementById('sTitle').value;
   s.seoDesc=document.getElementById('sSeoDesc').value;
   s.footerText=document.getElementById('sFooter').value;
-  setData(KEYS.settings,s); notify('Ayarlar kaydedildi.');
+  s.heroImagePath=document.getElementById('sHeroPath').value.trim();
+  setData(KEYS.settings,s);notify('Ayarlar kaydedildi.');
 }
-function changePassword() {
+function changePassword(){
   const old=document.getElementById('oldPass').value;
   const n1=document.getElementById('newPass').value;
   const n2=document.getElementById('newPass2').value;
   const el=document.getElementById('passMsg');
-  const s=getData(KEYS.settings,{}); const cur=s.adminPass||'ays2024';
+  const s=getData(KEYS.settings,{});const cur=s.adminPass||'ays2024';
   if(old!==cur){el.style.color='#e74c3c';el.textContent='Mevcut şifre hatalı.';return;}
-  if(n1.length<6){el.style.color='#e74c3c';el.textContent='Yeni şifre en az 6 karakter olmalı.';return;}
+  if(n1.length<6){el.style.color='#e74c3c';el.textContent='En az 6 karakter.';return;}
   if(n1!==n2){el.style.color='#e74c3c';el.textContent='Şifreler eşleşmiyor.';return;}
-  s.adminPass=n1; setData(KEYS.settings,s);
-  el.style.color='green'; el.textContent='Şifre güncellendi.';
-  ['oldPass','newPass','newPass2'].forEach(i=>document.getElementById(i).value='');
+  s.adminPass=n1;setData(KEYS.settings,s);
+  el.style.color='green';el.textContent='Şifre güncellendi.';
+  ['oldPass','newPass','newPass2'].forEach(id=>document.getElementById(id).value='');
 }
 
 // ── SEED ──
-function seedData() {
-  if (getData(KEYS.projects,[]).length) return;
-  setData(KEYS.categories, [{id:'cat_1',name:'Salon',slug:'salon'},{id:'cat_2',name:'Mutfak',slug:'mutfak'},{id:'cat_3',name:'Banyo',slug:'banyo'},{id:'cat_4',name:'Yatak Odası',slug:'yatak-odasi'},{id:'cat_5',name:'Ofis',slug:'ofis'}]);
-  setData(KEYS.projects, [
+function seedData(){
+  if(getData(KEYS.projects,[]).length)return;
+  setData(KEYS.categories,[{id:'cat_1',name:'Salon',slug:'salon'},{id:'cat_2',name:'Mutfak',slug:'mutfak'},{id:'cat_3',name:'Banyo',slug:'banyo'},{id:'cat_4',name:'Yatak Odası',slug:'yatak-odasi'},{id:'cat_5',name:'Ofis',slug:'ofis'}]);
+  setData(KEYS.projects,[
     {id:'proj_001',title:'Minimalist Salon Tasarımı',category:'salon',location:'Ankara',year:2023,area:65,description:'Modern çizgiler ve nötr tonlarla tasarlanmış ferah bir yaşam alanı.',materials:['Beyaz Mermer','Meşe Ahşap','Keten Kumaş'],featured:true,images:['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
     {id:'proj_002',title:'Akdeniz Mutfak',category:'mutfak',location:'İstanbul',year:2023,area:28,description:'Akdeniz estetiğini modern dokunuşlarla harmanlayan sıcak mutfak tasarımı.',materials:['Terracotta','Mermer Tezgah','Çam Ahşap'],featured:true,images:['https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
     {id:'proj_003',title:'Spa Banyo',category:'banyo',location:'Ankara',year:2022,area:18,description:'Ev konforunu spa deneyimiyle buluşturan lüks banyo tasarımı.',materials:['Doğal Taş','Tik Ahşap','Mat Çelik'],featured:true,images:['https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
-    {id:'proj_004',title:'Huzurlu Yatak Odası',category:'yatak-odasi',location:'İzmir',year:2023,area:35,description:'Dinlendirici renk paleti ve yumuşak dokularla tasarlanmış uyku odası.',materials:['Velvet','Beyaz Meşe','Pirinç Detay'],featured:false,images:['https://images.unsplash.com/photo-1505693314120-0d443867891c?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
-    {id:'proj_005',title:'Modern Ofis',category:'ofis',location:'Ankara',year:2024,area:120,description:'Verimliliği ve estetiği bir arada sunan kurumsal ofis tasarımı.',materials:['Cam','Çelik','Akustik Panel'],featured:false,images:['https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
-    {id:'proj_006',title:'Bohem Salon',category:'salon',location:'İstanbul',year:2022,area:55,description:'Katmanlı dokular ve sıcak renk paleti ile bohem bir yaşam alanı.',materials:['Rattan','Kilim','Bakır'],featured:false,images:['https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()}
+    {id:'proj_004',title:'Huzurlu Yatak Odası',category:'yatak-odasi',location:'İzmir',year:2023,area:35,description:'Dinlendirici renk paleti ile yumuşak doku.',materials:['Velvet','Beyaz Meşe'],featured:false,images:['https://images.unsplash.com/photo-1505693314120-0d443867891c?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
+    {id:'proj_005',title:'Modern Ofis',category:'ofis',location:'Ankara',year:2024,area:120,description:'Verimliliği ve estetiği bir arada sunan ofis.',materials:['Cam','Çelik','Akustik Panel'],featured:false,images:['https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
+    {id:'proj_006',title:'Bohem Salon',category:'salon',location:'İstanbul',year:2022,area:55,description:'Katmanlı dokular ve sıcak renk paleti.',materials:['Rattan','Kilim','Bakır'],featured:false,images:['https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()}
   ]);
-  setData(KEYS.packages, [
+  setData(KEYS.packages,[
     {id:'pkg_001',title:'Temel Danışmanlık',slogan:'Hızlı ve etkili çözümler',price:"₺2.500'den başlayan",features:['1 oda konsept tasarımı','3D görselleştirme','Malzeme önerileri','2 revizyon hakkı'],ctaText:'Bu Paketi Seç',featured:false,theme:'standard',order:1},
     {id:'pkg_002',title:'Profesyonel Paket',slogan:'Kapsamlı tasarım deneyimi',price:"₺7.500'den başlayan",features:['3 oda tasarımı','Tam 3D modelleme','Malzeme & tedarikçi listesi','Uygulama takibi','5 revizyon hakkı','Mobilya seçim danışmanlığı'],ctaText:'Bu Paketi Seç',featured:true,theme:'gold',order:2},
     {id:'pkg_003',title:'Premium Tam Hizmet',slogan:'Anahtar teslim tasarım çözümü',price:'Teklif alın',features:['Tüm mekan tasarımı','Mimari çizimler','Müteahhit koordinasyonu','Alışveriş danışmanlığı','Sınırsız revizyon','1 yıl destek'],ctaText:'Teklif Al',featured:false,theme:'dark',order:3}
   ]);
-  setData(KEYS.profile, {name:'Ayşe Kaya',title:'İç Mimar & Tasarım Danışmanı',email:'info@aysinteriors.com',phone:'+90 532 000 00 00',location:'Ankara, Türkiye',instagram:'@aysinteriors',pinterest:'aysinteriors',linkedin:'aysinteriors',shortBio:'10 yılı aşkın deneyimle, her mekânı yaşayanın ruhunu yansıtan bir hikâyeye dönüştürüyorum.',longBio:'Ankara Gazi Üniversitesi İç Mimarlık bölümünden mezun olduktan sonra kariyerime büyük projelerde devam ettim. 2014 yılında Ays Interiors\'ı kurarak 127\'den fazla projeyi hayata geçirdim.',education:[{school:'Gazi Üniversitesi',dept:'İç Mimarlık ve Çevre Tasarımı',year:'2010-2014'}],certificates:[{name:'LEED Green Associate',org:'US Green Building Council',year:'2016'}],profileImage:null});
+  setData(KEYS.profile,{name:'Ayşe Kaya',title:'İç Mimar & Tasarım Danışmanı',email:'info@aysinteriors.com',phone:'+90 532 000 00 00',location:'Ankara, Türkiye',instagram:'@aysinteriors',pinterest:'aysinteriors',linkedin:'aysinteriors',shortBio:'10 yılı aşkın deneyimle, her mekânı yaşayanın ruhunu yansıtan bir hikâyeye dönüştürüyorum.',longBio:'Ankara Gazi Üniversitesi İç Mimarlık bölümünden mezun olduktan sonra kariyerime büyük projelerde devam ettim. 2014 yılında Ays Interiors\'ı kurarak 127\'den fazla projeyi hayata geçirdim.',education:[{school:'Gazi Üniversitesi',dept:'İç Mimarlık ve Çevre Tasarımı',year:'2010-2014'}],certificates:[{name:'LEED Green Associate',org:'US Green Building Council',year:'2016'}],profileImagePath:''});
 }
 
-// INIT
-seedData();
-renderPortfolio();
-const msgs=getData(KEYS.messages,[]);
-const unread=msgs.filter(m=>!m.read).length;
-const b=document.getElementById('unreadBadge'); b.textContent=unread; b.style.display=unread?'inline':'none';
+seedData();renderPortfolio();
+const _u=getData(KEYS.messages,[]).filter(m=>!m.read).length;
+const _b=document.getElementById('unreadBadge');_b.textContent=_u;_b.style.display=_u?'inline':'none';
 lucide.createIcons();
 </script>
 </body>
