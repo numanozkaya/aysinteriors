@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İletişim — Ays Interiors</title>
+<meta name="description" content="Ays Interiors ile iletişime geçin. Projenizi konuşalım.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">ays interiors</a>
+    <ul class="nav-links">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="portfolio.html">Portfolyo</a></li>
+      <li><a href="danismanlik.html">Danışmanlık</a></li>
+      <li><a href="hakkimda.html">Hakkımda</a></li>
+      <li><a href="iletisim.html">İletişim</a></li>
+      <li><a href="danismanlik.html" class="btn-cta">Danışmanlık Al</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a href="index.html">Ana Sayfa</a>
+  <a href="portfolio.html">Portfolyo</a>
+  <a href="danismanlik.html">Danışmanlık</a>
+  <a href="hakkimda.html">Hakkımda</a>
+  <a href="iletisim.html">İletişim</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <h1>İletişim</h1>
+    <p>Projenizi konuşalım</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;">
+
+      <div>
+        <div class="section-header reveal">
+          <span class="section-label">Mesaj Gönderin</span>
+          <h2>Benimle İletişime Geçin</h2>
+        </div>
+
+        <div id="formWrap">
+          <form id="contactForm" novalidate>
+            <div class="form-group reveal delay-1">
+              <label for="fname">Ad Soyad *</label>
+              <input type="text" id="fname" name="name" required placeholder="Adınız Soyadınız">
+            </div>
+            <div class="grid-2">
+              <div class="form-group reveal delay-2">
+                <label for="femail">E-posta *</label>
+                <input type="email" id="femail" name="email" required placeholder="ornek@mail.com">
+              </div>
+              <div class="form-group reveal delay-2">
+                <label for="fphone">Telefon</label>
+                <input type="tel" id="fphone" name="phone" placeholder="+90 5xx xxx xx xx">
+              </div>
+            </div>
+            <div class="form-group reveal delay-3">
+              <label for="fservice">İlgilenilen Hizmet</label>
+              <select id="fservice" name="service">
+                <option value="">Seçiniz</option>
+                <option value="Konsept Tasarım">Konsept Tasarım</option>
+                <option value="Uygulama Takibi">Uygulama Takibi</option>
+                <option value="Online Danışmanlık">Online Danışmanlık</option>
+                <option value="Diğer">Diğer</option>
+              </select>
+            </div>
+            <div class="form-group reveal delay-4">
+              <label for="fmessage">Mesajınız *</label>
+              <textarea id="fmessage" name="message" rows="5" required placeholder="Projeniz hakkında bilgi verin..."></textarea>
+            </div>
+            <div id="formError" style="color:#c0392b;font-size:.85rem;margin-bottom:1rem;display:none;"></div>
+            <div class="reveal delay-5">
+              <button type="submit" class="btn-ghost dark" style="width:100%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:none;font-family:inherit;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;">Mesaj Gönder</button>
+            </div>
+          </form>
+        </div>
+
+        <div class="form-success" id="formSuccess">
+          <div class="success-icon" style="color:var(--gold);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <h3>Mesajınız İletildi!</h3>
+          <p>En kısa sürede size dönüş yapacağız.</p>
+          <button onclick="document.getElementById('formSuccess').classList.remove('show');document.getElementById('formWrap').style.display='block';" class="btn-ghost dark" style="margin-top:1.5rem;background:none;border:1px solid var(--dark);padding:.7rem 1.5rem;cursor:pointer;font-family:inherit;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;">Yeni Mesaj Gönder</button>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-header reveal">
+          <span class="section-label">Bize Ulaşın</span>
+          <h2>İletişim Bilgileri</h2>
+        </div>
+
+        <div class="contact-info-item reveal delay-1">
+          <div class="contact-info-icon"><i data-lucide="mail" width="20" height="20"></i></div>
+          <div class="contact-info-text">
+            <strong>E-posta</strong>
+            <span id="ci-email">info@aysinteriors.com</span>
+          </div>
+        </div>
+        <div class="contact-info-item reveal delay-2">
+          <div class="contact-info-icon"><i data-lucide="phone" width="20" height="20"></i></div>
+          <div class="contact-info-text">
+            <strong>Telefon</strong>
+            <span id="ci-phone">+90 532 000 00 00</span>
+          </div>
+        </div>
+        <div class="contact-info-item reveal delay-3">
+          <div class="contact-info-icon"><i data-lucide="map-pin" width="20" height="20"></i></div>
+          <div class="contact-info-text">
+            <strong>Konum</strong>
+            <span id="ci-location">Ankara, Türkiye</span>
+          </div>
+        </div>
+        <div class="contact-info-item reveal delay-4">
+          <div class="contact-info-icon"><i data-lucide="clock" width="20" height="20"></i></div>
+          <div class="contact-info-text">
+            <strong>Çalışma Saatleri</strong>
+            <span>Pazartesi — Cuma: 09:00 — 18:00</span>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid var(--border);padding-top:2rem;margin-top:1rem;" class="reveal delay-5">
+          <p style="font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--taupe);margin-bottom:1rem;">Sosyal Medya</p>
+          <div class="social-links">
+            <a href="#" id="ci-instagram" class="social-link" title="Instagram"><i data-lucide="instagram" width="16" height="16"></i></a>
+            <a href="#" id="ci-pinterest" class="social-link" title="Pinterest"><i data-lucide="share-2" width="16" height="16"></i></a>
+            <a href="#" id="ci-linkedin" class="social-link" title="LinkedIn"><i data-lucide="linkedin" width="16" height="16"></i></a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="map-section">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3059.9!2d32.854!3d39.925!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14d347d520732db5%3A0xabbc30d0c08a26ff!2sK%C4%B1z%C4%B1lay%2C+Ankara!5e0!3m2!1str!2str!4v1" allowfullscreen="" loading="lazy"></iframe>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">ays interiors</div>
+        <p class="footer-desc">Mekânları yaşayanın ruhunu yansıtan hikâyelere dönüştürüyoruz.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Hızlı Linkler</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Ana Sayfa</a></li>
+          <li><a href="portfolio.html">Portfolyo</a></li>
+          <li><a href="danismanlik.html">Danışmanlık</a></li>
+          <li><a href="hakkimda.html">Hakkımda</a></li>
+          <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>İletişim</h4>
+        <div class="footer-contact-item"><i data-lucide="mail" width="14" height="14"></i><span>info@aysinteriors.com</span></div>
+        <div class="footer-contact-item"><i data-lucide="phone" width="14" height="14"></i><span>+90 532 000 00 00</span></div>
+        <div class="footer-contact-item"><i data-lucide="map-pin" width="14" height="14"></i><span>Ankara, Türkiye</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 Ays Interiors. Tüm hakları saklıdır.</span>
+      <a href="admin/login.html">Admin Girişi</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const KEYS = { profile: 'ays_profile', packages: 'ays_packages', messages: 'ays_messages' };
+
+function loadProfile() {
+  try {
+    const p = JSON.parse(localStorage.getItem(KEYS.profile) || 'null') || {};
+    if (p.email) document.getElementById('ci-email').textContent = p.email;
+    if (p.phone) document.getElementById('ci-phone').textContent = p.phone;
+    if (p.location) document.getElementById('ci-location').textContent = p.location;
+    if (p.instagram) document.getElementById('ci-instagram').href = 'https://instagram.com/' + p.instagram.replace('@','');
+    if (p.linkedin) document.getElementById('ci-linkedin').href = 'https://linkedin.com/in/' + p.linkedin;
+  } catch(e) {}
+}
+
+function loadPackages() {
+  try {
+    const pkgs = JSON.parse(localStorage.getItem(KEYS.packages) || '[]');
+    const sel = document.getElementById('fservice');
+    pkgs.forEach(pkg => {
+      const o = document.createElement('option');
+      o.value = pkg.title; o.textContent = pkg.title + ' Paketi';
+      sel.appendChild(o);
+    });
+  } catch(e) {}
+}
+
+function checkUrlParam() {
+  const p = new URLSearchParams(window.location.search).get('paket');
+  if (!p) return;
+  const sel = document.getElementById('fservice');
+  const val = decodeURIComponent(p).toLowerCase();
+  for (let opt of sel.options) {
+    if (opt.value.toLowerCase().includes(val)) { opt.selected = true; break; }
+  }
+}
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('fname').value.trim();
+  const email = document.getElementById('femail').value.trim();
+  const msg = document.getElementById('fmessage').value.trim();
+  const err = document.getElementById('formError');
+  if (!name || !email || !msg) { err.textContent = 'Lütfen zorunlu alanları doldurun.'; err.style.display = 'block'; return; }
+  err.style.display = 'none';
+  try {
+    const msgs = JSON.parse(localStorage.getItem(KEYS.messages) || '[]');
+    msgs.unshift({ id: 'msg_'+Date.now(), name, email, phone: document.getElementById('fphone').value, service: document.getElementById('fservice').value, message: msg, date: new Date().toISOString(), read: false });
+    localStorage.setItem(KEYS.messages, JSON.stringify(msgs));
+  } catch(e) {}
+  document.getElementById('formWrap').style.display = 'none';
+  document.getElementById('formSuccess').classList.add('show');
+});
+
+window.addEventListener('scroll', () => document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 30));
+document.getElementById('hamburger').addEventListener('click', function() { this.classList.toggle('active'); document.getElementById('mobileNav').classList.toggle('open'); });
+const obs = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }), {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+lucide.createIcons();
+loadProfile(); loadPackages(); checkUrlParam();
+</script>
+</body>
+</html>

@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Danışmanlık — Ays Interiors</title>
+  <meta name="description" content="Ays Interiors danışmanlık paketleri — iç mimarlık tasarım danışmanlığı, konsept geliştirme ve uygulama takibi hizmetleri." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ─── CSS Custom Properties ─── */
+    :root {
+      --bg: #F9F6F1;
+      --dark: #1C1A18;
+      --gold: #C8A97A;
+      --taupe: #8C7B6E;
+      --border: #E8E2D9;
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body: 'Jost', sans-serif;
+      --nav-height: 72px;
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.8;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── Navbar ─── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      transition: background var(--transition), backdrop-filter var(--transition), border-bottom var(--transition);
+    }
+
+    .navbar.scrolled {
+      background: rgba(249, 246, 241, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      flex: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.825rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      font-size: 0.75rem !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--dark) !important;
+    }
+
+    .nav-cta::after { display: none !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--dark);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ─── Page Hero ─── */
+    .page-hero {
+      min-height: 40vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: calc(var(--nav-height) + 48px) 48px 64px;
+      background: var(--dark);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(200, 169, 122, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .page-hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(2rem, 5.5vw, 4rem);
+      color: #F9F6F1;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+      margin-bottom: 16px;
+      max-width: 720px;
+    }
+
+    .page-hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(249, 246, 241, 0.6);
+      letter-spacing: 0.04em;
+      max-width: 520px;
+    }
+
+    /* ─── Intro Section ─── */
+    .intro-section {
+      padding: 96px 48px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .intro-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .intro-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .intro-inner p {
+      font-size: 1.05rem;
+      font-weight: 300;
+      color: var(--taupe);
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .intro-inner p:last-child { margin-bottom: 0; }
+
+    /* ─── Package Cards ─── */
+    .packages-section {
+      padding: 96px 48px;
+      background: var(--bg);
+    }
+
+    .packages-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--dark);
+      line-height: 1.2;
+    }
+
+    .packages-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .package-card {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: #FFFFFF;
+      border: 1px solid var(--border);
+      padding: 40px 36px;
+      transition: box-shadow 0.4s ease, transform 0.4s ease;
+    }
+
+    .package-card:hover {
+      box-shadow: 0 16px 48px rgba(28, 26, 24, 0.09);
+      transform: translateY(-4px);
+    }
+
+    .package-card.theme-dark {
+      background: var(--dark);
+      border-color: var(--dark);
+      color: #F9F6F1;
+    }
+
+    .package-card.featured {
+      border: 2px solid var(--gold);
+    }
+
+    .popular-badge {
+      position: absolute;
+      top: -1px;
+      right: 28px;
+      background: var(--gold);
+      color: var(--dark);
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+    }
+
+    .package-slogan {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+
+    .package-card.theme-dark .package-slogan { color: var(--gold); }
+
+    .package-title {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.75rem;
+      color: var(--dark);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .package-card.theme-dark .package-title { color: #F9F6F1; }
+
+    .package-divider {
+      width: 32px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .package-price {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 300;
+      color: var(--dark);
+      margin-bottom: 28px;
+    }
+
+    .package-card.theme-dark .package-price { color: #F9F6F1; }
+
+    .package-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      margin-bottom: 36px;
+    }
+
+    .package-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.875rem;
+      color: var(--taupe);
+      line-height: 1.5;
+    }
+
+    .package-card.theme-dark .package-features li { color: rgba(249, 246, 241, 0.65); }
+
+    .package-features li i {
+      width: 16px;
+      height: 16px;
+      color: var(--gold);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .package-cta {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 14px 24px;
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--dark);
+      color: var(--dark);
+      background: transparent;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+      cursor: pointer;
+      margin-top: auto;
+    }
+
+    .package-cta:hover {
+      background: var(--dark);
+      color: var(--bg);
+    }
+
+    .package-card.featured .package-cta {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--dark);
+    }
+
+    .package-card.featured .package-cta:hover {
+      background: #b8935c;
+      border-color: #b8935c;
+    }
+
+    .package-card.theme-dark .package-cta {
+      border-color: rgba(249, 246, 241, 0.3);
+      color: #F9F6F1;
+    }
+
+    .package-card.theme-dark .package-cta:hover {
+      background: rgba(249, 246, 241, 0.1);
+    }
+
+    /* ─── Process Section ─── */
+    .process-section {
+      padding: 96px 48px;
+      background: var(--dark);
+    }
+
+    .process-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .process-section .section-eyebrow { color: var(--gold); }
+    .process-section .section-title { color: #F9F6F1; }
+
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      margin-top: 64px;
+    }
+
+    .process-step {
+      padding: 40px 36px;
+      border-left: 1px solid rgba(249, 246, 241, 0.08);
+      position: relative;
+    }
+
+    .process-step:last-child { border-right: 1px solid rgba(249, 246, 241, 0.08); }
+
+    .process-number {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 3.5rem;
+      font-weight: 300;
+      color: rgba(200, 169, 122, 0.25);
+      line-height: 1;
+      margin-bottom: 20px;
+    }
+
+    .process-step-icon {
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(200, 169, 122, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .process-step-icon i {
+      width: 20px;
+      height: 20px;
+      color: var(--gold);
+    }
+
+    .process-step-title {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: #F9F6F1;
+      margin-bottom: 12px;
+    }
+
+    .process-step-desc {
+      font-size: 0.85rem;
+      color: rgba(249, 246, 241, 0.5);
+      line-height: 1.7;
+    }
+
+    /* ─── FAQ / SSS Section ─── */
+    .faq-section {
+      padding: 96px 48px;
+      background: var(--bg);
+    }
+
+    .faq-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .faq-list {
+      margin-top: 56px;
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+    }
+
+    .faq-question {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 0;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 400;
+      color: var(--dark);
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      gap: 24px;
+      transition: color 0.3s;
+    }
+
+    .faq-question:hover { color: var(--gold); }
+
+    .faq-question.open { color: var(--gold); }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.35s ease;
+    }
+
+    .faq-icon i { width: 18px; height: 18px; }
+    .faq-question.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer-wrap {
+      overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .faq-answer-wrap.open {
+      max-height: 400px;
+    }
+
+    .faq-answer {
+      padding: 0 0 24px 0;
+      font-size: 0.9rem;
+      color: var(--taupe);
+      line-height: 1.85;
+    }
+
+    /* ─── CTA Banner ─── */
+    .cta-banner {
+      padding: 96px 48px;
+      background: var(--dark);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--gold));
+    }
+
+    .cta-banner-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+      margin-top: 24px;
+    }
+
+    .cta-banner h2 {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: #F9F6F1;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .cta-banner p {
+      font-size: 0.95rem;
+      color: rgba(249, 246, 241, 0.55);
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 40px;
+      background: var(--gold);
+      color: var(--dark);
+      font-family: var(--font-body);
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid var(--gold);
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .cta-btn:hover {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    .cta-btn i { width: 16px; height: 16px; }
+
+    /* ─── Notification Toast ─── */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      z-index: 3000;
+      background: var(--dark);
+      color: #F9F6F1;
+      border-left: 3px solid var(--gold);
+      padding: 16px 24px;
+      font-size: 0.875rem;
+      max-width: 340px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: all;
+    }
+
+    .toast strong {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 4px;
+      color: var(--gold);
+    }
+
+    /* ─── Reveal animation ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      background: var(--dark);
+      color: rgba(249, 246, 241, 0.7);
+      padding: 72px 48px 0;
+    }
+
+    .footer-grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(249, 246, 241, 0.08);
+    }
+
+    .footer-logo {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--bg);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .footer-desc {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      font-size: 0.875rem;
+      color: rgba(249, 246, 241, 0.65);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 0.875rem;
+    }
+
+    .footer-contact-item i { width: 16px; height: 16px; color: var(--gold); margin-top: 3px; flex-shrink: 0; }
+
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+    }
+
+    .footer-admin-link {
+      color: rgba(249, 246, 241, 0.15);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.72rem;
+    }
+
+    .footer-admin-link:hover { color: rgba(249, 246, 241, 0.45); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .packages-grid { grid-template-columns: 1fr 1fr; }
+      .packages-grid > :last-child:nth-child(3) { grid-column: 1 / -1; max-width: 480px; margin: 0 auto; }
+      .process-steps { grid-template-columns: repeat(2, 1fr); }
+      .process-step:nth-child(3) { border-left: none; border-top: 1px solid rgba(249, 246, 241, 0.08); }
+      .process-step:nth-child(4) { border-top: 1px solid rgba(249, 246, 241, 0.08); }
+      .process-step:last-child { border-right: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid > :first-child { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 0 24px; }
+      .nav-links { display: none; position: fixed; top: var(--nav-height); left: 0; right: 0; bottom: 0; background: var(--bg); flex-direction: column; justify-content: center; align-items: center; gap: 28px; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .page-hero { padding: calc(var(--nav-height) + 32px) 24px 48px; }
+      .intro-section { padding: 64px 24px; }
+      .packages-section { padding: 64px 24px; }
+      .packages-grid { grid-template-columns: 1fr; }
+      .packages-grid > :last-child:nth-child(3) { max-width: 100%; }
+      .process-section { padding: 64px 24px; }
+      .process-steps { grid-template-columns: 1fr; gap: 0; }
+      .process-step { border-left: none; border-top: 1px solid rgba(249, 246, 241, 0.08); border-right: none; padding: 32px 24px; }
+      .process-step:first-child { border-top: none; }
+      .process-step:last-child { border-right: none; }
+      .faq-section { padding: 64px 24px; }
+      .cta-banner { padding: 64px 24px; }
+      .footer { padding: 48px 24px 0; }
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; padding-bottom: 36px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .toast { left: 16px; right: 16px; bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Ana navigasyon">
+    <a href="index.html" class="nav-logo" aria-label="Ays Interiors ana sayfa">ays interiors</a>
+    <button class="hamburger" id="hamburger" aria-label="Menüyü aç/kapat" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links" role="menubar">
+      <li role="none"><a href="index.html" role="menuitem">Ana Sayfa</a></li>
+      <li role="none"><a href="portfolio.html" role="menuitem">Portfolyo</a></li>
+      <li role="none"><a href="danismanlik.html" role="menuitem" class="active">Danışmanlık</a></li>
+      <li role="none"><a href="hakkimda.html" role="menuitem">Hakkımda</a></li>
+      <li role="none"><a href="iletisim.html" role="menuitem">İletişim</a></li>
+      <li role="none"><a href="danismanlik.html" class="nav-cta" role="menuitem" aria-label="Danışmanlık hizmeti al">Danışmanlık Al</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════ PAGE HERO ═══════════════════════════════ -->
+  <section class="page-hero" aria-label="Danışmanlık sayfa başlığı">
+    <p class="page-hero-eyebrow">Hizmetlerimiz</p>
+    <h1>Size Özel Tasarım Danışmanlığı</h1>
+    <p class="page-hero-subtitle">Hayalinizdeki mekânı birlikte yaratıyoruz — ilk adım ücretsiz.</p>
+  </section>
+
+  <!-- ═══════════════════════════════ INTRO SECTION ═══════════════════════════════ -->
+  <section class="intro-section" aria-label="Danışmanlık tanıtımı">
+    <div class="intro-inner reveal">
+      <p class="intro-eyebrow">Yaklaşımımız</p>
+      <div id="intro-text">
+        <!-- Dynamically populated from localStorage or defaults -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ PACKAGES ═══════════════════════════════ -->
+  <section class="packages-section" aria-label="Danışmanlık paketleri">
+    <div class="packages-inner">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">Paketlerimiz</p>
+        <h2 class="section-title">İhtiyacınıza Uygun Çözüm</h2>
+      </div>
+      <div class="packages-grid" id="packages-grid">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ PROCESS SECTION ═══════════════════════════════ -->
+  <section class="process-section" aria-label="Çalışma süreci">
+    <div class="process-inner">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">Süreç</p>
+        <h2 class="section-title">Nasıl Çalışırız?</h2>
+      </div>
+      <div class="process-steps" role="list">
+        <div class="process-step reveal" role="listitem">
+          <div class="process-number">01</div>
+          <div class="process-step-icon" aria-hidden="true">
+            <i data-lucide="message-circle"></i>
+          </div>
+          <h3 class="process-step-title">İlk Görüşme</h3>
+          <p class="process-step-desc">Ücretsiz 30 dakikalık online görüşmede ihtiyaçlarınızı, beklentilerinizi ve projenizin kapsamını birlikte değerlendiriyoruz.</p>
+        </div>
+        <div class="process-step reveal" role="listitem" style="transition-delay:0.1s;">
+          <div class="process-number">02</div>
+          <div class="process-step-icon" aria-hidden="true">
+            <i data-lucide="pencil-ruler"></i>
+          </div>
+          <h3 class="process-step-title">Konsept Geliştirme</h3>
+          <p class="process-step-desc">Size özel tasarım konsepti, renk paleti, malzeme önerileri ve 3D görselleştirmelerle projenizin nasıl görüneceğini hayatlandırıyoruz.</p>
+        </div>
+        <div class="process-step reveal" role="listitem" style="transition-delay:0.2s;">
+          <div class="process-number">03</div>
+          <div class="process-step-icon" aria-hidden="true">
+            <i data-lucide="package"></i>
+          </div>
+          <h3 class="process-step-title">Uygulama</h3>
+          <p class="process-step-desc">Onaylanan konsept doğrultusunda malzeme seçimi, tedarik süreci ve uygulama takibini sizin adınıza yönetiyoruz.</p>
+        </div>
+        <div class="process-step reveal" role="listitem" style="transition-delay:0.3s;">
+          <div class="process-number">04</div>
+          <div class="process-step-icon" aria-hidden="true">
+            <i data-lucide="home"></i>
+          </div>
+          <h3 class="process-step-title">Teslim</h3>
+          <p class="process-step-desc">Hayalinizdeki mekânı size teslim ediyoruz. Son dokunuşlara kadar her aşamada yanınızdayız.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ FAQ SECTION ═══════════════════════════════ -->
+  <section class="faq-section" aria-label="Sıkça sorulan sorular">
+    <div class="faq-inner">
+      <div class="section-header reveal">
+        <p class="section-eyebrow">SSS</p>
+        <h2 class="section-title">Merak Ettikleriniz</h2>
+      </div>
+      <div class="faq-list" id="faq-list" role="list">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ CTA BANNER ═══════════════════════════════ -->
+  <section class="cta-banner" aria-label="İletişime geç">
+    <p class="cta-banner-eyebrow">Hazır mısınız?</p>
+    <h2>Projenizi Konuşalım</h2>
+    <p>İlk görüşme ücretsiz. Hayalinizdeki mekân için bugün bir adım atın.</p>
+    <a href="iletisim.html" class="cta-btn" aria-label="Randevu al, iletişim sayfasına git">
+      Randevu Al <i data-lucide="arrow-right"></i>
+    </a>
+  </section>
+
+  <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-logo">ays interiors</span>
+        <p class="footer-desc">Mekânlarınızı hayallerinizle buluşturuyoruz. İç mimarlık ve tasarım danışmanlığında 8 yıllık deneyim.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Hızlı Linkler</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Ana Sayfa</a></li>
+          <li><a href="portfolio.html">Portfolyo</a></li>
+          <li><a href="danismanlik.html">Danışmanlık</a></li>
+          <li><a href="hakkimda.html">Hakkımda</a></li>
+          <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>İletişim</h4>
+        <div class="footer-contact-item">
+          <i data-lucide="mail"></i>
+          <span>info@aysinteriors.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <i data-lucide="phone"></i>
+          <span>+90 532 000 00 00</span>
+        </div>
+        <div class="footer-contact-item">
+          <i data-lucide="map-pin"></i>
+          <span>Çankaya, Ankara</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ays Interiors. Tüm hakları saklıdır.</p>
+      <a href="admin/login.html" class="footer-admin-link" tabindex="-1" aria-hidden="true">Admin Girişi</a>
+    </div>
+  </footer>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <strong id="toast-title"></strong>
+    <span id="toast-body"></span>
+  </div>
+
+  <!-- ═══════════════════════════════ JAVASCRIPT ═══════════════════════════════ -->
+  <script>
+    'use strict';
+
+    /* ─── Lucide Init ─── */
+    lucide.createIcons();
+
+    /* ─── Helpers ─── */
+    function getLS(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    function escapeHtml(str) {
+      if (typeof str !== 'string') return str != null ? String(str) : '';
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+
+    /* ─── Default Data ─── */
+    const DEFAULT_PACKAGES = [
+      {
+        id: 'pkg_001',
+        title: 'Temel Danışmanlık',
+        slogan: 'Hızlı ve etkili çözümler',
+        price: '₺2.500\'den başlayan',
+        features: [
+          '1 oda konsept tasarımı',
+          '3D görselleştirme (2 açı)',
+          'Renk paleti ve malzeme önerileri',
+          '2 revizyon hakkı',
+          'Online görüşme desteği'
+        ],
+        featured: false,
+        ctaText: 'Bu Paketi Seç',
+        theme: 'standard',
+        order: 1
+      },
+      {
+        id: 'pkg_002',
+        title: 'Profesyonel Paket',
+        slogan: 'Kapsamlı tasarım çözümü',
+        price: '₺5.800\'den başlayan',
+        features: [
+          'Tüm ev konsept tasarımı',
+          'Detaylı 3D görselleştirme',
+          'Malzeme tedarik yönetimi',
+          'Mobilya yerleşim planı',
+          'Sınırsız revizyon hakkı',
+          'Whatsapp destek hattı',
+          'Uygulama takibi'
+        ],
+        featured: true,
+        ctaText: 'Bu Paketi Seç',
+        theme: 'standard',
+        order: 2
+      },
+      {
+        id: 'pkg_003',
+        title: 'Premium Danışmanlık',
+        slogan: 'Tam kapsamlı proje yönetimi',
+        price: 'Fiyat teklifi alın',
+        features: [
+          'End-to-end proje yönetimi',
+          'Mimari çizimler ve planlar',
+          'Müteahhit koordinasyonu',
+          'Malzeme ve mobilya alımları',
+          'Haftalık saha ziyareti',
+          'Fotoğraf çekimi ve sunum',
+          '6 ay garanti sonrası destek'
+        ],
+        featured: false,
+        ctaText: 'Teklif İste',
+        theme: 'dark',
+        order: 3
+      }
+    ];
+
+    const DEFAULT_FAQ = [
+      {
+        q: 'Süreç ne kadar sürer?',
+        a: 'Proje kapsamına bağlı olarak değişmekle birlikte, tek oda danışmanlığı genellikle 2–3 hafta, tam ev projesi ise 6–12 hafta arasında tamamlanmaktadır. İlk görüşmede detaylı bir zaman planı sunuyoruz.'
+      },
+      {
+        q: 'Fiyatlar neye göre belirlenir?',
+        a: 'Fiyatlandırmamız; projenin büyüklüğü, kapsam dahilindeki odaların sayısı, uygulama takibi dahil olup olmadığı ve revizyon gereksinimlerine göre şekillenmektedir. Temel danışmanlık paketlerimiz sabit fiyatlı iken premium paket için özel teklif hazırlıyoruz.'
+      },
+      {
+        q: 'Online danışmanlık mümkün mü?',
+        a: 'Evet, tamamen online danışmanlık hizmeti sunuyoruz. Video görüşme, ekran paylaşımı ve dijital dosya aktarımıyla fiziksel bir buluşmaya gerek kalmadan projenizi hayata geçirebilirsiniz. Türkiye\'nin her yerinden ve yurt dışından hizmet almak mümkün.'
+      },
+      {
+        q: 'Kaç revizyon hakkım var?',
+        a: 'Temel pakette 2 revizyon hakkı, Profesyonel pakette sınırsız revizyon hakkı sunuyoruz. Revizyon taleplerinizi haftalık olarak topluyoruz ve 3 iş günü içinde güncelleme teslim ediyoruz.'
+      },
+      {
+        q: 'Uygulama takibi nedir?',
+        a: 'Uygulama takibi hizmetinde; hazırladığımız tasarımın sahadaki uygulanmasını yerinde veya uzaktan denetliyoruz. Malzeme ve mobilya alımlarında refakat ediyor, müteahhit ve tedarikçilerle koordinasyonu sağlıyor, olası değişikliklerde anlık çözümler üretiyoruz.'
+      }
+    ];
+
+    const DEFAULT_INTRO = {
+      p1: 'Her proje, o mekânda yaşayacak insanların hikâyesiyle başlar. Biz sadece güzel bir dekor yaratmıyoruz; sizin için, sizinle birlikte yaşayan, nefes alan ve zaman içinde sevilen mekânlar tasarlıyoruz.',
+      p2: 'Sekiz yıllık deneyimimizle birlikte öğrendik ki en iyi tasarım, müşterinin hayatına, alışkanlıklarına ve hayallerine gerçekten kulak verildiğinde ortaya çıkar. Danışmanlık sürecimizin her adımında şeffaflık, yaratıcılık ve kalıcılık önceliğimizdir.'
+    };
+
+    /* ─── Seed Packages ─── */
+    function seedPackages() {
+      try {
+        if (!localStorage.getItem('ays_packages')) {
+          localStorage.setItem('ays_packages', JSON.stringify(DEFAULT_PACKAGES));
+        }
+      } catch (e) {}
+    }
+    seedPackages();
+
+    /* ─── Render Intro ─── */
+    function renderIntro() {
+      const container = document.getElementById('intro-text');
+      let intro = DEFAULT_INTRO;
+
+      try {
+        const settings = getLS('ays_settings', {});
+        if (settings.consultingIntro) {
+          intro = settings.consultingIntro;
+        }
+      } catch (e) {}
+
+      container.innerHTML = `
+        <p>${escapeHtml(intro.p1 || DEFAULT_INTRO.p1)}</p>
+        <p>${escapeHtml(intro.p2 || DEFAULT_INTRO.p2)}</p>
+      `;
+    }
+
+    /* ─── Render Packages ─── */
+    function renderPackages() {
+      const grid = document.getElementById('packages-grid');
+      const packages = getLS('ays_packages', DEFAULT_PACKAGES);
+
+      const sorted = [...packages].sort((a, b) => (a.order || 0) - (b.order || 0));
+
+      grid.innerHTML = '';
+
+      sorted.forEach((pkg, idx) => {
+        const isDark = pkg.theme === 'dark';
+        const isFeatured = pkg.featured;
+
+        const card = document.createElement('article');
+        card.className = [
+          'package-card',
+          'reveal',
+          isFeatured ? 'featured' : '',
+          isDark ? 'theme-dark' : ''
+        ].filter(Boolean).join(' ');
+        card.style.transitionDelay = `${idx * 0.1}s`;
+        card.setAttribute('aria-label', `${pkg.title} danışmanlık paketi`);
+
+        const ctaHref = `iletisim.html?paket=${encodeURIComponent(pkg.title)}`;
+
+        const featuresHtml = (pkg.features || []).map(f => `
+          <li>
+            <i data-lucide="check"></i>
+            <span>${escapeHtml(f)}</span>
+          </li>
+        `).join('');
+
+        card.innerHTML = `
+          ${isFeatured ? '<span class="popular-badge" aria-label="En popüler paket">En Popüler</span>' : ''}
+          ${pkg.slogan ? `<p class="package-slogan">${escapeHtml(pkg.slogan)}</p>` : ''}
+          <h3 class="package-title">${escapeHtml(pkg.title)}</h3>
+          <div class="package-divider" aria-hidden="true"></div>
+          ${pkg.price ? `<p class="package-price">${escapeHtml(pkg.price)}</p>` : ''}
+          <ul class="package-features" aria-label="${escapeHtml(pkg.title)} özellikleri">
+            ${featuresHtml}
+          </ul>
+          <a href="${ctaHref}" class="package-cta" aria-label="${escapeHtml(pkg.ctaText || 'Paket Hakkında Bilgi Al')} — ${escapeHtml(pkg.title)}">
+            ${escapeHtml(pkg.ctaText || 'Paket Hakkında Bilgi Al')}
+          </a>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+
+      // Observe cards for reveal
+      grid.querySelectorAll('.package-card.reveal').forEach(el => revealObserver.observe(el));
+    }
+
+    /* ─── Render FAQ ─── */
+    function renderFAQ() {
+      const container = document.getElementById('faq-list');
+      let faqs = DEFAULT_FAQ;
+
+      try {
+        const settings = getLS('ays_settings', {});
+        if (settings.faq && settings.faq.length > 0) {
+          faqs = settings.faq;
+        }
+      } catch (e) {}
+
+      container.innerHTML = '';
+
+      faqs.forEach((item, idx) => {
+        const faqItem = document.createElement('div');
+        faqItem.className = 'faq-item reveal';
+        faqItem.setAttribute('role', 'listitem');
+        faqItem.style.transitionDelay = `${idx * 0.07}s`;
+
+        const btnId = `faq-btn-${idx}`;
+        const answerId = `faq-answer-${idx}`;
+
+        faqItem.innerHTML = `
+          <button
+            class="faq-question"
+            id="${btnId}"
+            aria-expanded="false"
+            aria-controls="${answerId}"
+          >
+            <span>${escapeHtml(item.q)}</span>
+            <span class="faq-icon" aria-hidden="true"><i data-lucide="plus"></i></span>
+          </button>
+          <div class="faq-answer-wrap" id="${answerId}" role="region" aria-labelledby="${btnId}">
+            <p class="faq-answer">${escapeHtml(item.a)}</p>
+          </div>
+        `;
+
+        container.appendChild(faqItem);
+      });
+
+      lucide.createIcons();
+
+      // Attach accordion events
+      container.querySelectorAll('.faq-question').forEach(btn => {
+        btn.addEventListener('click', () => toggleFAQ(btn));
+      });
+
+      container.querySelectorAll('.faq-item.reveal').forEach(el => revealObserver.observe(el));
+    }
+
+    /* ─── Accordion Toggle ─── */
+    function toggleFAQ(btn) {
+      const isOpen = btn.classList.contains('open');
+      const answerId = btn.getAttribute('aria-controls');
+      const answerWrap = document.getElementById(answerId);
+
+      // Close all others
+      document.querySelectorAll('.faq-question.open').forEach(openBtn => {
+        if (openBtn !== btn) {
+          openBtn.classList.remove('open');
+          openBtn.setAttribute('aria-expanded', 'false');
+          const otherAnswerId = openBtn.getAttribute('aria-controls');
+          const otherWrap = document.getElementById(otherAnswerId);
+          if (otherWrap) otherWrap.classList.remove('open');
+        }
+      });
+
+      if (isOpen) {
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        answerWrap.classList.remove('open');
+      } else {
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        answerWrap.classList.add('open');
+      }
+    }
+
+    /* ─── Toast ─── */
+    let toastTimer = null;
+
+    function showToast(title, body, duration = 5000) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-title').textContent = title;
+      document.getElementById('toast-body').textContent = body;
+      toast.classList.add('show');
+      if (toastTimer) clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), duration);
+    }
+
+    /* ─── URL Param: ?paket=xxx ─── */
+    function handleUrlParams() {
+      const params = new URLSearchParams(window.location.search);
+      const paket = params.get('paket');
+      if (paket) {
+        const decoded = decodeURIComponent(paket);
+        setTimeout(() => {
+          showToast(
+            `${decoded} paketi seçildi`,
+            'İletişim formunu doldurarak randevu alabilirsiniz.'
+          );
+        }, 800);
+      }
+    }
+
+    /* ─── Navbar Scroll ─── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    /* ─── Hamburger ─── */
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+      });
+    });
+
+    /* ─── Intersection Observer for reveals ─── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.07, rootMargin: '0px 0px -40px 0px' });
+
+    /* ─── Init ─── */
+    renderIntro();
+    renderPackages();
+    renderFAQ();
+    handleUrlParams();
+
+    // Observe static reveal elements
+    document.querySelectorAll('.reveal:not(.package-card):not(.faq-item)').forEach(el => revealObserver.observe(el));
+
+    // Trigger navbar on load
+    if (window.scrollY > 40) navbar.classList.add('scrolled');
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

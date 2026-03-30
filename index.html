@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Ays Interiors — Ankara merkezli lüks iç mimarlık ve danışmanlık stüdyosu. Mekânları hikâyelere dönüştürüyoruz." />
+  <meta name="keywords" content="iç mimarlık, interior design, ankara, danışmanlık, tasarım, ev dekorasyonu, ays interiors" />
+  <meta name="author" content="Ays Interiors" />
+  <meta property="og:title" content="Ays Interiors — İç Mimarlık & Danışmanlık" />
+  <meta property="og:description" content="Mekânlar, Hikâye Anlatır. Ankara merkezli lüks iç tasarım stüdyosu." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#1C1A18" />
+  <title>Ays Interiors — İç Mimarlık & Danışmanlık</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- ── Site Loader ──────────────────────────────────────── -->
+  <div class="site-loader" id="siteLoader">
+    <span class="site-loader__logo">ays interiors</span>
+  </div>
+
+  <!-- ── Scroll-to-top ────────────────────────────────────── -->
+  <button class="scroll-top" id="scrollTop" aria-label="Sayfanın başına git">
+    <i data-lucide="arrow-up" style="width:18px;height:18px;"></i>
+  </button>
+
+  <!-- ── Mobile Navigation Overlay ───────────────────────── -->
+  <div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="Menü">
+    <button class="mobile-nav__close" id="mobileNavClose" aria-label="Menüyü kapat">
+      <i data-lucide="x" style="width:16px;height:16px;"></i>
+      <span>Kapat</span>
+    </button>
+    <a href="index.html" class="mobile-nav__link">Ana Sayfa</a>
+    <a href="portfolyo.html" class="mobile-nav__link">Portfolyo</a>
+    <a href="danismanlik.html" class="mobile-nav__link">Danışmanlık</a>
+    <a href="hakkimda.html" class="mobile-nav__link">Hakkımda</a>
+    <a href="iletisim.html" class="mobile-nav__link">İletişim</a>
+  </div>
+
+  <!-- ── Navbar ───────────────────────────────────────────── -->
+  <nav class="navbar navbar--transparent" id="navbar" aria-label="Ana navigasyon">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo" aria-label="Ays Interiors Ana Sayfa">
+        ays interiors
+      </a>
+
+      <div class="navbar__nav" role="list">
+        <a href="index.html" class="navbar__link active" role="listitem">Ana Sayfa</a>
+        <a href="portfolyo.html" class="navbar__link" role="listitem">Portfolyo</a>
+        <a href="danismanlik.html" class="navbar__link" role="listitem">Danışmanlık</a>
+        <a href="hakkimda.html" class="navbar__link" role="listitem">Hakkımda</a>
+        <a href="iletisim.html" class="navbar__link" role="listitem">İletişim</a>
+        <a href="danismanlik.html" class="btn btn-solid navbar__cta">Danışmanlık Al</a>
+      </div>
+
+      <button
+        class="navbar__hamburger"
+        id="hamburgerBtn"
+        aria-label="Menüyü aç"
+        aria-expanded="false"
+        aria-controls="mobileNav"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- HERO                                                   -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="hero" id="heroSection" aria-label="Hero bölümü">
+    <div
+      class="hero__bg"
+      style="background-image: url('https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80');"
+      role="img"
+      aria-label="Lüks iç mekan tasarımı"
+    ></div>
+    <div class="hero__overlay"></div>
+
+    <div class="hero__content">
+      <span class="hero__eyebrow">ays interiors</span>
+      <h1 class="hero__title">Mekânlar,<br />Hikâye Anlatır</h1>
+      <hr class="hero__rule" />
+      <p class="hero__subtitle">İç mimarlık ve danışmanlık hizmetleri — Ankara</p>
+      <div class="hero__buttons">
+        <a href="portfolyo.html" class="btn btn-ghost">
+          <i data-lucide="grid" style="width:15px;height:15px;"></i>
+          Portfolyoyu Keşfet
+        </a>
+        <a href="danismanlik.html" class="btn btn-solid">
+          <i data-lucide="message-circle" style="width:15px;height:15px;"></i>
+          Danışmanlık Al
+        </a>
+      </div>
+    </div>
+
+    <span class="hero__vertical-text" aria-hidden="true">
+      Interior Design &amp; Consultancy — Ankara
+    </span>
+
+    <div class="hero__scroll-hint" aria-hidden="true">
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- FEATURED PROJECTS                                      -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="section" id="featuredProjects" aria-label="Öne çıkan projeler">
+    <div class="container">
+      <header class="section-header reveal">
+        <span class="section-header__eyebrow">Seçkin Çalışmalar</span>
+        <h2 class="section-header__title">Öne Çıkan Projeler</h2>
+        <p class="section-header__desc">
+          Her mekan, sahibinin ruhunu ve yaşam biçimini yansıtır. İşte en çok konuşulan tasarımlarımızdan bir seçki.
+        </p>
+      </header>
+
+      <!-- Grid rendered by JS -->
+      <div
+        class="portfolio-grid portfolio-grid--asymmetric"
+        id="featuredGrid"
+        aria-label="Öne çıkan proje kartları"
+      >
+        <!-- Populated by initFeaturedProjects() -->
+        <div class="empty-state" id="featuredPlaceholder">
+          <i data-lucide="image" class="empty-state__icon"></i>
+          <p class="empty-state__title">Projeler yükleniyor…</p>
+        </div>
+      </div>
+
+      <div class="reveal delay-3">
+        <a href="portfolyo.html" class="portfolio-all-link">
+          Tüm Projeleri Gör
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- SERVICES                                               -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="section" id="services" aria-label="Hizmetler">
+    <div class="container">
+      <header class="section-header section-header--center reveal">
+        <span class="section-header__eyebrow">Ne Yapıyoruz</span>
+        <h2 class="section-header__title">Hizmetlerimiz</h2>
+        <p class="section-header__desc">
+          Fikir aşamasından anahtar teslimine kadar, her adımda yanınızdayız.
+        </p>
+      </header>
+
+      <div class="services-grid">
+        <article class="service-item reveal delay-1">
+          <i data-lucide="palette" class="service-item__icon" aria-hidden="true"></i>
+          <h3 class="service-item__title">Konsept Tasarım</h3>
+          <p class="service-item__desc">
+            Yaşam alışkanlıklarınızı ve estetik beklentilerinizi dinleyerek size özel bir tasarım dili oluşturuyoruz. Renk paletinden malzeme seçimine kadar her detay özenle kurgulanır.
+          </p>
+        </article>
+
+        <article class="service-item reveal delay-2">
+          <i data-lucide="layers" class="service-item__icon" aria-hidden="true"></i>
+          <h3 class="service-item__title">Uygulama Takibi</h3>
+          <p class="service-item__desc">
+            Tasarımın hayata geçirilmesi sürecinde müteahhit, tedarikçi ve usta koordinasyonunu üstleniyoruz. Projeniz zamanında ve bütçesi dahilinde teslim edilir.
+          </p>
+        </article>
+
+        <article class="service-item reveal delay-3">
+          <i data-lucide="video" class="service-item__icon" aria-hidden="true"></i>
+          <h3 class="service-item__title">Online Danışmanlık</h3>
+          <p class="service-item__desc">
+            Ankara dışında mısınız? Video görüşme, 3D görseller ve dijital tablolar aracılığıyla mekanınıza nereden olursanız olun dokunuyoruz. Hızlı, esnek ve etkili çözümler.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- STATS BAND                                             -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="stats-band" id="statsBand" aria-label="İstatistikler">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal delay-1">
+          <span class="stat-item__number" data-count="127" data-suffix="">0</span>
+          <span class="stat-item__label">Tamamlanan Proje</span>
+        </div>
+        <div class="stat-item reveal delay-2">
+          <span class="stat-item__number" data-count="8" data-suffix="">0</span>
+          <span class="stat-item__label">Yıl Deneyim</span>
+        </div>
+        <div class="stat-item reveal delay-3">
+          <span class="stat-item__number" data-count="4" data-suffix="">0</span>
+          <span class="stat-item__label">Şehir</span>
+        </div>
+        <div class="stat-item reveal delay-4">
+          <span class="stat-item__number" data-count="100" data-suffix="%">0</span>
+          <span class="stat-item__label">Müşteri Memnuniyeti</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- BRIEF ABOUT / CTA BAND                                 -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="section" id="aboutBrief" aria-label="Hakkımızda özet">
+    <div class="container">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;">
+        <div class="reveal reveal--left">
+          <div style="
+            aspect-ratio:4/5;
+            overflow:hidden;
+            position:relative;
+          ">
+            <img
+              src="https://images.unsplash.com/photo-1616137422495-1e9e46e2aa77?w=800&q=80"
+              alt="Tasarımcının çalışma masası ve eskizler"
+              style="width:100%;height:100%;object-fit:cover;transition:transform 0.8s ease;"
+              loading="lazy"
+              onmouseover="this.style.transform='scale(1.04)'"
+              onmouseout="this.style.transform='scale(1)'"
+            />
+            <!-- Floating accent box -->
+            <div style="
+              position:absolute;
+              bottom:-24px;
+              right:-24px;
+              width:160px;
+              height:160px;
+              border:1px solid var(--gold);
+              z-index:-1;
+            " aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="reveal reveal--right" style="padding-block:20px;">
+          <span class="section-header__eyebrow">Tasarımcı Hakkında</span>
+          <h2 style="margin-top:12px;margin-bottom:24px;" id="designerNameHeading">
+            Mekânı<br />Sanata Dönüştürmek
+          </h2>
+          <p style="margin-bottom:20px;" id="designerBio">
+            Sekiz yılı aşkın deneyimim boyunca 127'den fazla projeye imza attım. Her tasarım, sahibinin kimliğini ve hayat biçimini yansıtan özgün bir hikâye taşır.
+          </p>
+          <p style="margin-bottom:36px;" id="designerBio2">
+            Ankara'da kurulu Ays Interiors olarak; minimalizm, doğal malzemeler ve özgün estetik anlayışıyla mekânları dönüştürüyoruz. Sizinle birlikte hayalinizdeki mekanı yaratmak için buradayız.
+          </p>
+          <div style="display:flex; gap:12px; flex-wrap:wrap;">
+            <a href="hakkimda.html" class="btn btn-ghost--dark btn-ghost">Daha Fazla Bilgi</a>
+            <a href="iletisim.html" class="btn btn-solid">İletişime Geç</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- PACKAGES TEASER                                        -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="section" style="background:var(--dark);" id="packageTeaser" aria-label="Danışmanlık paketleri">
+    <div class="container">
+      <header class="section-header section-header--center reveal" style="color:var(--white);">
+        <span class="section-header__eyebrow">Hizmet Paketleri</span>
+        <h2 class="section-header__title" style="color:var(--white);">İhtiyacınıza Özel Paket</h2>
+        <p class="section-header__desc" style="color:rgba(255,255,255,0.55);">
+          Bütçenize ve projenizin kapsamına göre esnek seçenekler sunuyoruz.
+        </p>
+      </header>
+
+      <div class="packages-grid" id="packagesGrid">
+        <!-- Populated by renderPackages() -->
+      </div>
+
+      <div style="text-align:center; margin-top:56px;" class="reveal delay-4">
+        <a href="danismanlik.html" class="btn btn-ghost">
+          Tüm Paketleri İncele
+          <i data-lucide="arrow-right" style="width:15px;height:15px;"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- TESTIMONIAL / QUOTE                                    -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <section class="section" id="testimonial" aria-label="Müşteri yorumu">
+    <div class="container" style="max-width:800px; text-align:center;">
+      <div class="reveal">
+        <i data-lucide="quote" style="width:32px;height:32px;color:var(--gold);margin:0 auto 32px;" aria-hidden="true"></i>
+        <blockquote>
+          <p style="font-family:var(--font-heading);font-style:italic;font-size:clamp(1.4rem,2.5vw,2rem);color:var(--dark);line-height:1.5;margin-bottom:28px;">
+            "Evimizi tasarlarken bize sadece güzel bir mekan değil, gerçekten kendimizi ait hissettiğimiz bir yuva sundular. Her detayda bizi düşünüldüklerini hissettik."
+          </p>
+          <footer>
+            <cite style="font-style:normal;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--taupe);">
+              — Ayşe &amp; Burak Kaya, Ankara / 2023
+            </cite>
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- FOOTER                                                 -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <footer class="footer" id="siteFooter" aria-label="Site altbilgisi">
+    <div class="container">
+      <div class="footer__grid">
+        <!-- Col 1: Brand -->
+        <div>
+          <a href="index.html" class="footer__logo" aria-label="Ays Interiors">ays interiors</a>
+          <p class="footer__tagline">
+            İç mimarlık ve danışmanlık hizmetleri. Her mekân bir hikâye taşır; o hikâyeyi birlikte yazalım.
+          </p>
+          <div class="footer__social" aria-label="Sosyal medya">
+            <a href="#" class="footer__social-link" aria-label="Instagram">
+              <i data-lucide="instagram" style="width:16px;height:16px;"></i>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Pinterest">
+              <i data-lucide="layout-grid" style="width:16px;height:16px;"></i>
+            </a>
+            <a href="#" class="footer__social-link" aria-label="Houzz">
+              <i data-lucide="home" style="width:16px;height:16px;"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div>
+          <p class="footer__col-title">Hızlı Bağlantılar</p>
+          <nav class="footer__links" aria-label="Alt bilgi navigasyon">
+            <a href="index.html" class="footer__link">Ana Sayfa</a>
+            <a href="portfolyo.html" class="footer__link">Portfolyo</a>
+            <a href="danismanlik.html" class="footer__link">Danışmanlık</a>
+            <a href="hakkimda.html" class="footer__link">Hakkımda</a>
+            <a href="iletisim.html" class="footer__link">İletişim</a>
+          </nav>
+        </div>
+
+        <!-- Col 3: Contact -->
+        <div>
+          <p class="footer__col-title">İletişim</p>
+          <div class="footer__contact-item">
+            <i data-lucide="map-pin" class="footer__contact-icon" aria-hidden="true"></i>
+            <span class="footer__contact-text" id="footerAddress">Çankaya, Ankara, Türkiye</span>
+          </div>
+          <div class="footer__contact-item">
+            <i data-lucide="mail" class="footer__contact-icon" aria-hidden="true"></i>
+            <a href="mailto:merhaba@aysinteriors.com" class="footer__contact-text" style="transition:color 0.3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color=''">
+              merhaba@aysinteriors.com
+            </a>
+          </div>
+          <div class="footer__contact-item">
+            <i data-lucide="phone" class="footer__contact-icon" aria-hidden="true"></i>
+            <a href="tel:+905001234567" class="footer__contact-text" style="transition:color 0.3s;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color=''">
+              +90 500 123 45 67
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="footer__bottom">
+        <p class="footer__copyright">
+          &copy; <span id="footerYear">2026</span> Ays Interiors. Tüm hakları saklıdır.
+        </p>
+        <a href="admin/index.html" class="footer__admin-link" aria-label="Yönetim paneli">
+          yönetim
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════════════════════ -->
+  <!-- JAVASCRIPT                                             -->
+  <!-- ══════════════════════════════════════════════════════ -->
+  <script>
+    /* ── Init Lucide Icons ─────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+
+    /* ──────────────────────────────────────────────────────
+       LOCAL STORAGE SEED DATA
+    ────────────────────────────────────────────────────── */
+    function initSeedData() {
+      // Seed projects
+      if (!localStorage.getItem('ays_projects')) {
+        const projects = [
+          {
+            id: 'proj_001',
+            title: 'Minimalist Salon Tasarımı',
+            slug: 'minimalist-salon-tasarimi',
+            category: 'salon',
+            city: 'Ankara',
+            year: 2023,
+            area: '65m²',
+            featured: true,
+            status: 'published',
+            image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80',
+            gallery: [
+              'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80',
+              'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80',
+            ],
+            description: 'Ankara\'da 65 metrekarelik bir salonu minimalist çizgilerle yeniden yorumladık. Bej tonlar, doğal ahşap ve ince metal aksesuarlar bir araya geldi.',
+            tags: ['minimalizm', 'bej', 'ahşap', 'doğal malzeme'],
+            createdAt: '2023-04-15',
+          },
+          {
+            id: 'proj_002',
+            title: 'Akdeniz Mutfak',
+            slug: 'akdeniz-mutfak',
+            category: 'mutfak',
+            city: 'İstanbul',
+            year: 2023,
+            area: '28m²',
+            featured: true,
+            status: 'published',
+            image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
+            gallery: [
+              'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
+            ],
+            description: 'Akdeniz\'in sıcak renklerinden ilham alınan bu mutfak tasarımında terracotta, beyaz mermer ve pirinç detaylar kullanıldı.',
+            tags: ['akdeniz', 'terracotta', 'mermer', 'pirinç'],
+            createdAt: '2023-07-22',
+          },
+          {
+            id: 'proj_003',
+            title: 'Spa Banyo',
+            slug: 'spa-banyo',
+            category: 'banyo',
+            city: 'Ankara',
+            year: 2022,
+            area: '18m²',
+            featured: true,
+            status: 'published',
+            image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80',
+            gallery: [
+              'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80',
+            ],
+            description: 'Günün yorgunluğunu atmanızı sağlayan bir spa atmosferi. Doğal taş, ahşap ve bitki detaylarıyla zenginleştirilen bir banyo.',
+            tags: ['spa', 'doğal taş', 'ahşap', 'wellness'],
+            createdAt: '2022-11-10',
+          },
+          {
+            id: 'proj_004',
+            title: 'Huzurlu Yatak Odası',
+            slug: 'huzurlu-yatak-odasi',
+            category: 'yatak-odasi',
+            city: 'İzmir',
+            year: 2023,
+            area: '35m²',
+            featured: false,
+            status: 'published',
+            image: 'https://images.unsplash.com/photo-1505693314120-0d443867891c?w=800&q=80',
+            gallery: [
+              'https://images.unsplash.com/photo-1505693314120-0d443867891c?w=800&q=80',
+            ],
+            description: 'İzmir\'de deniz manzaralı bu yatak odası tasarımında huzuru merkeze aldık. Soft tonlar ve dokusal zenginlik öne çıkıyor.',
+            tags: ['huzur', 'soft', 'deniz', 'minimalist'],
+            createdAt: '2023-09-05',
+          },
+          {
+            id: 'proj_005',
+            title: 'Modern Ofis',
+            slug: 'modern-ofis',
+            category: 'ofis',
+            city: 'Ankara',
+            year: 2024,
+            area: '120m²',
+            featured: false,
+            status: 'published',
+            image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
+            gallery: [
+              'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
+            ],
+            description: 'Kurumsal kimliği yansıtan bu ofis tasarımında üretkenliği destekleyen ergonomik çözümler ve ferah açık alanlar oluşturuldu.',
+            tags: ['ofis', 'kurumsal', 'ergonomik', 'modern'],
+            createdAt: '2024-02-18',
+          },
+          {
+            id: 'proj_006',
+            title: 'Bohem Salon',
+            slug: 'bohem-salon',
+            category: 'salon',
+            city: 'İstanbul',
+            year: 2022,
+            area: '55m²',
+            featured: false,
+            status: 'published',
+            image: 'https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=800&q=80',
+            gallery: [
+              'https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=800&q=80',
+            ],
+            description: 'Bohemyen esintilerin Akdeniz sıcaklığıyla buluştuğu bu salon; doku zenginliği, rattan ve seyahat hatıraları ile kişiselleştirildi.',
+            tags: ['bohem', 'rattan', 'doku', 'renk'],
+            createdAt: '2022-08-30',
+          },
+        ];
+        localStorage.setItem('ays_projects', JSON.stringify(projects));
+      }
+
+      // Seed packages
+      if (!localStorage.getItem('ays_packages')) {
+        const packages = [
+          {
+            id: 'pkg_001',
+            title: 'Temel Danışmanlık',
+            slogan: 'Hızlı ve etkili çözümler',
+            price: '₺2.500\'den başlayan',
+            featured: false,
+            theme: 'standard',
+            order: 1,
+            features: [
+              '1 oda konsept tasarımı',
+              '3D görselleştirme',
+              'Malzeme önerileri',
+              '2 revizyon hakkı',
+            ],
+          },
+          {
+            id: 'pkg_002',
+            title: 'Profesyonel Paket',
+            slogan: 'Kapsamlı tasarım deneyimi',
+            price: '₺7.500\'den başlayan',
+            featured: true,
+            theme: 'gold',
+            order: 2,
+            features: [
+              '3 oda tasarımı',
+              'Tam 3D modelleme',
+              'Malzeme & tedarikçi listesi',
+              'Uygulama takibi',
+              '5 revizyon hakkı',
+              'Mobilya seçim danışmanlığı',
+            ],
+          },
+          {
+            id: 'pkg_003',
+            title: 'Premium Tam Hizmet',
+            slogan: 'Anahtar teslim tasarım çözümü',
+            price: 'Teklif alın',
+            featured: false,
+            theme: 'dark',
+            order: 3,
+            features: [
+              'Tüm mekan tasarımı',
+              'Mimari çizimler',
+              'Müteahhit koordinasyonu',
+              'Alışveriş danışmanlığı',
+              'Sınırsız revizyon',
+              '1 yıl destek',
+            ],
+          },
+        ];
+        localStorage.setItem('ays_packages', JSON.stringify(packages));
+      }
+
+      // Seed categories
+      if (!localStorage.getItem('ays_categories')) {
+        const categories = [
+          { id: 'cat_salon', slug: 'salon', label: 'Salon', order: 1 },
+          { id: 'cat_mutfak', slug: 'mutfak', label: 'Mutfak', order: 2 },
+          { id: 'cat_banyo', slug: 'banyo', label: 'Banyo', order: 3 },
+          { id: 'cat_yatak', slug: 'yatak-odasi', label: 'Yatak Odası', order: 4 },
+          { id: 'cat_ofis', slug: 'ofis', label: 'Ofis', order: 5 },
+        ];
+        localStorage.setItem('ays_categories', JSON.stringify(categories));
+      }
+
+      // Seed profile
+      if (!localStorage.getItem('ays_profile')) {
+        const profile = {
+          name: 'Ays Interiors',
+          designer: 'Ayşe Nür',
+          title: 'İç Mimar & Tasarım Direktörü',
+          bio: 'Sekiz yılı aşkın deneyimim boyunca 127\'den fazla projeye imza attım. Her tasarım, sahibinin kimliğini ve hayat biçimini yansıtan özgün bir hikâye taşır.',
+          bio2: 'Ankara\'da kurulu Ays Interiors olarak; minimalizm, doğal malzemeler ve özgün estetik anlayışıyla mekânları dönüştürüyoruz.',
+          email: 'merhaba@aysinteriors.com',
+          phone: '+90 500 123 45 67',
+          address: 'Çankaya, Ankara, Türkiye',
+          instagram: 'https://instagram.com/aysinteriors',
+          pinterest: 'https://pinterest.com/aysinteriors',
+          avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&q=80',
+          updatedAt: new Date().toISOString(),
+        };
+        localStorage.setItem('ays_profile', JSON.stringify(profile));
+      }
+
+      // Seed settings
+      if (!localStorage.getItem('ays_settings')) {
+        const settings = {
+          siteName: 'Ays Interiors',
+          tagline: 'İç Mimarlık & Danışmanlık',
+          heroTitle: 'Mekânlar, Hikâye Anlatır',
+          heroSubtitle: 'İç mimarlık ve danışmanlık hizmetleri — Ankara',
+          heroImage: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80',
+          primaryColor: '#C8A97A',
+          maintenanceMode: false,
+          updatedAt: new Date().toISOString(),
+        };
+        localStorage.setItem('ays_settings', JSON.stringify(settings));
+      }
+
+      // Init messages array
+      if (!localStorage.getItem('ays_messages')) {
+        localStorage.setItem('ays_messages', JSON.stringify([]));
+      }
+    }
+
+    /* ──────────────────────────────────────────────────────
+       FEATURED PROJECTS RENDERER
+    ────────────────────────────────────────────────────── */
+    function initFeaturedProjects() {
+      const grid = document.getElementById('featuredGrid');
+      if (!grid) return;
+
+      let projects = [];
+      try {
+        projects = JSON.parse(localStorage.getItem('ays_projects')) || [];
+      } catch (e) {
+        console.warn('Proje verisi okunamadı:', e);
+      }
+
+      const featured = projects.filter(p => p.featured).slice(0, 3);
+
+      if (featured.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state" style="grid-column:1/-1;">
+            <p class="empty-state__title" style="font-style:italic;">Henüz öne çıkan proje yok.</p>
+          </div>`;
+        return;
+      }
+
+      const categoryLabels = {
+        salon: 'Salon',
+        mutfak: 'Mutfak',
+        banyo: 'Banyo',
+        'yatak-odasi': 'Yatak Odası',
+        ofis: 'Ofis',
+      };
+
+      // Regenerate grid layout
+      // First card spans 2 rows (large), rest fill right column
+      grid.innerHTML = '';
+      grid.style.display = 'grid';
+      grid.style.gridTemplateColumns = '2fr 1fr';
+      grid.style.gap = '20px';
+
+      featured.forEach((proj, index) => {
+        const label = categoryLabels[proj.category] || proj.category;
+        const isLarge = index === 0;
+
+        const card = document.createElement('article');
+        card.className = `project-card${isLarge ? ' project-card--large' : ''} reveal delay-${index + 1}`;
+        if (isLarge) {
+          card.style.gridRow = 'span 2';
+        }
+        card.setAttribute('aria-label', proj.title);
+
+        card.innerHTML = `
+          <img
+            class="project-card__img"
+            src="${escapeHtml(proj.image)}"
+            alt="${escapeHtml(proj.title)}"
+            loading="${index === 0 ? 'eager' : 'lazy'}"
+          />
+          <div class="project-card__overlay">
+            <span class="project-card__category">${escapeHtml(label)}</span>
+            <h3 class="project-card__name">${escapeHtml(proj.title)}</h3>
+            <p class="project-card__meta">${escapeHtml(proj.city)} · ${proj.year} · ${escapeHtml(proj.area)}</p>
+          </div>
+          <a
+            href="portfolyo.html?id=${encodeURIComponent(proj.id)}"
+            class="project-card__link-icon"
+            aria-label="${escapeHtml(proj.title)} projesini görüntüle"
+          >
+            <i data-lucide="arrow-up-right" style="width:16px;height:16px;"></i>
+          </a>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      // Re-init icons for dynamically added elements
+      lucide.createIcons();
+
+      // Trigger reveal for newly added cards
+      setTimeout(() => {
+        const newCards = grid.querySelectorAll('.reveal');
+        newCards.forEach(el => {
+          revealObserver.observe(el);
+        });
+      }, 50);
+    }
+
+    /* ──────────────────────────────────────────────────────
+       PACKAGES RENDERER
+    ────────────────────────────────────────────────────── */
+    function renderPackages() {
+      const grid = document.getElementById('packagesGrid');
+      if (!grid) return;
+
+      let packages = [];
+      try {
+        packages = JSON.parse(localStorage.getItem('ays_packages')) || [];
+      } catch (e) {
+        console.warn('Paket verisi okunamadı:', e);
+      }
+
+      packages.sort((a, b) => (a.order || 0) - (b.order || 0));
+
+      if (packages.length === 0) {
+        grid.innerHTML = '<p style="color:rgba(255,255,255,0.4);text-align:center;grid-column:1/-1;">Paket bulunamadı.</p>';
+        return;
+      }
+
+      grid.innerHTML = '';
+
+      packages.forEach((pkg, index) => {
+        const isFeatured = pkg.featured;
+        const card = document.createElement('article');
+        card.className = `package-card${isFeatured ? ' featured' : ''} reveal delay-${index + 1}`;
+        card.setAttribute('aria-label', pkg.title);
+
+        const featuresHtml = (pkg.features || []).map(f => `
+          <li class="package-card__feature">
+            <i data-lucide="check" class="package-card__feature-icon" style="width:15px;height:15px;" aria-hidden="true"></i>
+            <span>${escapeHtml(f)}</span>
+          </li>
+        `).join('');
+
+        card.innerHTML = `
+          ${isFeatured ? '<span class="package-badge">Popüler</span>' : ''}
+          <span class="package-card__eyebrow">${isFeatured ? 'En Çok Tercih Edilen' : 'Hizmet Paketi'}</span>
+          <h3 class="package-card__title">${escapeHtml(pkg.title)}</h3>
+          <p class="package-card__slogan">${escapeHtml(pkg.slogan)}</p>
+          <span class="package-card__price">${escapeHtml(pkg.price)}</span>
+          <hr class="package-card__divider" />
+          <ul class="package-card__features">${featuresHtml}</ul>
+          <a
+            href="danismanlik.html?paket=${encodeURIComponent(pkg.id)}"
+            class="btn ${isFeatured ? 'btn-solid' : 'btn-ghost--dark btn-ghost'} w-full"
+            style="justify-content:center;"
+          >
+            ${pkg.price === 'Teklif alın' ? 'Teklif İste' : 'Paketi Seç'}
+          </a>
+        `;
+
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+
+      setTimeout(() => {
+        const newCards = grid.querySelectorAll('.reveal');
+        newCards.forEach(el => {
+          revealObserver.observe(el);
+        });
+      }, 50);
+    }
+
+    /* ──────────────────────────────────────────────────────
+       PROFILE DATA INJECTOR
+    ────────────────────────────────────────────────────── */
+    function applyProfileData() {
+      let profile = {};
+      try {
+        profile = JSON.parse(localStorage.getItem('ays_profile')) || {};
+      } catch (e) { /* silent */ }
+
+      const nameEl = document.getElementById('designerNameHeading');
+      const bioEl = document.getElementById('designerBio');
+      const bio2El = document.getElementById('designerBio2');
+      const addrEl = document.getElementById('footerAddress');
+
+      // Only update if elements exist and profile has data
+      if (profile.bio && bioEl) bioEl.textContent = profile.bio;
+      if (profile.bio2 && bio2El) bio2El.textContent = profile.bio2;
+      if (profile.address && addrEl) addrEl.textContent = profile.address;
+    }
+
+    /* ──────────────────────────────────────────────────────
+       NAVBAR SCROLL EFFECT
+    ────────────────────────────────────────────────────── */
+    function initNavbar() {
+      const navbar = document.getElementById('navbar');
+      if (!navbar) return;
+
+      let lastScroll = 0;
+      let ticking = false;
+
+      const onScroll = () => {
+        lastScroll = window.scrollY;
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            if (lastScroll > 60) {
+              navbar.classList.add('scrolled');
+            } else {
+              navbar.classList.remove('scrolled');
+            }
+            ticking = false;
+          });
+          ticking = true;
+        }
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll(); // run on init
+    }
+
+    /* ──────────────────────────────────────────────────────
+       HAMBURGER / MOBILE NAV
+    ────────────────────────────────────────────────────── */
+    function initMobileNav() {
+      const btn = document.getElementById('hamburgerBtn');
+      const nav = document.getElementById('mobileNav');
+      const closeBtn = document.getElementById('mobileNavClose');
+      if (!btn || !nav) return;
+
+      const open = () => {
+        nav.classList.add('open');
+        btn.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      };
+
+      const close = () => {
+        nav.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+
+      btn.addEventListener('click', () => {
+        const isOpen = nav.classList.contains('open');
+        isOpen ? close() : open();
+      });
+
+      if (closeBtn) closeBtn.addEventListener('click', close);
+
+      // Close on link click
+      nav.querySelectorAll('.mobile-nav__link').forEach(link => {
+        link.addEventListener('click', close);
+      });
+
+      // Close on ESC
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && nav.classList.contains('open')) close();
+      });
+
+      // Close on outside click
+      nav.addEventListener('click', e => {
+        if (e.target === nav) close();
+      });
+    }
+
+    /* ──────────────────────────────────────────────────────
+       COUNT-UP ANIMATION
+    ────────────────────────────────────────────────────── */
+    function animateCountUp(el) {
+      const target = parseInt(el.getAttribute('data-count'), 10);
+      const suffix = el.getAttribute('data-suffix') || '';
+      const duration = 1800;
+      const startTime = performance.now();
+
+      const easeOutQuart = t => 1 - Math.pow(1 - t, 4);
+
+      const update = (currentTime) => {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const value = Math.round(easeOutQuart(progress) * target);
+        el.textContent = value + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        } else {
+          el.textContent = target + suffix;
+        }
+      };
+
+      requestAnimationFrame(update);
+    }
+
+    function initCountUp() {
+      const counters = document.querySelectorAll('[data-count]');
+      if (!counters.length) return;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.dataset.counted) {
+            entry.target.dataset.counted = 'true';
+            animateCountUp(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+
+      counters.forEach(el => observer.observe(el));
+    }
+
+    /* ──────────────────────────────────────────────────────
+       REVEAL ANIMATIONS (INTERSECTION OBSERVER)
+    ────────────────────────────────────────────────────── */
+    let revealObserver;
+
+    function initReveal() {
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px',
+      });
+
+      document.querySelectorAll('.reveal').forEach(el => {
+        revealObserver.observe(el);
+      });
+    }
+
+    /* ──────────────────────────────────────────────────────
+       SCROLL-TO-TOP
+    ────────────────────────────────────────────────────── */
+    function initScrollTop() {
+      const btn = document.getElementById('scrollTop');
+      if (!btn) return;
+
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      }, { passive: true });
+
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    /* ──────────────────────────────────────────────────────
+       HERO PARALLAX (subtle)
+    ────────────────────────────────────────────────────── */
+    function initParallax() {
+      const heroBg = document.querySelector('.hero__bg');
+      if (!heroBg) return;
+
+      window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        const heroHeight = document.querySelector('.hero').offsetHeight;
+        if (scrollY < heroHeight) {
+          heroBg.style.transform = `translateY(${scrollY * 0.3}px)`;
+        }
+      }, { passive: true });
+    }
+
+    /* ──────────────────────────────────────────────────────
+       SITE LOADER
+    ────────────────────────────────────────────────────── */
+    function hideSiteLoader() {
+      const loader = document.getElementById('siteLoader');
+      if (!loader) return;
+      setTimeout(() => {
+        loader.classList.add('hidden');
+        // Trigger hero bg scale-in
+        const hero = document.getElementById('heroSection');
+        if (hero) hero.classList.add('loaded');
+      }, 400);
+    }
+
+    /* ──────────────────────────────────────────────────────
+       FOOTER YEAR
+    ────────────────────────────────────────────────────── */
+    function setFooterYear() {
+      const el = document.getElementById('footerYear');
+      if (el) el.textContent = new Date().getFullYear();
+    }
+
+    /* ──────────────────────────────────────────────────────
+       UTILITY: HTML ESCAPE
+    ────────────────────────────────────────────────────── */
+    function escapeHtml(str) {
+      if (typeof str !== 'string') return String(str || '');
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    /* ──────────────────────────────────────────────────────
+       BOOTSTRAP
+    ────────────────────────────────────────────────────── */
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Seed localStorage
+      initSeedData();
+
+      // 2. Inject profile data
+      applyProfileData();
+
+      // 3. Render dynamic content
+      initReveal();
+      initFeaturedProjects();
+      renderPackages();
+
+      // 4. UI behaviours
+      initNavbar();
+      initMobileNav();
+      initCountUp();
+      initScrollTop();
+      initParallax();
+      setFooterYear();
+
+      // 5. Re-init Lucide after dynamic content
+      setTimeout(() => lucide.createIcons(), 100);
+
+      // 6. Hide loader
+      hideSiteLoader();
+    });
+
+    // Fallback: hide loader on window load
+    window.addEventListener('load', () => {
+      hideSiteLoader();
+    });
+  </script>
+</body>
+</html>

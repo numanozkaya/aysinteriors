@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yönetici Girişi — Ays Interiors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  body { background: #F0EDE8; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+  .login-box { background: #fff; padding: 3rem; width: 100%; max-width: 420px; box-shadow: 0 4px 40px rgba(28,26,24,0.1); }
+  .login-logo { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 2rem; text-align: center; margin-bottom: 0.3rem; color: var(--dark); }
+  .login-sub { text-align: center; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--taupe); margin-bottom: 2.5rem; }
+  .login-field { margin-bottom: 1.5rem; }
+  .login-field label { display: block; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--taupe); margin-bottom: 0.5rem; }
+  .login-field input { width: 100%; border: none; border-bottom: 1px solid var(--border); padding: 0.7rem 0; font-family: 'Jost', sans-serif; font-size: 0.95rem; color: var(--dark); outline: none; background: transparent; transition: border-color 0.3s; }
+  .login-field input:focus { border-bottom-color: var(--gold); }
+  .login-btn { width: 100%; padding: 0.9rem; background: var(--dark); color: #fff; border: none; font-family: 'Jost', sans-serif; font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: background 0.3s; margin-top: 0.5rem; }
+  .login-btn:hover { background: var(--gold); }
+  .login-error { color: #c0392b; font-size: 0.82rem; text-align: center; margin-top: 1rem; display: none; }
+  .back-link { display: block; text-align: center; margin-top: 2rem; font-size: 0.8rem; color: var(--taupe); transition: color 0.3s; }
+  .back-link:hover { color: var(--gold); }
+  .login-divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .login-hint { font-size: 0.75rem; color: var(--taupe); text-align: center; opacity: 0.6; }
+</style>
+</head>
+<body>
+<div class="login-box">
+  <div class="login-logo">ays interiors</div>
+  <div class="login-sub">Yönetici Girişi</div>
+
+  <form id="loginForm">
+    <div class="login-field">
+      <label for="lemail">E-posta</label>
+      <input type="email" id="lemail" placeholder="admin@aysinteriors.com" autocomplete="email">
+    </div>
+    <div class="login-field">
+      <label for="lpass">Şifre</label>
+      <input type="password" id="lpass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button type="submit" class="login-btn">Giriş Yap</button>
+    <div class="login-error" id="loginError">E-posta veya şifre hatalı.</div>
+  </form>
+
+  <hr class="login-divider">
+  <p class="login-hint">Varsayılan: admin@aysinteriors.com / ays2024</p>
+  <a href="../index.html" class="back-link">← Siteye Dön</a>
+</div>
+
+<script>
+const DEFAULT_EMAIL = 'admin@aysinteriors.com';
+const DEFAULT_PASS = 'ays2024';
+const SETTINGS_KEY = 'ays_settings';
+
+function getCredentials() {
+  try {
+    const s = JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}');
+    return { email: s.adminEmail || DEFAULT_EMAIL, pass: s.adminPass || DEFAULT_PASS };
+  } catch(e) { return { email: DEFAULT_EMAIL, pass: DEFAULT_PASS }; }
+}
+
+// Already logged in?
+if (sessionStorage.getItem('aysAdminLoggedIn') === 'true') {
+  window.location.href = 'panel.html';
+}
+
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const email = document.getElementById('lemail').value.trim();
+  const pass = document.getElementById('lpass').value;
+  const creds = getCredentials();
+  if (email === creds.email && pass === creds.pass) {
+    sessionStorage.setItem('aysAdminLoggedIn', 'true');
+    window.location.href = 'panel.html';
+  } else {
+    const err = document.getElementById('loginError');
+    err.style.display = 'block';
+    setTimeout(() => err.style.display = 'none', 3000);
+  }
+});
+</script>
+</body>
+</html>

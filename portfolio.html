@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolyo — Ays Interiors</title>
+  <meta name="description" content="Ays Interiors portfolyosu — iç mimarlık projelerimizi keşfedin. Salon, mutfak, banyo, yatak odası ve ofis tasarımları." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ─── CSS Custom Properties ─── */
+    :root {
+      --bg: #F9F6F1;
+      --dark: #1C1A18;
+      --gold: #C8A97A;
+      --taupe: #8C7B6E;
+      --border: #E8E2D9;
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body: 'Jost', sans-serif;
+      --nav-height: 72px;
+      --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg);
+      color: var(--dark);
+      line-height: 1.8;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    /* ─── Navbar ─── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      padding: 0 48px;
+      transition: background var(--transition), backdrop-filter var(--transition), border-bottom var(--transition);
+    }
+
+    .navbar.scrolled {
+      background: rgba(249, 246, 241, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: var(--dark);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      flex: 1;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 0.825rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dark);
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.active::after { width: 100%; }
+
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--gold); }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border: 1px solid var(--gold);
+      color: var(--gold) !important;
+      font-size: 0.75rem !important;
+      font-weight: 500 !important;
+      letter-spacing: 0.12em !important;
+      text-transform: uppercase !important;
+      text-decoration: none;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold);
+      color: var(--dark) !important;
+    }
+
+    .nav-cta::after { display: none !important; }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--dark);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* ─── Page Hero ─── */
+    .page-hero {
+      min-height: 40vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: calc(var(--nav-height) + 48px) 48px 64px;
+      background: var(--dark);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(200, 169, 122, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .page-hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .page-hero h1 {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: #F9F6F1;
+      letter-spacing: 0.02em;
+      line-height: 1.15;
+      margin-bottom: 16px;
+    }
+
+    .page-hero-subtitle {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 300;
+      color: rgba(249, 246, 241, 0.6);
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Filter Section ─── */
+    .filter-section {
+      padding: 48px 48px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .filter-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .filter-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      margin-bottom: 20px;
+    }
+
+    .filter-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .filter-btn {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 18px 28px;
+      cursor: pointer;
+      transition: color 0.3s, border-color 0.3s;
+      white-space: nowrap;
+    }
+
+    .filter-btn:hover { color: var(--dark); }
+
+    .filter-btn.active {
+      color: var(--gold);
+      border-bottom-color: var(--gold);
+    }
+
+    /* ─── Projects Grid ─── */
+    .projects-section {
+      padding: 64px 48px 96px;
+    }
+
+    .projects-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+
+    .projects-grid.fading {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      background: var(--dark);
+    }
+
+    .project-card-image-wrap {
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .project-card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .project-card:hover .project-card-image-wrap img {
+      transform: scale(1.05);
+    }
+
+    .project-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(28, 26, 24, 0.65);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    .project-card:hover .project-card-overlay { opacity: 1; }
+
+    .project-card-inspect {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #F9F6F1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(249, 246, 241, 0.5);
+      padding: 12px 24px;
+    }
+
+    .project-card-inspect i { width: 14px; height: 14px; }
+
+    .project-card-info {
+      padding: 20px 24px 24px;
+      background: var(--bg);
+    }
+
+    .project-card-category {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .project-card-title {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.3rem;
+      font-weight: 400;
+      color: var(--dark);
+      line-height: 1.3;
+      margin-bottom: 6px;
+    }
+
+    .project-card-meta {
+      font-size: 0.75rem;
+      color: var(--taupe);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .project-card-meta span { display: flex; align-items: center; gap: 4px; }
+    .project-card-meta i { width: 12px; height: 12px; }
+
+    /* Empty state */
+    .projects-empty {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 96px 24px;
+    }
+
+    .projects-empty i {
+      width: 48px;
+      height: 48px;
+      color: var(--border);
+      margin-bottom: 24px;
+    }
+
+    .projects-empty p {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--taupe);
+    }
+
+    /* ─── Lightbox ─── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: stretch;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(28, 26, 24, 0.92);
+    }
+
+    .lightbox-inner {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      width: 100%;
+      max-width: 1400px;
+      margin: auto;
+      max-height: 90vh;
+      transform: scale(0.96) translateY(16px);
+      transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .lightbox.open .lightbox-inner {
+      transform: scale(1) translateY(0);
+    }
+
+    /* Image side */
+    .lightbox-media {
+      flex: 1.4;
+      position: relative;
+      background: #0d0c0b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .lightbox-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      max-height: 90vh;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-media img.switching { opacity: 0; }
+
+    .lightbox-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(249, 246, 241, 0.1);
+      border: 1px solid rgba(249, 246, 241, 0.2);
+      color: #F9F6F1;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 2;
+    }
+
+    .lightbox-arrow:hover { background: rgba(200, 169, 122, 0.25); }
+    .lightbox-arrow.prev { left: 20px; }
+    .lightbox-arrow.next { right: 20px; }
+    .lightbox-arrow i { width: 20px; height: 20px; }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      color: rgba(249, 246, 241, 0.5);
+    }
+
+    /* Info side */
+    .lightbox-info {
+      width: 380px;
+      flex-shrink: 0;
+      background: var(--bg);
+      overflow-y: auto;
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 10;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(28, 26, 24, 0.6);
+      border: 1px solid rgba(249, 246, 241, 0.2);
+      color: #F9F6F1;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .lightbox-close:hover { background: var(--gold); }
+    .lightbox-close i { width: 18px; height: 18px; }
+
+    .lightbox-category-badge {
+      display: inline-block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid var(--gold);
+      padding: 5px 14px;
+      margin-bottom: 20px;
+      align-self: flex-start;
+    }
+
+    .lightbox-title {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 2rem;
+      line-height: 1.2;
+      color: var(--dark);
+      margin-bottom: 24px;
+    }
+
+    .lightbox-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .lightbox-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .lightbox-meta-item label {
+      display: block;
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      margin-bottom: 4px;
+    }
+
+    .lightbox-meta-item span {
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
+
+    .lightbox-description {
+      font-size: 0.875rem;
+      color: var(--taupe);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    .lightbox-materials-label {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--taupe);
+      margin-bottom: 12px;
+    }
+
+    .lightbox-materials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .material-chip {
+      font-size: 0.72rem;
+      padding: 5px 14px;
+      border: 1px solid var(--border);
+      color: var(--dark);
+      background: transparent;
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Reveal animation ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── Footer ─── */
+    .footer {
+      background: var(--dark);
+      color: rgba(249, 246, 241, 0.7);
+      padding: 72px 48px 0;
+    }
+
+    .footer-grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 64px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(249, 246, 241, 0.08);
+    }
+
+    .footer-logo {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--bg);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .footer-desc {
+      font-size: 0.85rem;
+      line-height: 1.9;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .footer-links a {
+      font-size: 0.875rem;
+      color: rgba(249, 246, 241, 0.65);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--gold); }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 14px;
+      font-size: 0.875rem;
+    }
+
+    .footer-contact-item i { width: 16px; height: 16px; color: var(--gold); margin-top: 3px; flex-shrink: 0; }
+
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 24px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+    }
+
+    .footer-admin-link {
+      color: rgba(249, 246, 241, 0.15);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-size: 0.72rem;
+    }
+
+    .footer-admin-link:hover { color: rgba(249, 246, 241, 0.45); }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .lightbox-inner { flex-direction: column; max-height: 95vh; }
+      .lightbox-media { flex: none; height: 55vw; max-height: 50vh; }
+      .lightbox-info { width: 100%; overflow-y: auto; max-height: 45vh; padding: 32px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid > :first-child { grid-column: 1 / -1; }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 0 24px; }
+      .nav-links { display: none; position: fixed; top: var(--nav-height); left: 0; right: 0; bottom: 0; background: var(--bg); flex-direction: column; justify-content: center; align-items: center; gap: 28px; }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      .page-hero { padding: calc(var(--nav-height) + 32px) 24px 48px; }
+      .filter-section { padding: 32px 24px 0; }
+      .projects-section { padding: 40px 24px 64px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .filter-btn { padding: 14px 18px; font-size: 0.72rem; }
+      .lightbox-inner { flex-direction: column; border-radius: 0; max-height: 100vh; }
+      .lightbox-media { height: 50vw; min-height: 240px; }
+      .lightbox-info { max-height: none; flex: 1; overflow-y: auto; padding: 24px; }
+      .lightbox-meta-grid { grid-template-columns: 1fr; gap: 12px; }
+      .footer { padding: 48px 24px 0; }
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; padding-bottom: 36px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════ NAVBAR ═══════════════════════════════ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Ana navigasyon">
+    <a href="index.html" class="nav-logo" aria-label="Ays Interiors ana sayfa">ays interiors</a>
+    <button class="hamburger" id="hamburger" aria-label="Menüyü aç/kapat" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links" role="menubar">
+      <li role="none"><a href="index.html" role="menuitem">Ana Sayfa</a></li>
+      <li role="none"><a href="portfolio.html" role="menuitem" class="active">Portfolyo</a></li>
+      <li role="none"><a href="danismanlik.html" role="menuitem">Danışmanlık</a></li>
+      <li role="none"><a href="hakkimda.html" role="menuitem">Hakkımda</a></li>
+      <li role="none"><a href="iletisim.html" role="menuitem">İletişim</a></li>
+      <li role="none"><a href="danismanlik.html" class="nav-cta" role="menuitem" aria-label="Danışmanlık hizmeti al">Danışmanlık Al</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════ PAGE HERO ═══════════════════════════════ -->
+  <section class="page-hero" aria-label="Portfolyo sayfa başlığı">
+    <p class="page-hero-eyebrow">Projelerimiz</p>
+    <h1>Portfolyomuz</h1>
+    <p class="page-hero-subtitle">Her mekânda bir hikâye var</p>
+  </section>
+
+  <!-- ═══════════════════════════════ FILTER ═══════════════════════════════ -->
+  <section class="filter-section" aria-label="Proje filtreleme">
+    <div class="filter-inner">
+      <p class="filter-label">Kategoriye göre filtrele</p>
+      <div class="filter-buttons" id="filter-buttons" role="group" aria-label="Kategori filtreleri">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ PROJECTS GRID ═══════════════════════════════ -->
+  <section class="projects-section" aria-label="Proje galerisi">
+    <div class="projects-inner">
+      <div class="projects-grid" id="projects-grid" role="list">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════ LIGHTBOX ═══════════════════════════════ -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Proje detayları" aria-hidden="true">
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-inner">
+
+      <!-- Media side -->
+      <div class="lightbox-media" id="lightbox-media">
+        <img src="" alt="" id="lightbox-img" />
+        <button class="lightbox-arrow prev" id="lb-prev" aria-label="Önceki görsel">
+          <i data-lucide="chevron-left"></i>
+        </button>
+        <button class="lightbox-arrow next" id="lb-next" aria-label="Sonraki görsel">
+          <i data-lucide="chevron-right"></i>
+        </button>
+        <div class="lightbox-counter" id="lb-counter"></div>
+      </div>
+
+      <!-- Info side -->
+      <div class="lightbox-info" id="lightbox-info">
+        <button class="lightbox-close" id="lightbox-close" aria-label="Lightbox'ı kapat">
+          <i data-lucide="x"></i>
+        </button>
+        <span class="lightbox-category-badge" id="lb-category"></span>
+        <h2 class="lightbox-title" id="lb-title"></h2>
+        <div class="lightbox-divider"></div>
+        <div class="lightbox-meta-grid" id="lb-meta"></div>
+        <p class="lightbox-description" id="lb-description"></p>
+        <p class="lightbox-materials-label" id="lb-mat-label" style="display:none;">Kullanılan Malzemeler</p>
+        <div class="lightbox-materials" id="lb-materials"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-grid">
+      <div>
+        <span class="footer-logo">ays interiors</span>
+        <p class="footer-desc">Mekânlarınızı hayallerinizle buluşturuyoruz. İç mimarlık ve tasarım danışmanlığında 8 yıllık deneyim.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Hızlı Linkler</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Ana Sayfa</a></li>
+          <li><a href="portfolio.html">Portfolyo</a></li>
+          <li><a href="danismanlik.html">Danışmanlık</a></li>
+          <li><a href="hakkimda.html">Hakkımda</a></li>
+          <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>İletişim</h4>
+        <div class="footer-contact-item">
+          <i data-lucide="mail"></i>
+          <span>info@aysinteriors.com</span>
+        </div>
+        <div class="footer-contact-item">
+          <i data-lucide="phone"></i>
+          <span>+90 532 000 00 00</span>
+        </div>
+        <div class="footer-contact-item">
+          <i data-lucide="map-pin"></i>
+          <span>Çankaya, Ankara</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Ays Interiors. Tüm hakları saklıdır.</p>
+      <a href="admin/login.html" class="footer-admin-link" tabindex="-1" aria-hidden="true">Admin Girişi</a>
+    </div>
+  </footer>
+
+  <!-- ═══════════════════════════════ JAVASCRIPT ═══════════════════════════════ -->
+  <script>
+    'use strict';
+
+    /* ─── Lucide Init ─── */
+    lucide.createIcons();
+
+    /* ─── Seed Data ─── */
+    const DEFAULT_CATEGORIES = [
+      { id: 'cat_salon', name: 'Salon', slug: 'salon' },
+      { id: 'cat_mutfak', name: 'Mutfak', slug: 'mutfak' },
+      { id: 'cat_banyo', name: 'Banyo', slug: 'banyo' },
+      { id: 'cat_yatak', name: 'Yatak Odası', slug: 'yatak-odasi' },
+      { id: 'cat_ofis', name: 'Ofis', slug: 'ofis' },
+    ];
+
+    const DEFAULT_PROJECTS = [
+      {
+        id: 'proj_001',
+        title: 'Modern Minimalist Salon',
+        category: 'salon',
+        location: 'Ankara',
+        year: 2024,
+        area: 52,
+        description: 'Doğal malzemelerin modern çizgilerle buluştuğu bu salon tasarımında; geniş pencereler, nötr renk paleti ve özenle seçilmiş mobilyalar kullanılmıştır. Yaşam alanına huzur ve ferahlık katmak hedeflenmiştir.',
+        materials: ['Mermer', 'Ceviz Ahşap', 'Doğal Keten', 'Travertin', 'Pirinç Detaylar'],
+        featured: true,
+        images: [
+          'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80',
+          'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=1200&q=80',
+          'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80',
+        ],
+        coverIndex: 0,
+        createdAt: '2024-03-01T10:00:00Z'
+      },
+      {
+        id: 'proj_002',
+        title: 'Endüstriyel Chic Salon',
+        category: 'salon',
+        location: 'İstanbul',
+        year: 2023,
+        area: 68,
+        description: 'Beton yüzeyler, açık tuğla duvarlar ve sıcak ahşap dokunuşlarla harmanlanan bu tasarım, endüstriyel estetiği evinize taşır. Ham ve rafine unsurların mükemmel dengesi.',
+        materials: ['Beton', 'Açık Tuğla', 'Meşe Ahşap', 'Ham Demir', 'Deri'],
+        featured: false,
+        images: [
+          'https://images.unsplash.com/photo-1600210492486-724fe5c67fb3?w=1200&q=80',
+          'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&q=80',
+        ],
+        coverIndex: 0,
+        createdAt: '2023-11-15T10:00:00Z'
+      },
+      {
+        id: 'proj_003',
+        title: 'Beyaz Mutfak Tasarımı',
+        category: 'mutfak',
+        location: 'Ankara',
+        year: 2024,
+        area: 18,
+        description: 'Işığı içine çeken parlak beyaz dolaplara, kalın mermer tezgâha ve gizli aydınlatma detaylarına sahip bu mutfak tasarımı; pişirme deneyimini lüks bir ritüele dönüştürür.',
+        materials: ['Carrara Mermer', 'Lak Kaplamalı MDF', 'Paslanmaz Çelik', 'Seramik Fayans'],
+        featured: true,
+        images: [
+          'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80',
+          'https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=1200&q=80',
+        ],
+        coverIndex: 0,
+        createdAt: '2024-01-20T10:00:00Z'
+      },
+      {
+        id: 'proj_004',
+        title: 'Spa Banyo Deneyimi',
+        category: 'banyo',
+        location: 'İzmir',
+        year: 2023,
+        area: 14,
+        description: 'Her gün bir spa deneyimi yaşamak için tasarlanan bu banyo; ısıtmalı zeminler, yağmur duşu, doğal taş kaplama ve özel aydınlatma çözümleriyle ev banyosunu beş yıldızlı bir mekâna taşıdı.',
+        materials: ['Traverten', 'Tik Ahşap', 'Pirinç Armatür', 'Cam Mozaik'],
+        featured: false,
+        images: [
+          'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=1200&q=80',
+          'https://images.unsplash.com/photo-1620626011761-996317702149?w=1200&q=80',
+        ],
+        coverIndex: 0,
+        createdAt: '2023-09-10T10:00:00Z'
+      },
+      {
+        id: 'proj_005',
+        title: 'Sakin Yatak Odası',
+        category: 'yatak-odasi',
+        location: 'Ankara',
+        year: 2024,
+        area: 24,
+        description: 'Dinlendirici renk tonu, özel tasarım başlık ve yatak çerçevesi, hassas aydınlatma kurgusu ile bu yatak odası tasarımı; yorgunluğu atan ve zihinsel huzur sunan bir sığınak yaratmaktadır.',
+        materials: ['Keten Kumaş', 'Ceviz Kaplama', 'Kadife', 'Bakır Aksesuarlar'],
+        featured: true,
+        images: [
+          'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=1200&q=80',
+          'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=1200&q=80',
+        ],
+        coverIndex: 0,
+        createdAt: '2024-02-14T10:00:00Z'
+      },
+      {
+        id: 'proj_006',
+        title: 'Yaratıcı Ofis Ortamı',
+        category: 'ofis',
+        location: 'Ankara',
+        year: 2023,
+        area: 120,
+        description: 'Çalışan verimliliğini ve yaratıcılığını ön planda tutan bu ofis tasarımında; bölümlendirilmiş çalışma alanları, akustik paneller, odaklanma kabinleri ve sosyal lounge bölgesi bir arada tasarlanmıştır.',
+        materials: ['Endüstriyel Halı', 'Akustik Panel', 'Cam Bölme', 'Ergonomik Mobilya'],
+        featured: false,
+        images: [
+          'https://images.unsplash.com/photo-1497366216548-37526070297c?w=1200&q=80',
+          'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200&q=80',
+        ],
+        coverIndex: 0,
+        createdAt: '2023-07-05T10:00:00Z'
+      },
+    ];
+
+    function seedData() {
+      try {
+        if (!localStorage.getItem('ays_categories')) {
+          localStorage.setItem('ays_categories', JSON.stringify(DEFAULT_CATEGORIES));
+        }
+        if (!localStorage.getItem('ays_projects')) {
+          localStorage.setItem('ays_projects', JSON.stringify(DEFAULT_PROJECTS));
+        }
+      } catch (e) {
+        console.warn('localStorage seed failed:', e);
+      }
+    }
+
+    function getLS(key, fallback = []) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    /* ─── State ─── */
+    seedData();
+    let allProjects = getLS('ays_projects', DEFAULT_PROJECTS);
+    let allCategories = getLS('ays_categories', DEFAULT_CATEGORIES);
+    let activeFilter = 'all';
+
+    /* ─── Current lightbox state ─── */
+    let lbProject = null;
+    let lbImageIndex = 0;
+
+    /* ─── Render Filter Buttons ─── */
+    function renderFilters() {
+      const container = document.getElementById('filter-buttons');
+      container.innerHTML = '';
+
+      const allBtn = document.createElement('button');
+      allBtn.className = 'filter-btn' + (activeFilter === 'all' ? ' active' : '');
+      allBtn.textContent = 'Tümü';
+      allBtn.dataset.filter = 'all';
+      allBtn.setAttribute('aria-pressed', activeFilter === 'all');
+      allBtn.addEventListener('click', () => setFilter('all'));
+      container.appendChild(allBtn);
+
+      allCategories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.className = 'filter-btn' + (activeFilter === cat.slug ? ' active' : '');
+        btn.textContent = cat.name;
+        btn.dataset.filter = cat.slug;
+        btn.setAttribute('aria-pressed', activeFilter === cat.slug);
+        btn.addEventListener('click', () => setFilter(cat.slug));
+        container.appendChild(btn);
+      });
+
+      lucide.createIcons();
+    }
+
+    /* ─── Filter Logic ─── */
+    function setFilter(slug) {
+      if (activeFilter === slug) return;
+      activeFilter = slug;
+
+      const grid = document.getElementById('projects-grid');
+      grid.classList.add('fading');
+
+      setTimeout(() => {
+        renderProjects();
+        grid.classList.remove('fading');
+      }, 350);
+
+      renderFilters();
+    }
+
+    /* ─── Render Projects ─── */
+    function getCategoryName(slug) {
+      const cat = allCategories.find(c => c.slug === slug);
+      return cat ? cat.name : slug;
+    }
+
+    function renderProjects() {
+      const grid = document.getElementById('projects-grid');
+      grid.innerHTML = '';
+
+      const filtered = activeFilter === 'all'
+        ? allProjects
+        : allProjects.filter(p => p.category === activeFilter);
+
+      if (filtered.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'projects-empty';
+        empty.innerHTML = `
+          <i data-lucide="image-off"></i>
+          <p>Bu kategoride henüz proje bulunmuyor.</p>
+        `;
+        grid.appendChild(empty);
+        lucide.createIcons();
+        return;
+      }
+
+      filtered.forEach((project, idx) => {
+        const coverImg = project.images && project.images.length > 0
+          ? project.images[project.coverIndex || 0]
+          : 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=70';
+
+        const card = document.createElement('article');
+        card.className = 'project-card reveal';
+        card.setAttribute('role', 'listitem');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `${project.title} — ${project.location}, ${project.year}`);
+        card.style.transitionDelay = `${idx * 60}ms`;
+
+        card.innerHTML = `
+          <div class="project-card-image-wrap">
+            <img src="${escapeHtml(coverImg)}" alt="${escapeHtml(project.title)}" loading="lazy" />
+            <div class="project-card-overlay" aria-hidden="true">
+              <span class="project-card-inspect">
+                İncele <i data-lucide="arrow-right"></i>
+              </span>
+            </div>
+          </div>
+          <div class="project-card-info">
+            <p class="project-card-category">${escapeHtml(getCategoryName(project.category))}</p>
+            <h3 class="project-card-title">${escapeHtml(project.title)}</h3>
+            <div class="project-card-meta">
+              <span><i data-lucide="map-pin"></i>${escapeHtml(project.location)}</span>
+              <span>·</span>
+              <span><i data-lucide="calendar"></i>${project.year}</span>
+              ${project.area ? `<span>·</span><span><i data-lucide="maximize-2"></i>${project.area} m²</span>` : ''}
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('click', () => openLightbox(project));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(project); }
+        });
+
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+      requestAnimationFrame(() => {
+        document.querySelectorAll('.project-card.reveal').forEach(el => {
+          el.classList.add('visible');
+        });
+      });
+    }
+
+    /* ─── Lightbox ─── */
+    function openLightbox(project) {
+      lbProject = project;
+      lbImageIndex = 0;
+      updateLightboxImage();
+      populateLightboxInfo();
+
+      const lb = document.getElementById('lightbox');
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+
+      const closeBtn = document.getElementById('lightbox-close');
+      closeBtn.focus();
+      lucide.createIcons();
+    }
+
+    function closeLightbox() {
+      const lb = document.getElementById('lightbox');
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lbProject = null;
+    }
+
+    function updateLightboxImage() {
+      if (!lbProject) return;
+      const images = lbProject.images || [];
+      const img = document.getElementById('lightbox-img');
+      const counter = document.getElementById('lb-counter');
+      const prevBtn = document.getElementById('lb-prev');
+      const nextBtn = document.getElementById('lb-next');
+
+      img.classList.add('switching');
+      setTimeout(() => {
+        img.src = images[lbImageIndex] || '';
+        img.alt = `${lbProject.title} — Görsel ${lbImageIndex + 1}`;
+        img.classList.remove('switching');
+      }, 150);
+
+      if (images.length > 1) {
+        counter.textContent = `${lbImageIndex + 1} / ${images.length}`;
+        prevBtn.style.display = '';
+        nextBtn.style.display = '';
+      } else {
+        counter.textContent = '';
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      }
+    }
+
+    function populateLightboxInfo() {
+      if (!lbProject) return;
+
+      document.getElementById('lb-category').textContent = getCategoryName(lbProject.category);
+      document.getElementById('lb-title').textContent = lbProject.title;
+
+      const metaGrid = document.getElementById('lb-meta');
+      const metaItems = [
+        { label: 'Konum', value: lbProject.location },
+        { label: 'Yıl', value: lbProject.year },
+        lbProject.area ? { label: 'Alan', value: `${lbProject.area} m²` } : null,
+      ].filter(Boolean);
+
+      metaGrid.innerHTML = metaItems.map(item => `
+        <div class="lightbox-meta-item">
+          <label>${escapeHtml(item.label)}</label>
+          <span>${escapeHtml(String(item.value))}</span>
+        </div>
+      `).join('');
+
+      document.getElementById('lb-description').textContent = lbProject.description || '';
+
+      const matContainer = document.getElementById('lb-materials');
+      const matLabel = document.getElementById('lb-mat-label');
+      const materials = lbProject.materials || [];
+
+      if (materials.length > 0) {
+        matLabel.style.display = '';
+        matContainer.innerHTML = materials.map(m =>
+          `<span class="material-chip">${escapeHtml(m)}</span>`
+        ).join('');
+      } else {
+        matLabel.style.display = 'none';
+        matContainer.innerHTML = '';
+      }
+    }
+
+    function navigateLightbox(dir) {
+      if (!lbProject) return;
+      const images = lbProject.images || [];
+      if (images.length <= 1) return;
+      lbImageIndex = (lbImageIndex + dir + images.length) % images.length;
+      updateLightboxImage();
+    }
+
+    /* ─── Escape helper ─── */
+    function escapeHtml(str) {
+      if (typeof str !== 'string') return str;
+      return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    }
+
+    /* ─── Lightbox Events ─── */
+    document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+    document.getElementById('lightbox-backdrop').addEventListener('click', closeLightbox);
+    document.getElementById('lb-prev').addEventListener('click', e => { e.stopPropagation(); navigateLightbox(-1); });
+    document.getElementById('lb-next').addEventListener('click', e => { e.stopPropagation(); navigateLightbox(1); });
+
+    document.addEventListener('keydown', e => {
+      const lb = document.getElementById('lightbox');
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+    });
+
+    /* ─── Navbar Scroll ─── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    }, { passive: true });
+
+    /* ─── Hamburger ─── */
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = navLinks.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+      });
+    });
+
+    /* ─── Intersection Observer for reveals ─── */
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    /* ─── Init ─── */
+    renderFilters();
+    renderProjects();
+
+    // Observe non-card elements
+    document.querySelectorAll('.reveal:not(.project-card)').forEach(el => revealObserver.observe(el));
+
+    // Trigger navbar on load if already scrolled
+    if (window.scrollY > 40) navbar.classList.add('scrolled');
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

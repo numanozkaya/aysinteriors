@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hakkımda — Ays Interiors</title>
+  <meta name="description" content="Ayşe Kaya — İç Mimar & Tasarım Danışmanı. 10 yılı aşkın deneyim, 127'den fazla proje. Ays Interiors hakkında daha fazla bilgi edinin." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+  <!-- Site CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    /* ─── CSS Variables ─────────────────────────────────────────── */
+    :root {
+      --bg:     #F9F6F1;
+      --dark:   #1C1A18;
+      --gold:   #C8A97A;
+      --taupe:  #8C7B6E;
+      --border: #E8E2D9;
+      --white:  #FFFFFF;
+      --font-heading: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'Jost', sans-serif;
+      --transition:   all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --shadow-sm:    0 2px 12px rgba(28,26,24,0.06);
+      --shadow-md:    0 8px 32px rgba(28,26,24,0.10);
+      --radius:       4px;
+    }
+
+    /* ─── Reset & Base ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background-color: var(--bg);
+      color: var(--dark);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    button { cursor: pointer; border: none; background: none; font-family: var(--font-body); }
+
+    /* ─── Typography ────────────────────────────────────────────── */
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      font-style: italic;
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    /* ─── Utility ───────────────────────────────────────────────── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
+    .section { padding: 6rem 0; }
+    .section--alt { background-color: rgba(200,169,122,0.06); }
+
+    /* ─── Buttons ───────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-weight: 400;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.85rem 2.2rem;
+      border-radius: var(--radius);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--dark);
+      color: var(--white);
+      border: 1px solid var(--dark);
+    }
+    .btn-primary:hover {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(200,169,122,0.28);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--dark);
+      border: 1px solid var(--dark);
+    }
+    .btn-outline:hover {
+      background: var(--dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .btn-ghost:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: var(--white);
+    }
+
+    /* ─── Navbar ────────────────────────────────────────────────── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 1.25rem 0;
+      transition: var(--transition);
+    }
+    .navbar.scrolled {
+      background: rgba(249,246,241,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .navbar__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .navbar__logo {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.6rem;
+      font-weight: 500;
+      color: var(--dark);
+      letter-spacing: 0.05em;
+      transition: var(--transition);
+    }
+    .navbar__logo:hover { color: var(--gold); }
+    .navbar__nav {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .navbar__nav a {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dark);
+      position: relative;
+      transition: var(--transition);
+    }
+    .navbar__nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--gold);
+      transition: width 0.3s ease;
+    }
+    .navbar__nav a:hover::after,
+    .navbar__nav a.active::after { width: 100%; }
+    .navbar__nav a:hover,
+    .navbar__nav a.active { color: var(--gold); }
+    .navbar__cta { margin-left: 1rem; }
+    .navbar__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .navbar__hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--dark);
+      transition: var(--transition);
+    }
+    .navbar__hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .navbar__hamburger.open span:nth-child(2) { opacity: 0; }
+    .navbar__hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .navbar__mobile {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: var(--bg);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+    }
+    .navbar__mobile.open { display: flex; }
+    .navbar__mobile a {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 2.2rem;
+      font-weight: 500;
+      color: var(--dark);
+      transition: var(--transition);
+    }
+    .navbar__mobile a:hover { color: var(--gold); }
+    .navbar__mobile-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--dark);
+    }
+
+    /* ─── Page Hero ─────────────────────────────────────────────── */
+    .page-hero {
+      height: 30vh;
+      min-height: 240px;
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 3.5rem;
+      position: relative;
+      background: linear-gradient(160deg, #f0ece5 0%, var(--bg) 100%);
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      top: -60px;
+      right: -60px;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(200,169,122,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: var(--border);
+    }
+    .page-hero__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+    }
+    .page-hero__label {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .page-hero__title {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 500;
+      color: var(--dark);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .page-hero__subtitle {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--taupe);
+      margin-top: 0.4rem;
+    }
+
+    /* ─── Bio Section ───────────────────────────────────────────── */
+    .bio-section {
+      padding: 6rem 0;
+    }
+    .bio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+    .bio-image-wrap {
+      position: relative;
+    }
+    .bio-image-wrap::before {
+      content: '';
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      right: -24px;
+      bottom: -24px;
+      border: 1.5px solid var(--gold);
+      border-radius: var(--radius);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
+    .bio-image {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      transition: transform 0.6s ease;
+    }
+    .bio-image-wrap:hover .bio-image { transform: translate(-4px, -4px); }
+    .bio-content { padding-top: 0.5rem; }
+    .bio-name {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 500;
+      color: var(--dark);
+      line-height: 1.15;
+      margin-bottom: 0.4rem;
+    }
+    .bio-title-tag {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 2rem;
+    }
+    .bio-text {
+      font-size: 1rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--taupe);
+      margin-bottom: 2.5rem;
+    }
+    .bio-contact-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      margin-bottom: 2.5rem;
+    }
+    .bio-contact-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--dark);
+    }
+    .bio-contact-list li .icon-wrap {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--gold);
+    }
+    .bio-contact-list li a {
+      color: var(--taupe);
+      transition: color 0.25s;
+    }
+    .bio-contact-list li a:hover { color: var(--gold); }
+
+    /* ─── Stats Row ─────────────────────────────────────────────── */
+    .stats-section {
+      background: var(--dark);
+      padding: 4rem 0;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat-item { padding: 1.5rem 1rem; }
+    .stat-number {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(2.8rem, 5vw, 4rem);
+      font-weight: 500;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(249,246,241,0.55);
+      margin-top: 0.5rem;
+      display: block;
+    }
+
+    /* ─── Timeline Section ──────────────────────────────────────── */
+    .timeline-section { padding: 6rem 0; }
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 3.5rem;
+      line-height: 1.2;
+    }
+    .timeline {
+      position: relative;
+      padding: 0 0 2rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: var(--border);
+      transform: translateX(-50%);
+    }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      position: relative;
+      margin-bottom: 2.5rem;
+    }
+    .timeline-item:nth-child(odd) .timeline-content {
+      grid-column: 1;
+      grid-row: 1;
+      text-align: right;
+      padding-right: 3.5rem;
+    }
+    .timeline-item:nth-child(odd) .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 1.2rem;
+      transform: translateX(-50%);
+    }
+    .timeline-item:nth-child(even) .timeline-content {
+      grid-column: 2;
+      grid-row: 1;
+      text-align: left;
+      padding-left: 3.5rem;
+    }
+    .timeline-item:nth-child(even) .timeline-dot {
+      position: absolute;
+      left: 50%;
+      top: 1.2rem;
+      transform: translateX(-50%);
+    }
+    .timeline-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gold);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 1px var(--gold);
+      z-index: 1;
+    }
+    .timeline-year {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.3rem;
+    }
+    .timeline-school {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 0.2rem;
+    }
+    .timeline-dept {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: var(--taupe);
+    }
+
+    /* ─── Certificates Grid ─────────────────────────────────────── */
+    .certs-title {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--dark);
+      margin: 3.5rem 0 1.5rem;
+    }
+    .certs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .cert-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 1.75rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .cert-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--gold);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.35s ease;
+    }
+    .cert-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .cert-card:hover::before { transform: scaleY(1); }
+    .cert-name {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 0.3rem;
+    }
+    .cert-org {
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--taupe);
+      margin-bottom: 0.4rem;
+    }
+    .cert-year {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+    }
+
+    /* ─── Philosophy Section ────────────────────────────────────── */
+    .philosophy-section {
+      padding: 6rem 0;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+    }
+    .philosophy-section::before {
+      content: '"';
+      position: absolute;
+      top: -2rem;
+      left: 3rem;
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 20rem;
+      color: rgba(200,169,122,0.06);
+      line-height: 1;
+      pointer-events: none;
+      select: none;
+    }
+    .philosophy-inner {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+    }
+    .philosophy-quote {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.5;
+      margin-bottom: 2rem;
+    }
+    .philosophy-quote span { color: var(--gold); }
+    .philosophy-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto 2rem;
+    }
+    .philosophy-text {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.9;
+      color: rgba(249,246,241,0.65);
+    }
+
+    /* ─── CTA Section ───────────────────────────────────────────── */
+    .cta-section {
+      padding: 6rem 0;
+      text-align: center;
+    }
+    .cta-label {
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    .cta-title {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 500;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+    .cta-text {
+      font-size: 0.95rem;
+      font-weight: 300;
+      color: var(--taupe);
+      max-width: 500px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* ─── Footer ────────────────────────────────────────────────── */
+    .footer {
+      background: var(--dark);
+      color: rgba(249,246,241,0.7);
+      padding: 4rem 0 0;
+    }
+    .footer__grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer__logo {
+      font-family: var(--font-heading);
+      font-style: italic;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .footer__desc {
+      font-size: 0.85rem;
+      font-weight: 300;
+      line-height: 1.8;
+      color: rgba(249,246,241,0.55);
+      max-width: 280px;
+    }
+    .footer__heading {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .footer__links { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+    .footer__links a {
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(249,246,241,0.65);
+      transition: color 0.25s;
+    }
+    .footer__links a:hover { color: var(--gold); }
+    .footer__contact-list { list-style: none; display: flex; flex-direction: column; gap: 0.8rem; }
+    .footer__contact-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      font-size: 0.85rem;
+      font-weight: 300;
+      color: rgba(249,246,241,0.65);
+    }
+    .footer__contact-list li svg { flex-shrink: 0; margin-top: 3px; color: var(--gold); }
+    .footer__bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer__copy {
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: rgba(249,246,241,0.35);
+    }
+    .footer__admin {
+      font-size: 0.72rem;
+      font-weight: 300;
+      color: rgba(249,246,241,0.15);
+      transition: color 0.25s;
+    }
+    .footer__admin:hover { color: rgba(249,246,241,0.45); }
+
+    /* ─── Reveal animations ─────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.from-left {
+      transform: translateX(-28px);
+    }
+    .reveal.from-right {
+      transform: translateX(28px);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ─── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .certs-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+      .bio-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .bio-image-wrap { max-width: 420px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline::before { left: 20px; }
+      .timeline-item { grid-template-columns: 1fr; }
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        grid-column: 1;
+        text-align: left;
+        padding-left: 3rem;
+        padding-right: 0;
+      }
+      .timeline-item:nth-child(odd) .timeline-dot,
+      .timeline-item:nth-child(even) .timeline-dot {
+        left: 20px;
+        transform: translateX(-50%);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .section { padding: 4rem 0; }
+      .bio-section { padding: 4rem 0; }
+      .timeline-section { padding: 4rem 0; }
+      .cta-section { padding: 4rem 0; }
+      .navbar__nav, .navbar__cta { display: none; }
+      .navbar__hamburger { display: flex; }
+      .footer__grid { grid-template-columns: 1fr; gap: 2rem; }
+      .certs-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .container { padding: 0 1.25rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ══════════════════ NAVBAR ══════════════════ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Ana navigasyon">
+    <div class="navbar__inner">
+      <a href="index.html" class="navbar__logo" aria-label="Ays Interiors ana sayfa">ays interiors</a>
+
+      <ul class="navbar__nav" role="list">
+        <li><a href="index.html">Ana Sayfa</a></li>
+        <li><a href="portfolio.html">Portfolyo</a></li>
+        <li><a href="danismanlik.html">Danışmanlık</a></li>
+        <li><a href="hakkimda.html" class="active" aria-current="page">Hakkımda</a></li>
+        <li><a href="iletisim.html">İletişim</a></li>
+      </ul>
+
+      <a href="iletisim.html" class="btn btn-primary navbar__cta" aria-label="Danışmanlık randevusu al">
+        Danışmanlık Al
+      </a>
+
+      <button class="navbar__hamburger" id="hamburgerBtn" aria-label="Menüyü aç/kapat" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="navbar__mobile" id="mobileMenu" role="dialog" aria-label="Mobil menü" aria-modal="true">
+    <button class="navbar__mobile-close" id="mobileClose" aria-label="Menüyü kapat">
+      <i data-lucide="x"></i>
+    </button>
+    <a href="index.html">Ana Sayfa</a>
+    <a href="portfolio.html">Portfolyo</a>
+    <a href="danismanlik.html">Danışmanlık</a>
+    <a href="hakkimda.html">Hakkımda</a>
+    <a href="iletisim.html">İletişim</a>
+    <a href="iletisim.html" class="btn btn-primary" style="margin-top:1rem;">Danışmanlık Al</a>
+  </div>
+
+  <!-- ══════════════════ PAGE HERO ══════════════════ -->
+  <section class="page-hero" aria-label="Sayfa başlığı">
+    <div class="page-hero__inner">
+      <p class="page-hero__label">Ays Interiors</p>
+      <h1 class="page-hero__title">Hakkımda</h1>
+      <p class="page-hero__subtitle">Tasarım bir yaşam biçimidir</p>
+    </div>
+  </section>
+
+  <!-- ══════════════════ BIO SECTION ══════════════════ -->
+  <section class="bio-section" aria-label="Biyografi">
+    <div class="container">
+      <div class="bio-grid">
+
+        <!-- Left: Portrait Image -->
+        <div class="bio-image-wrap reveal from-left">
+          <img
+            id="profileImage"
+            class="bio-image"
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80"
+            alt="Ayşe Kaya — İç Mimar & Tasarım Danışmanı"
+            loading="eager"
+          />
+        </div>
+
+        <!-- Right: Text Content -->
+        <div class="bio-content reveal from-right">
+          <h2 class="bio-name" id="profileName">Ayşe Kaya</h2>
+          <p class="bio-title-tag" id="profileTitle">İç Mimar &amp; Tasarım Danışmanı</p>
+
+          <p class="bio-text" id="profileLongBio">
+            Ankara Gazi Üniversitesi İç Mimarlık bölümünden mezun olduktan sonra Londra'da eğitimime devam ettim.
+            2014 yılında Ays Interiors'yu kurarak Türkiye genelinde 127'den fazla projeyi hayata geçirdim.
+            Tasarım felsefem; mekânın kullanıcısını, ışığı ve zamanı dinlemek üzerine kurulu.
+            Her proje, benim için bir hikâye — ve o hikâyeyi en güzel şekilde anlatmak için buradayım.
+          </p>
+
+          <ul class="bio-contact-list">
+            <li>
+              <span class="icon-wrap" aria-hidden="true"><i data-lucide="mail" style="width:15px;height:15px;"></i></span>
+              <a href="#" id="profileEmailLink" aria-label="E-posta adresi">info@aysinteriors.com</a>
+            </li>
+            <li>
+              <span class="icon-wrap" aria-hidden="true"><i data-lucide="phone" style="width:15px;height:15px;"></i></span>
+              <a href="#" id="profilePhoneLink" aria-label="Telefon numarası">+90 532 000 00 00</a>
+            </li>
+            <li>
+              <span class="icon-wrap" aria-hidden="true"><i data-lucide="map-pin" style="width:15px;height:15px;"></i></span>
+              <span id="profileLocation">Ankara, Türkiye</span>
+            </li>
+          </ul>
+
+          <a href="iletisim.html" class="btn btn-primary" aria-label="İletişim sayfasına git">
+            Benimle Çalışın
+            <i data-lucide="arrow-right" style="width:16px;height:16px;" aria-hidden="true"></i>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ STATS ROW ══════════════════ -->
+  <section class="stats-section" aria-label="İstatistikler">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item reveal reveal-delay-1">
+          <span class="stat-number" data-count="127" id="stat-projects">127</span>
+          <span class="stat-label">Proje</span>
+        </div>
+        <div class="stat-item reveal reveal-delay-2">
+          <span class="stat-number" id="stat-years">10+</span>
+          <span class="stat-label">Yıl Deneyim</span>
+        </div>
+        <div class="stat-item reveal reveal-delay-3">
+          <span class="stat-number" data-count="4" id="stat-cities">4</span>
+          <span class="stat-label">Şehir</span>
+        </div>
+        <div class="stat-item reveal reveal-delay-4">
+          <span class="stat-number" data-count="3" id="stat-awards">3</span>
+          <span class="stat-label">Ödül</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ TIMELINE SECTION ══════════════════ -->
+  <section class="timeline-section" aria-label="Eğitim ve sertifikalar">
+    <div class="container">
+      <p class="section-label reveal">Kariyer</p>
+      <h2 class="section-title reveal">Eğitim &amp; Sertifikalar</h2>
+
+      <!-- Education Timeline -->
+      <div class="timeline" id="educationTimeline" role="list" aria-label="Eğitim geçmişi">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Certificates -->
+      <h3 class="certs-title reveal">Sertifikalar</h3>
+      <div class="certs-grid" id="certificatesGrid" aria-label="Sertifikalar">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ PHILOSOPHY SECTION ══════════════════ -->
+  <section class="philosophy-section" aria-label="Tasarım felsefesi">
+    <div class="philosophy-inner">
+      <blockquote class="philosophy-quote reveal">
+        "Bir mekân, içinde <span>yaşayanın ruhunu</span> yansıtmalıdır"
+      </blockquote>
+      <div class="philosophy-divider" aria-hidden="true"></div>
+      <p class="philosophy-text reveal">
+        Her proje, önce bir dinleme seansıyla başlar. Yaşam biçimlerinizi, hayallerinizi, günlük ritüellerinizi anlamadan tek bir çizgi çizmem. Çünkü iyi bir tasarım yalnızca güzel değil; işlevsel, sürdürülebilir ve size ait olmalıdır. Işığın saatlere göre nasıl değiştiğini, seslerin mekânda nasıl yankılandığını, dokunulan yüzeylerin ne hissettirdiğini — bunların hepsini düşünerek tasarlarım.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════ CTA SECTION ══════════════════ -->
+  <section class="cta-section" aria-label="Harekete geçin">
+    <div class="container">
+      <p class="cta-label reveal">İşbirliği</p>
+      <h2 class="cta-title reveal">Birlikte Bir Şeyler Yaratalım</h2>
+      <p class="cta-text reveal">
+        Projenizi dinlemek ve size özel tasarım çözümleri üretmek için buradayım. İlk görüşme ücretsizdir.
+      </p>
+      <div class="reveal">
+        <a href="iletisim.html" class="btn btn-primary" aria-label="İletişime geç">
+          İletişime Geç
+          <i data-lucide="arrow-right" style="width:16px;height:16px;" aria-hidden="true"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════ FOOTER ══════════════════ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__grid">
+
+      <!-- Col 1: Logo + desc -->
+      <div>
+        <div class="footer__logo">ays interiors</div>
+        <p class="footer__desc">
+          İç mimarlık ve tasarım danışmanlığı alanında 10 yılı aşkın deneyimle, mekânlarınızı hayalinizdeki yaşam alanlarına dönüştürüyoruz.
+        </p>
+      </div>
+
+      <!-- Col 2: Hızlı Linkler -->
+      <div>
+        <h3 class="footer__heading">Hızlı Linkler</h3>
+        <ul class="footer__links" role="list">
+          <li><a href="index.html">Ana Sayfa</a></li>
+          <li><a href="portfolio.html">Portfolyo</a></li>
+          <li><a href="danismanlik.html">Danışmanlık</a></li>
+          <li><a href="hakkimda.html">Hakkımda</a></li>
+          <li><a href="iletisim.html">İletişim</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: İletişim -->
+      <div>
+        <h3 class="footer__heading">İletişim</h3>
+        <ul class="footer__contact-list" role="list">
+          <li>
+            <i data-lucide="mail" style="width:14px;height:14px;" aria-hidden="true"></i>
+            <span id="footerEmail">info@aysinteriors.com</span>
+          </li>
+          <li>
+            <i data-lucide="phone" style="width:14px;height:14px;" aria-hidden="true"></i>
+            <span id="footerPhone">+90 532 000 00 00</span>
+          </li>
+          <li>
+            <i data-lucide="map-pin" style="width:14px;height:14px;" aria-hidden="true"></i>
+            <span id="footerLocation">Ankara, Türkiye</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="footer__bottom">
+      <p class="footer__copy">
+        &copy; <span id="footerYear">2025</span> Ays Interiors. Tüm hakları saklıdır.
+      </p>
+      <a href="admin/login.html" class="footer__admin" aria-label="Admin girişi">Admin Girişi</a>
+    </div>
+  </footer>
+
+  <!-- ══════════════════ SCRIPTS ══════════════════ -->
+  <script>
+    // ─── Default Profile Data ──────────────────────────────────────
+    const DEFAULT_PROFILE = {
+      name: "Ayşe Kaya",
+      title: "İç Mimar & Tasarım Danışmanı",
+      shortBio: "10 yılı aşkın deneyimle, her mekânı yaşayanın ruhunu yansıtan bir hikâyeye dönüştürüyorum.",
+      longBio: "Ankara Gazi Üniversitesi İç Mimarlık bölümünden mezun olduktan sonra Londra'da eğitimime devam ettim. 2014 yılında Ays Interiors'yu kurarak Türkiye genelinde 127'den fazla projeyi hayata geçirdim. Tasarım felsefem; mekânın kullanıcısını, ışığı ve zamanı dinlemek üzerine kurulu. Her proje, benim için bir hikâye — ve o hikâyeyi en güzel şekilde anlatmak için buradayım.",
+      email: "info@aysinteriors.com",
+      phone: "+90 532 000 00 00",
+      location: "Ankara, Türkiye",
+      instagram: "@aysinteriors",
+      pinterest: "aysinteriors",
+      linkedin: "aysinteriors",
+      education: [
+        { school: "Gazi Üniversitesi", dept: "İç Mimarlık ve Çevre Tasarımı", year: "2010-2014" },
+        { school: "Chelsea College of Arts, Londra", dept: "Interior Design MA", year: "2014-2015" }
+      ],
+      certificates: [
+        { name: "LEED Green Associate", org: "US Green Building Council", year: "2016" },
+        { name: "Biophilic Design Certificate", org: "Terrapin Bright Green", year: "2019" },
+        { name: "AutoCAD Professional", org: "Autodesk", year: "2013" }
+      ],
+      profileImage: null
+    };
+
+    // ─── Load Profile from localStorage ───────────────────────────
+    function loadProfile() {
+      try {
+        const stored = localStorage.getItem('ays_profile');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          return Object.assign({}, DEFAULT_PROFILE, parsed);
+        }
+      } catch (e) {
+        console.warn('Profile could not be loaded from localStorage:', e);
+      }
+      return DEFAULT_PROFILE;
+    }
+
+    // ─── Populate DOM ──────────────────────────────────────────────
+    function populateProfile(profile) {
+      // Image
+      const imgEl = document.getElementById('profileImage');
+      if (profile.profileImage && imgEl) {
+        imgEl.src = profile.profileImage;
+        imgEl.alt = profile.name + ' — ' + profile.title;
+      } else if (imgEl) {
+        imgEl.alt = profile.name + ' — ' + profile.title;
+      }
+
+      // Name & title
+      const nameEl = document.getElementById('profileName');
+      if (nameEl) nameEl.textContent = profile.name || DEFAULT_PROFILE.name;
+
+      const titleEl = document.getElementById('profileTitle');
+      if (titleEl) titleEl.textContent = profile.title || DEFAULT_PROFILE.title;
+
+      // Long bio
+      const bioEl = document.getElementById('profileLongBio');
+      if (bioEl) bioEl.textContent = profile.longBio || DEFAULT_PROFILE.longBio;
+
+      // Email
+      const emailLink = document.getElementById('profileEmailLink');
+      if (emailLink) {
+        emailLink.href = 'mailto:' + (profile.email || DEFAULT_PROFILE.email);
+        emailLink.textContent = profile.email || DEFAULT_PROFILE.email;
+      }
+
+      // Phone
+      const phoneLink = document.getElementById('profilePhoneLink');
+      if (phoneLink) {
+        const tel = profile.phone || DEFAULT_PROFILE.phone;
+        phoneLink.href = 'tel:' + tel.replace(/\s/g, '');
+        phoneLink.textContent = tel;
+      }
+
+      // Location
+      const locEl = document.getElementById('profileLocation');
+      if (locEl) locEl.textContent = profile.location || DEFAULT_PROFILE.location;
+
+      // Footer
+      const footerEmail = document.getElementById('footerEmail');
+      if (footerEmail) footerEmail.textContent = profile.email || DEFAULT_PROFILE.email;
+
+      const footerPhone = document.getElementById('footerPhone');
+      if (footerPhone) footerPhone.textContent = profile.phone || DEFAULT_PROFILE.phone;
+
+      const footerLoc = document.getElementById('footerLocation');
+      if (footerLoc) footerLoc.textContent = profile.location || DEFAULT_PROFILE.location;
+
+      // Education Timeline
+      populateEducation(profile.education || DEFAULT_PROFILE.education);
+
+      // Certificates
+      populateCertificates(profile.certificates || DEFAULT_PROFILE.certificates);
+    }
+
+    function populateEducation(education) {
+      const container = document.getElementById('educationTimeline');
+      if (!container || !Array.isArray(education)) return;
+      container.innerHTML = '';
+
+      education.forEach((edu, idx) => {
+        const item = document.createElement('div');
+        item.className = 'timeline-item reveal' + (idx % 2 === 0 ? ' reveal-delay-1' : ' reveal-delay-2');
+        item.setAttribute('role', 'listitem');
+
+        const content = document.createElement('div');
+        content.className = 'timeline-content';
+        content.innerHTML = `
+          <p class="timeline-year">${escapeHtml(edu.year || '')}</p>
+          <h4 class="timeline-school">${escapeHtml(edu.school || '')}</h4>
+          <p class="timeline-dept">${escapeHtml(edu.dept || '')}</p>
+        `;
+
+        const dot = document.createElement('div');
+        dot.className = 'timeline-dot';
+        dot.setAttribute('aria-hidden', 'true');
+
+        item.appendChild(content);
+        item.appendChild(dot);
+        container.appendChild(item);
+      });
+
+      // Re-observe new elements
+      revealObserver.disconnect();
+      setupReveal();
+    }
+
+    function populateCertificates(certificates) {
+      const container = document.getElementById('certificatesGrid');
+      if (!container || !Array.isArray(certificates)) return;
+      container.innerHTML = '';
+
+      certificates.forEach((cert, idx) => {
+        const delays = ['reveal-delay-1', 'reveal-delay-2', 'reveal-delay-3'];
+        const card = document.createElement('article');
+        card.className = 'cert-card reveal ' + (delays[idx % 3] || '');
+        card.innerHTML = `
+          <h4 class="cert-name">${escapeHtml(cert.name || '')}</h4>
+          <p class="cert-org">${escapeHtml(cert.org || '')}</p>
+          <p class="cert-year">${escapeHtml(cert.year || '')}</p>
+        `;
+        container.appendChild(card);
+      });
+
+      revealObserver.disconnect();
+      setupReveal();
+    }
+
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    }
+
+    // ─── Navbar ────────────────────────────────────────────────────
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // Hamburger
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileClose = document.getElementById('mobileClose');
+
+    hamburgerBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburgerBtn.classList.toggle('open', isOpen);
+      hamburgerBtn.setAttribute('aria-expanded', isOpen.toString());
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    mobileClose.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburgerBtn.classList.remove('open');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    });
+
+    // Close mobile menu on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        mobileMenu.classList.remove('open');
+        hamburgerBtn.classList.remove('open');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // ─── Intersection Observer for Reveal ─────────────────────────
+    let revealObserver;
+
+    function setupReveal() {
+      revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal').forEach(el => {
+        revealObserver.observe(el);
+      });
+    }
+
+    // ─── Count-up animation for stats ─────────────────────────────
+    function countUp(el, target, duration) {
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        el.textContent = Math.floor(current);
+      }, 16);
+    }
+
+    function setupCounters() {
+      const statsSection = document.querySelector('.stats-section');
+      if (!statsSection) return;
+
+      const counterObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          const projEl = document.getElementById('stat-projects');
+          const citiesEl = document.getElementById('stat-cities');
+          const awardsEl = document.getElementById('stat-awards');
+
+          if (projEl && projEl.dataset.count) countUp(projEl, parseInt(projEl.dataset.count), 1800);
+          if (citiesEl && citiesEl.dataset.count) countUp(citiesEl, parseInt(citiesEl.dataset.count), 1000);
+          if (awardsEl && awardsEl.dataset.count) countUp(awardsEl, parseInt(awardsEl.dataset.count), 1000);
+
+          counterObserver.disconnect();
+        }
+      }, { threshold: 0.3 });
+
+      counterObserver.observe(statsSection);
+    }
+
+    // ─── Footer Year ──────────────────────────────────────────────
+    const yearEl = document.getElementById('footerYear');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // ─── Init ─────────────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+      const profile = loadProfile();
+      populateProfile(profile);
+      setupReveal();
+      setupCounters();
+
+      // Init Lucide icons
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+    });
+  </script>
+
+</body>
+</html>

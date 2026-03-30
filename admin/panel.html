@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Paneli — Ays Interiors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="admin-body">
+
+<div class="admin-layout">
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar">
+    <div class="admin-sidebar-logo">
+      ays interiors
+      <span>Admin Paneli</span>
+    </div>
+    <nav class="admin-nav">
+      <div class="admin-nav-item active" data-section="portfolio" onclick="showSection('portfolio',this)">
+        <i data-lucide="folder" width="16" height="16"></i> Portfolyo
+      </div>
+      <div class="admin-nav-item" data-section="packages" onclick="showSection('packages',this)">
+        <i data-lucide="package" width="16" height="16"></i> Danışmanlık Paketleri
+      </div>
+      <div class="admin-nav-item" data-section="profile" onclick="showSection('profile',this)">
+        <i data-lucide="user" width="16" height="16"></i> Hakkımda & Profil
+      </div>
+      <div class="admin-nav-item" data-section="messages" onclick="showSection('messages',this)">
+        <i data-lucide="message-square" width="16" height="16"></i> Mesajlar
+        <span class="badge" id="unreadBadge" style="display:none">0</span>
+      </div>
+      <div class="admin-nav-item" data-section="settings" onclick="showSection('settings',this)">
+        <i data-lucide="settings" width="16" height="16"></i> Site Ayarları
+      </div>
+    </nav>
+    <div style="padding:1.5rem;border-top:1px solid rgba(255,255,255,0.08);">
+      <button onclick="logout()" class="btn-admin outline" style="width:100%;color:rgba(255,255,255,0.4);border-color:rgba(255,255,255,0.1);font-size:.75rem;">
+        <i data-lucide="log-out" width="14" height="14"></i> Çıkış Yap
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <div style="display:flex;flex-direction:column;overflow:hidden;">
+
+    <!-- Top bar -->
+    <div class="admin-topbar">
+      <a href="../index.html" target="_blank" class="btn-admin outline" style="font-size:.75rem;">
+        <i data-lucide="external-link" width="14" height="14"></i> Siteyi Görüntüle
+      </a>
+    </div>
+
+    <!-- Content -->
+    <div class="admin-main">
+
+      <!-- PORTFOLIO -->
+      <div class="admin-section active" id="section-portfolio">
+        <div class="admin-section-title">Portfolyo Yönetimi</div>
+
+        <!-- Categories -->
+        <div class="admin-card">
+          <h3>Kategoriler</h3>
+          <div id="catList" style="margin-bottom:1rem;"></div>
+          <div style="display:flex;gap:.5rem;">
+            <input type="text" id="newCatName" class="admin-input" placeholder="Yeni kategori adı" style="max-width:240px;margin:0;">
+            <button onclick="addCategory()" class="btn-admin primary"><i data-lucide="plus" width="14" height="14"></i> Ekle</button>
+          </div>
+        </div>
+
+        <!-- Projects -->
+        <div class="admin-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);">
+            <h3 style="margin:0;border:none;padding:0;">Projeler</h3>
+            <button onclick="openProjectModal(null)" class="btn-admin primary"><i data-lucide="plus" width="14" height="14"></i> Yeni Proje</button>
+          </div>
+          <div id="projectList"></div>
+        </div>
+      </div>
+
+      <!-- PACKAGES -->
+      <div class="admin-section" id="section-packages">
+        <div class="admin-section-title">Danışmanlık Paketleri</div>
+        <div class="admin-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;padding-bottom:.8rem;border-bottom:1px solid var(--border);">
+            <h3 style="margin:0;border:none;padding:0;">Paketler</h3>
+            <button onclick="openPackageModal(null)" class="btn-admin primary"><i data-lucide="plus" width="14" height="14"></i> Yeni Paket</button>
+          </div>
+          <div id="packageList"></div>
+        </div>
+      </div>
+
+      <!-- PROFILE -->
+      <div class="admin-section" id="section-profile">
+        <div class="admin-section-title">Hakkımda & Profil</div>
+        <div class="admin-card">
+          <h3>Profil Bilgileri</h3>
+          <div class="grid-2">
+            <div>
+              <label class="admin-label">Ad Soyad</label>
+              <input type="text" class="admin-input" id="pName">
+              <label class="admin-label">Unvan</label>
+              <input type="text" class="admin-input" id="pTitle">
+              <label class="admin-label">E-posta</label>
+              <input type="email" class="admin-input" id="pEmail">
+              <label class="admin-label">Telefon</label>
+              <input type="text" class="admin-input" id="pPhone">
+              <label class="admin-label">Konum</label>
+              <input type="text" class="admin-input" id="pLocation">
+            </div>
+            <div>
+              <label class="admin-label">Instagram</label>
+              <input type="text" class="admin-input" id="pInstagram" placeholder="@kullanici">
+              <label class="admin-label">Pinterest</label>
+              <input type="text" class="admin-input" id="pPinterest">
+              <label class="admin-label">LinkedIn</label>
+              <input type="text" class="admin-input" id="pLinkedin">
+              <label class="admin-label">Profil Görseli</label>
+              <input type="file" id="pImage" accept="image/*" onchange="handleProfileImage(this)" style="font-size:.8rem;">
+              <div id="pImagePreview" style="margin-top:.5rem;"></div>
+            </div>
+          </div>
+          <label class="admin-label">Kısa Bio</label>
+          <textarea class="admin-textarea" id="pShortBio" rows="2"></textarea>
+          <label class="admin-label">Uzun Bio</label>
+          <textarea class="admin-textarea" id="pLongBio" rows="5"></textarea>
+          <div style="margin-top:1.5rem;">
+            <button onclick="saveProfile()" class="btn-admin primary"><i data-lucide="save" width="14" height="14"></i> Kaydet</button>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>Eğitim</h3>
+          <div id="eduList"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:.5rem;margin-top:1rem;align-items:end;">
+            <div><label class="admin-label" style="margin-top:0;">Okul</label><input type="text" class="admin-input" id="newEduSchool" placeholder="Okul adı" style="margin:0;"></div>
+            <div><label class="admin-label" style="margin-top:0;">Bölüm</label><input type="text" class="admin-input" id="newEduDept" placeholder="Bölüm" style="margin:0;"></div>
+            <div>
+              <label class="admin-label" style="margin-top:0;">Yıl</label>
+              <div style="display:flex;gap:.3rem;">
+                <input type="text" class="admin-input" id="newEduYear" placeholder="2014" style="margin:0;width:80px;">
+                <button onclick="addEducation()" class="btn-admin primary" style="flex-shrink:0;"><i data-lucide="plus" width="14" height="14"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>Sertifikalar</h3>
+          <div id="certList"></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:.5rem;margin-top:1rem;align-items:end;">
+            <div><label class="admin-label" style="margin-top:0;">Sertifika Adı</label><input type="text" class="admin-input" id="newCertName" placeholder="Sertifika" style="margin:0;"></div>
+            <div><label class="admin-label" style="margin-top:0;">Kurum</label><input type="text" class="admin-input" id="newCertOrg" placeholder="Kurum" style="margin:0;"></div>
+            <div>
+              <label class="admin-label" style="margin-top:0;">Yıl</label>
+              <div style="display:flex;gap:.3rem;">
+                <input type="text" class="admin-input" id="newCertYear" placeholder="2020" style="margin:0;width:80px;">
+                <button onclick="addCertificate()" class="btn-admin primary"><i data-lucide="plus" width="14" height="14"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MESSAGES -->
+      <div class="admin-section" id="section-messages">
+        <div class="admin-section-title">Mesajlar</div>
+        <div class="admin-card" style="padding:0;">
+          <div id="messageList"></div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="admin-section" id="section-settings">
+        <div class="admin-section-title">Site Ayarları</div>
+        <div class="admin-card">
+          <h3>Genel</h3>
+          <label class="admin-label">Site Başlığı</label>
+          <input type="text" class="admin-input" id="sTitle">
+          <label class="admin-label">SEO Açıklaması</label>
+          <textarea class="admin-textarea" id="sSeoDesc" rows="3"></textarea>
+          <label class="admin-label">Footer Metni</label>
+          <input type="text" class="admin-input" id="sFooter">
+          <label class="admin-label">Ana Sayfa Hero Görseli</label>
+          <input type="file" id="sHeroImage" accept="image/*" onchange="handleHeroImage(this)" style="font-size:.8rem;">
+          <div id="sHeroPreview" style="margin-top:.5rem;"></div>
+          <div style="margin-top:1.5rem;">
+            <button onclick="saveSettings()" class="btn-admin primary"><i data-lucide="save" width="14" height="14"></i> Kaydet</button>
+          </div>
+        </div>
+        <div class="admin-card">
+          <h3>Şifre Değiştir</h3>
+          <label class="admin-label">Mevcut Şifre</label>
+          <input type="password" class="admin-input" id="oldPass">
+          <label class="admin-label">Yeni Şifre</label>
+          <input type="password" class="admin-input" id="newPass">
+          <label class="admin-label">Yeni Şifre (Tekrar)</label>
+          <input type="password" class="admin-input" id="newPass2">
+          <div id="passMsg" style="font-size:.82rem;margin-top:.5rem;"></div>
+          <div style="margin-top:1rem;">
+            <button onclick="changePassword()" class="btn-admin primary">Şifreyi Değiştir</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Project Modal -->
+<div class="modal" id="projectModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="projectModalTitle">Proje Ekle</h3>
+      <button onclick="closeModal('projectModal')" style="background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--taupe);">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="projId">
+      <div class="grid-2">
+        <div>
+          <label class="admin-label" style="margin-top:0;">Proje Adı *</label>
+          <input type="text" class="admin-input" id="projTitle">
+        </div>
+        <div>
+          <label class="admin-label" style="margin-top:0;">Kategori *</label>
+          <select class="admin-select" id="projCategory"></select>
+        </div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <label class="admin-label">Konum / Şehir</label>
+          <input type="text" class="admin-input" id="projLocation">
+        </div>
+        <div>
+          <label class="admin-label">Yıl</label>
+          <input type="number" class="admin-input" id="projYear" placeholder="2024">
+        </div>
+      </div>
+      <div class="grid-2">
+        <div>
+          <label class="admin-label">Alan (m²)</label>
+          <input type="number" class="admin-input" id="projArea">
+        </div>
+        <div style="display:flex;align-items:center;gap:.5rem;padding-top:1.5rem;">
+          <input type="checkbox" id="projFeatured" style="width:16px;height:16px;accent-color:var(--gold);">
+          <label for="projFeatured" style="font-size:.85rem;cursor:pointer;">Anasayfada Öne Çıkar</label>
+        </div>
+      </div>
+      <label class="admin-label">Açıklama</label>
+      <textarea class="admin-textarea" id="projDesc" rows="3"></textarea>
+      <label class="admin-label">Kullanılan Malzemeler (virgülle ayırın)</label>
+      <input type="text" class="admin-input" id="projMaterials" placeholder="Mermer, Ahşap, Paslanmaz Çelik">
+      <label class="admin-label">Görseller</label>
+      <input type="file" id="projImages" accept="image/*" multiple onchange="handleProjectImages(this)" style="font-size:.8rem;">
+      <div class="img-preview-grid" id="projImagePreviews"></div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeModal('projectModal')" class="btn-admin outline">İptal</button>
+      <button onclick="saveProject()" class="btn-admin primary"><i data-lucide="save" width="14" height="14"></i> Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Package Modal -->
+<div class="modal" id="packageModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="pkgModalTitle">Paket Ekle</h3>
+      <button onclick="closeModal('packageModal')" style="background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--taupe);">&times;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="pkgId">
+      <label class="admin-label" style="margin-top:0;">Paket Başlığı *</label>
+      <input type="text" class="admin-input" id="pkgTitle">
+      <label class="admin-label">Slogan</label>
+      <input type="text" class="admin-input" id="pkgSlogan">
+      <label class="admin-label">Fiyat</label>
+      <input type="text" class="admin-input" id="pkgPrice" placeholder="₺2.500'den başlayan">
+      <label class="admin-label">Özellikler (her satır bir madde)</label>
+      <textarea class="admin-textarea" id="pkgFeatures" rows="5" placeholder="1 oda konsept tasarımı&#10;3D görselleştirme&#10;Malzeme önerileri"></textarea>
+      <label class="admin-label">CTA Buton Metni</label>
+      <input type="text" class="admin-input" id="pkgCta" placeholder="Bu Paketi Seç">
+      <div style="display:flex;gap:2rem;margin-top:1rem;flex-wrap:wrap;">
+        <label style="display:flex;align-items:center;gap:.5rem;font-size:.85rem;cursor:pointer;">
+          <input type="checkbox" id="pkgFeatured" style="accent-color:var(--gold);"> Öne Çıkan Paket
+        </label>
+        <div>
+          <span style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);">Tema:</span>
+          <label style="margin-left:.5rem;font-size:.85rem;cursor:pointer;"><input type="radio" name="pkgTheme" value="standard" checked> Standart</label>
+          <label style="margin-left:.5rem;font-size:.85rem;cursor:pointer;"><input type="radio" name="pkgTheme" value="gold"> Altın</label>
+          <label style="margin-left:.5rem;font-size:.85rem;cursor:pointer;"><input type="radio" name="pkgTheme" value="dark"> Koyu</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button onclick="closeModal('packageModal')" class="btn-admin outline">İptal</button>
+      <button onclick="savePackage()" class="btn-admin primary"><i data-lucide="save" width="14" height="14"></i> Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<!-- Message Modal -->
+<div class="modal" id="msgModal">
+  <div class="modal-box" style="max-width:560px;">
+    <div class="modal-header">
+      <h3>Mesaj Detayı</h3>
+      <button onclick="closeModal('msgModal')" style="background:none;border:none;cursor:pointer;font-size:1.4rem;color:var(--taupe);">&times;</button>
+    </div>
+    <div class="modal-body" id="msgModalBody"></div>
+    <div class="modal-footer">
+      <button onclick="deleteCurrentMsg()" class="btn-admin danger"><i data-lucide="trash-2" width="14" height="14"></i> Sil</button>
+      <button onclick="closeModal('msgModal')" class="btn-admin outline">Kapat</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Auth check
+if (sessionStorage.getItem('aysAdminLoggedIn') !== 'true') window.location.href = 'login.html';
+
+const KEYS = {
+  projects: 'ays_projects', categories: 'ays_categories', packages: 'ays_packages',
+  profile: 'ays_profile', messages: 'ays_messages', settings: 'ays_settings'
+};
+
+function getData(key, def=[]) {
+  try { return JSON.parse(localStorage.getItem(key)) || def; } catch(e) { return def; }
+}
+function setData(key, val) { localStorage.setItem(key, JSON.stringify(val)); }
+
+function showSection(name, el) {
+  document.querySelectorAll('.admin-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.admin-nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('section-' + name).classList.add('active');
+  el.classList.add('active');
+  if (name === 'portfolio') renderPortfolio();
+  if (name === 'packages') renderPackages();
+  if (name === 'profile') renderProfile();
+  if (name === 'messages') renderMessages();
+  if (name === 'settings') renderSettings();
+}
+
+function logout() {
+  sessionStorage.removeItem('aysAdminLoggedIn');
+  window.location.href = 'login.html';
+}
+
+function openModal(id) { document.getElementById(id).classList.add('open'); lucide.createIcons(); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+
+// ============ CATEGORIES ============
+function renderCategories() {
+  const cats = getData(KEYS.categories, []);
+  const el = document.getElementById('catList');
+  el.innerHTML = cats.length ? cats.map(c => `
+    <span class="category-tag-item">
+      ${c.name}
+      <button onclick="deleteCategory('${c.id}')" title="Sil">&times;</button>
+    </span>`).join('') : '<p style="font-size:.85rem;color:var(--taupe);">Henüz kategori yok.</p>';
+}
+
+function addCategory() {
+  const input = document.getElementById('newCatName');
+  const name = input.value.trim();
+  if (!name) return;
+  const cats = getData(KEYS.categories, []);
+  cats.push({ id: 'cat_'+Date.now(), name, slug: name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'') });
+  setData(KEYS.categories, cats);
+  input.value = '';
+  renderCategories();
+}
+
+function deleteCategory(id) {
+  if (!confirm('Kategoriyi sil?')) return;
+  setData(KEYS.categories, getData(KEYS.categories,[]).filter(c => c.id !== id));
+  renderCategories();
+}
+
+// ============ PROJECTS ============
+let currentProjectImages = [];
+
+function renderPortfolio() {
+  renderCategories();
+  const projects = getData(KEYS.projects, []);
+  const el = document.getElementById('projectList');
+  if (!projects.length) { el.innerHTML = '<p style="font-size:.85rem;color:var(--taupe);padding:1rem 0;">Henüz proje yok. Yeni proje ekleyin.</p>'; return; }
+  el.innerHTML = projects.map(p => `
+    <div class="project-list-item">
+      <div class="project-thumb" style="background:var(--border);overflow:hidden;">
+        ${p.images && p.images.length ? `<img src="${p.images[p.coverIndex||0]}" style="width:100%;height:100%;object-fit:cover;">` : '<div style="width:100%;height:100%;background:var(--border);"></div>'}
+      </div>
+      <div class="project-list-info">
+        <strong>${p.title}</strong>
+        <span>${p.category || ''} ${p.location ? '· '+p.location : ''} ${p.year ? '· '+p.year : ''} ${p.featured ? '★' : ''}</span>
+      </div>
+      <div class="project-list-actions">
+        <button onclick="openProjectModal('${p.id}')" class="btn-admin outline" style="font-size:.75rem;"><i data-lucide="edit-2" width="12" height="12"></i></button>
+        <button onclick="deleteProject('${p.id}')" class="btn-admin danger" style="font-size:.75rem;"><i data-lucide="trash-2" width="12" height="12"></i></button>
+      </div>
+    </div>`).join('');
+  lucide.createIcons();
+}
+
+function openProjectModal(id) {
+  currentProjectImages = [];
+  document.getElementById('projImagePreviews').innerHTML = '';
+  document.getElementById('projImages').value = '';
+  document.getElementById('projectModalTitle').textContent = id ? 'Proje Düzenle' : 'Yeni Proje Ekle';
+
+  const cats = getData(KEYS.categories, []);
+  const sel = document.getElementById('projCategory');
+  sel.innerHTML = '<option value="">Kategori seç</option>' + cats.map(c => `<option value="${c.slug}">${c.name}</option>`).join('');
+
+  if (id) {
+    const p = getData(KEYS.projects,[]).find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('projId').value = p.id;
+    document.getElementById('projTitle').value = p.title || '';
+    sel.value = p.category || '';
+    document.getElementById('projLocation').value = p.location || '';
+    document.getElementById('projYear').value = p.year || '';
+    document.getElementById('projArea').value = p.area || '';
+    document.getElementById('projFeatured').checked = !!p.featured;
+    document.getElementById('projDesc').value = p.description || '';
+    document.getElementById('projMaterials').value = (p.materials||[]).join(', ');
+    currentProjectImages = [...(p.images||[])];
+    renderProjectPreviews();
+  } else {
+    document.getElementById('projId').value = '';
+    ['projTitle','projLocation','projYear','projArea','projDesc','projMaterials'].forEach(id => document.getElementById(id).value='');
+    document.getElementById('projFeatured').checked = false;
+  }
+  openModal('projectModal');
+}
+
+function handleProjectImages(input) {
+  const files = Array.from(input.files);
+  files.forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => { currentProjectImages.push(e.target.result); renderProjectPreviews(); };
+    reader.readAsDataURL(file);
+  });
+}
+
+function renderProjectPreviews() {
+  const el = document.getElementById('projImagePreviews');
+  el.innerHTML = currentProjectImages.map((src, i) => `
+    <div class="img-preview-item">
+      <img src="${src}">
+      <button class="remove-img" onclick="removeProjectImage(${i})">×</button>
+    </div>`).join('');
+}
+
+function removeProjectImage(i) {
+  currentProjectImages.splice(i,1);
+  renderProjectPreviews();
+}
+
+function saveProject() {
+  const title = document.getElementById('projTitle').value.trim();
+  if (!title) { alert('Proje adı gerekli.'); return; }
+  const projects = getData(KEYS.projects,[]);
+  const id = document.getElementById('projId').value || 'proj_'+Date.now();
+  const proj = {
+    id, title,
+    category: document.getElementById('projCategory').value,
+    location: document.getElementById('projLocation').value,
+    year: parseInt(document.getElementById('projYear').value)||null,
+    area: parseInt(document.getElementById('projArea').value)||null,
+    featured: document.getElementById('projFeatured').checked,
+    description: document.getElementById('projDesc').value,
+    materials: document.getElementById('projMaterials').value.split(',').map(s=>s.trim()).filter(Boolean),
+    images: currentProjectImages,
+    coverIndex: 0,
+    createdAt: new Date().toISOString()
+  };
+  const idx = projects.findIndex(p => p.id === id);
+  if (idx >= 0) projects[idx] = proj; else projects.unshift(proj);
+  setData(KEYS.projects, projects);
+  closeModal('projectModal');
+  renderPortfolio();
+}
+
+function deleteProject(id) {
+  if (!confirm('Projeyi sil?')) return;
+  setData(KEYS.projects, getData(KEYS.projects,[]).filter(p => p.id !== id));
+  renderPortfolio();
+}
+
+// ============ PACKAGES ============
+function renderPackages() {
+  const pkgs = getData(KEYS.packages,[]);
+  const el = document.getElementById('packageList');
+  if (!pkgs.length) { el.innerHTML = '<p style="font-size:.85rem;color:var(--taupe);padding:1rem 0;">Henüz paket yok.</p>'; return; }
+  el.innerHTML = pkgs.map(p => `
+    <div class="project-list-item">
+      <div class="project-list-info">
+        <strong>${p.title} ${p.featured ? '⭐' : ''}</strong>
+        <span>${p.price || 'Fiyat belirtilmemiş'} · ${(p.features||[]).length} özellik · Tema: ${p.theme||'standard'}</span>
+      </div>
+      <div class="project-list-actions">
+        <button onclick="openPackageModal('${p.id}')" class="btn-admin outline" style="font-size:.75rem;"><i data-lucide="edit-2" width="12" height="12"></i></button>
+        <button onclick="deletePackage('${p.id}')" class="btn-admin danger" style="font-size:.75rem;"><i data-lucide="trash-2" width="12" height="12"></i></button>
+      </div>
+    </div>`).join('');
+  lucide.createIcons();
+}
+
+function openPackageModal(id) {
+  document.getElementById('pkgModalTitle').textContent = id ? 'Paket Düzenle' : 'Yeni Paket Ekle';
+  if (id) {
+    const p = getData(KEYS.packages,[]).find(x => x.id === id);
+    if (!p) return;
+    document.getElementById('pkgId').value = p.id;
+    document.getElementById('pkgTitle').value = p.title||'';
+    document.getElementById('pkgSlogan').value = p.slogan||'';
+    document.getElementById('pkgPrice').value = p.price||'';
+    document.getElementById('pkgFeatures').value = (p.features||[]).join('\n');
+    document.getElementById('pkgCta').value = p.ctaText||'';
+    document.getElementById('pkgFeatured').checked = !!p.featured;
+    document.querySelector(`input[name="pkgTheme"][value="${p.theme||'standard'}"]`).checked = true;
+  } else {
+    document.getElementById('pkgId').value='';
+    ['pkgTitle','pkgSlogan','pkgPrice','pkgFeatures','pkgCta'].forEach(i=>document.getElementById(i).value='');
+    document.getElementById('pkgFeatured').checked=false;
+    document.querySelector('input[name="pkgTheme"][value="standard"]').checked=true;
+  }
+  openModal('packageModal');
+}
+
+function savePackage() {
+  const title = document.getElementById('pkgTitle').value.trim();
+  if (!title) { alert('Paket başlığı gerekli.'); return; }
+  const pkgs = getData(KEYS.packages,[]);
+  const id = document.getElementById('pkgId').value || 'pkg_'+Date.now();
+  const pkg = {
+    id, title,
+    slogan: document.getElementById('pkgSlogan').value,
+    price: document.getElementById('pkgPrice').value,
+    features: document.getElementById('pkgFeatures').value.split('\n').map(s=>s.trim()).filter(Boolean),
+    ctaText: document.getElementById('pkgCta').value || 'Paket Hakkında Bilgi Al',
+    featured: document.getElementById('pkgFeatured').checked,
+    theme: document.querySelector('input[name="pkgTheme"]:checked').value,
+    order: pkgs.length
+  };
+  const idx = pkgs.findIndex(p=>p.id===id);
+  if (idx>=0) pkgs[idx]=pkg; else pkgs.push(pkg);
+  setData(KEYS.packages,pkgs);
+  closeModal('packageModal');
+  renderPackages();
+}
+
+function deletePackage(id) {
+  if (!confirm('Paketi sil?')) return;
+  setData(KEYS.packages, getData(KEYS.packages,[]).filter(p=>p.id!==id));
+  renderPackages();
+}
+
+// ============ PROFILE ============
+function renderProfile() {
+  const p = getData(KEYS.profile, {});
+  document.getElementById('pName').value = p.name||'';
+  document.getElementById('pTitle').value = p.title||'';
+  document.getElementById('pEmail').value = p.email||'';
+  document.getElementById('pPhone').value = p.phone||'';
+  document.getElementById('pLocation').value = p.location||'';
+  document.getElementById('pInstagram').value = p.instagram||'';
+  document.getElementById('pPinterest').value = p.pinterest||'';
+  document.getElementById('pLinkedin').value = p.linkedin||'';
+  document.getElementById('pShortBio').value = p.shortBio||'';
+  document.getElementById('pLongBio').value = p.longBio||'';
+  if (p.profileImage) document.getElementById('pImagePreview').innerHTML = `<img src="${p.profileImage}" style="width:80px;height:80px;object-fit:cover;margin-top:.5rem;">`;
+  renderEducation(); renderCertificates();
+}
+
+function handleProfileImage(input) {
+  if (!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const p = getData(KEYS.profile,{});
+    p.profileImage = e.target.result;
+    setData(KEYS.profile,p);
+    document.getElementById('pImagePreview').innerHTML = `<img src="${e.target.result}" style="width:80px;height:80px;object-fit:cover;margin-top:.5rem;">`;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function saveProfile() {
+  const p = getData(KEYS.profile,{});
+  p.name = document.getElementById('pName').value;
+  p.title = document.getElementById('pTitle').value;
+  p.email = document.getElementById('pEmail').value;
+  p.phone = document.getElementById('pPhone').value;
+  p.location = document.getElementById('pLocation').value;
+  p.instagram = document.getElementById('pInstagram').value;
+  p.pinterest = document.getElementById('pPinterest').value;
+  p.linkedin = document.getElementById('pLinkedin').value;
+  p.shortBio = document.getElementById('pShortBio').value;
+  p.longBio = document.getElementById('pLongBio').value;
+  setData(KEYS.profile,p);
+  alert('Profil kaydedildi.');
+}
+
+function renderEducation() {
+  const p = getData(KEYS.profile,{});
+  const edu = p.education||[];
+  document.getElementById('eduList').innerHTML = edu.map((e,i) => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem;background:var(--bg);margin-bottom:.3rem;font-size:.85rem;">
+      <span><strong>${e.school}</strong> — ${e.dept} (${e.year})</span>
+      <button onclick="removeEducation(${i})" class="btn-admin danger" style="font-size:.7rem;padding:.3rem .6rem;">Sil</button>
+    </div>`).join('') || '<p style="font-size:.82rem;color:var(--taupe);">Eğitim eklenmemiş.</p>';
+}
+
+function addEducation() {
+  const school = document.getElementById('newEduSchool').value.trim();
+  const dept = document.getElementById('newEduDept').value.trim();
+  const year = document.getElementById('newEduYear').value.trim();
+  if (!school) return;
+  const p = getData(KEYS.profile,{}); p.education = p.education||[];
+  p.education.push({school,dept,year}); setData(KEYS.profile,p);
+  ['newEduSchool','newEduDept','newEduYear'].forEach(id=>document.getElementById(id).value='');
+  renderEducation();
+}
+
+function removeEducation(i) {
+  const p = getData(KEYS.profile,{}); p.education = p.education||[];
+  p.education.splice(i,1); setData(KEYS.profile,p); renderEducation();
+}
+
+function renderCertificates() {
+  const p = getData(KEYS.profile,{});
+  const certs = p.certificates||[];
+  document.getElementById('certList').innerHTML = certs.map((c,i) => `
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:.5rem;background:var(--bg);margin-bottom:.3rem;font-size:.85rem;">
+      <span><strong>${c.name}</strong> — ${c.org} (${c.year})</span>
+      <button onclick="removeCertificate(${i})" class="btn-admin danger" style="font-size:.7rem;padding:.3rem .6rem;">Sil</button>
+    </div>`).join('') || '<p style="font-size:.82rem;color:var(--taupe);">Sertifika eklenmemiş.</p>';
+}
+
+function addCertificate() {
+  const name = document.getElementById('newCertName').value.trim();
+  const org = document.getElementById('newCertOrg').value.trim();
+  const year = document.getElementById('newCertYear').value.trim();
+  if (!name) return;
+  const p = getData(KEYS.profile,{}); p.certificates = p.certificates||[];
+  p.certificates.push({name,org,year}); setData(KEYS.profile,p);
+  ['newCertName','newCertOrg','newCertYear'].forEach(id=>document.getElementById(id).value='');
+  renderCertificates();
+}
+
+function removeCertificate(i) {
+  const p = getData(KEYS.profile,{}); p.certificates = p.certificates||[];
+  p.certificates.splice(i,1); setData(KEYS.profile,p); renderCertificates();
+}
+
+// ============ MESSAGES ============
+let currentMsgId = null;
+
+function renderMessages() {
+  const msgs = getData(KEYS.messages,[]);
+  const unread = msgs.filter(m=>!m.read).length;
+  const badge = document.getElementById('unreadBadge');
+  badge.textContent = unread; badge.style.display = unread ? 'inline' : 'none';
+  const el = document.getElementById('messageList');
+  if (!msgs.length) { el.innerHTML = '<p style="font-size:.85rem;color:var(--taupe);padding:1.5rem;">Henüz mesaj yok.</p>'; return; }
+  el.innerHTML = msgs.map(m => `
+    <div class="msg-item ${m.read?'':'unread'}" onclick="openMessage('${m.id}')">
+      <div class="msg-item-header">
+        <span class="msg-item-name">${m.name} <span style="font-size:.75rem;color:var(--taupe);">&lt;${m.email}&gt;</span></span>
+        <span class="msg-item-date">${new Date(m.date).toLocaleDateString('tr-TR')}</span>
+      </div>
+      <div class="msg-item-preview">${m.service ? '['+m.service+'] ' : ''}${m.message}</div>
+    </div>`).join('');
+}
+
+function openMessage(id) {
+  const msgs = getData(KEYS.messages,[]);
+  const m = msgs.find(x=>x.id===id);
+  if (!m) return;
+  currentMsgId = id;
+  m.read = true;
+  setData(KEYS.messages, msgs);
+  document.getElementById('msgModalBody').innerHTML = `
+    <div style="margin-bottom:1rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;">
+      <div><strong style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);">Gönderen</strong><p>${m.name}</p></div>
+      <div><strong style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);">E-posta</strong><p><a href="mailto:${m.email}">${m.email}</a></p></div>
+      ${m.phone?`<div><strong style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);">Telefon</strong><p>${m.phone}</p></div>`:''}
+      ${m.service?`<div><strong style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);">Hizmet</strong><p>${m.service}</p></div>`:''}
+      <div><strong style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);">Tarih</strong><p>${new Date(m.date).toLocaleString('tr-TR')}</p></div>
+    </div>
+    <div style="background:var(--bg);padding:1rem;border-left:3px solid var(--gold);">
+      <strong style="font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--taupe);">Mesaj</strong>
+      <p style="margin-top:.5rem;">${m.message}</p>
+    </div>`;
+  openModal('msgModal');
+  renderMessages();
+}
+
+function deleteCurrentMsg() {
+  if (!currentMsgId || !confirm('Mesajı sil?')) return;
+  setData(KEYS.messages, getData(KEYS.messages,[]).filter(m=>m.id!==currentMsgId));
+  closeModal('msgModal');
+  renderMessages();
+}
+
+// ============ SETTINGS ============
+function renderSettings() {
+  const s = getData(KEYS.settings,{});
+  document.getElementById('sTitle').value = s.siteTitle||'Ays Interiors';
+  document.getElementById('sSeoDesc').value = s.seoDesc||'';
+  document.getElementById('sFooter').value = s.footerText||'';
+}
+
+function handleHeroImage(input) {
+  if (!input.files[0]) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const s = getData(KEYS.settings,{}); s.heroImage = e.target.result; setData(KEYS.settings,s);
+    document.getElementById('sHeroPreview').innerHTML = `<img src="${e.target.result}" style="max-width:200px;max-height:100px;object-fit:cover;margin-top:.5rem;">`;
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function saveSettings() {
+  const s = getData(KEYS.settings,{});
+  s.siteTitle = document.getElementById('sTitle').value;
+  s.seoDesc = document.getElementById('sSeoDesc').value;
+  s.footerText = document.getElementById('sFooter').value;
+  setData(KEYS.settings,s);
+  alert('Ayarlar kaydedildi.');
+}
+
+function changePassword() {
+  const old = document.getElementById('oldPass').value;
+  const n1 = document.getElementById('newPass').value;
+  const n2 = document.getElementById('newPass2').value;
+  const msgEl = document.getElementById('passMsg');
+  const s = getData(KEYS.settings,{});
+  const currentPass = s.adminPass || 'ays2024';
+  if (old !== currentPass) { msgEl.style.color='#c0392b'; msgEl.textContent='Mevcut şifre hatalı.'; return; }
+  if (n1.length < 6) { msgEl.style.color='#c0392b'; msgEl.textContent='Yeni şifre en az 6 karakter olmalı.'; return; }
+  if (n1 !== n2) { msgEl.style.color='#c0392b'; msgEl.textContent='Şifreler eşleşmiyor.'; return; }
+  s.adminPass = n1; setData(KEYS.settings,s);
+  msgEl.style.color='green'; msgEl.textContent='Şifre güncellendi.';
+  ['oldPass','newPass','newPass2'].forEach(id=>document.getElementById(id).value='');
+}
+
+// ============ SEED DATA ============
+function seedData() {
+  if (getData(KEYS.projects,[]).length) return;
+  const cats = [
+    {id:'cat_1',name:'Salon',slug:'salon'},
+    {id:'cat_2',name:'Mutfak',slug:'mutfak'},
+    {id:'cat_3',name:'Banyo',slug:'banyo'},
+    {id:'cat_4',name:'Yatak Odası',slug:'yatak-odasi'},
+    {id:'cat_5',name:'Ofis',slug:'ofis'}
+  ];
+  setData(KEYS.categories, cats);
+  const projects = [
+    {id:'proj_001',title:'Minimalist Salon Tasarımı',category:'salon',location:'Ankara',year:2023,area:65,description:'Modern çizgiler ve nötr tonlarla tasarlanmış ferah bir yaşam alanı.',materials:['Beyaz Mermer','Meşe Ahşap','Keten Kumaş'],featured:true,images:['https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
+    {id:'proj_002',title:'Akdeniz Mutfak',category:'mutfak',location:'İstanbul',year:2023,area:28,description:'Akdeniz estetiğini modern dokunuşlarla harmanlayan sıcak mutfak tasarımı.',materials:['Terracotta','Mermer Tezgah','Çam Ahşap'],featured:true,images:['https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
+    {id:'proj_003',title:'Spa Banyo',category:'banyo',location:'Ankara',year:2022,area:18,description:'Ev konforunu spa deneyimiyle buluşturan lüks banyo tasarımı.',materials:['Doğal Taş','Tik Ahşap','Mat Çelik'],featured:true,images:['https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
+    {id:'proj_004',title:'Huzurlu Yatak Odası',category:'yatak-odasi',location:'İzmir',year:2023,area:35,description:'Dinlendirici renk paleti ve yumuşak dokularla tasarlanmış uyku odası.',materials:['Velvet','Beyaz Meşe','Pirinç Detay'],featured:false,images:['https://images.unsplash.com/photo-1505693314120-0d443867891c?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
+    {id:'proj_005',title:'Modern Ofis',category:'ofis',location:'Ankara',year:2024,area:120,description:'Verimliliği ve estetiği bir arada sunan kurumsal ofis tasarımı.',materials:['Cam','Çelik','Akustik Panel'],featured:false,images:['https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()},
+    {id:'proj_006',title:'Bohem Salon',category:'salon',location:'İstanbul',year:2022,area:55,description:'Katmanlı dokular ve sıcak renk paleti ile bohem bir yaşam alanı.',materials:['Rattan','Kilim','Bakır'],featured:false,images:['https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=800&q=80'],coverIndex:0,createdAt:new Date().toISOString()}
+  ];
+  setData(KEYS.projects, projects);
+  const packages = [
+    {id:'pkg_001',title:'Temel Danışmanlık',slogan:'Hızlı ve etkili çözümler',price:'₺2.500\'den başlayan',features:['1 oda konsept tasarımı','3D görselleştirme','Malzeme önerileri','2 revizyon hakkı'],ctaText:'Bu Paketi Seç',featured:false,theme:'standard',order:1},
+    {id:'pkg_002',title:'Profesyonel Paket',slogan:'Kapsamlı tasarım deneyimi',price:'₺7.500\'den başlayan',features:['3 oda tasarımı','Tam 3D modelleme','Malzeme & tedarikçi listesi','Uygulama takibi','5 revizyon hakkı','Mobilya seçim danışmanlığı'],ctaText:'Bu Paketi Seç',featured:true,theme:'gold',order:2},
+    {id:'pkg_003',title:'Premium Tam Hizmet',slogan:'Anahtar teslim tasarım çözümü',price:'Teklif alın',features:['Tüm mekan tasarımı','Mimari çizimler','Müteahhit koordinasyonu','Alışveriş danışmanlığı','Sınırsız revizyon','1 yıl destek'],ctaText:'Teklif Al',featured:false,theme:'dark',order:3}
+  ];
+  setData(KEYS.packages, packages);
+  const profile = {name:'Ayşe Kaya',title:'İç Mimar & Tasarım Danışmanı',email:'info@aysinteriors.com',phone:'+90 532 000 00 00',location:'Ankara, Türkiye',instagram:'@aysinteriors',pinterest:'aysinteriors',linkedin:'aysinteriors',shortBio:'10 yılı aşkın deneyimle, her mekânı yaşayanın ruhunu yansıtan bir hikâyeye dönüştürüyorum.',longBio:'Ankara Gazi Üniversitesi İç Mimarlık bölümünden mezun olduktan sonra kariyerime büyük projelerde devam ettim. 2014 yılında Ays Interiors\'ı kurarak Türkiye genelinde 127\'den fazla projeyi hayata geçirdim. Tasarım felsefem; mekânın kullanıcısını, ışığı ve zamanı dinlemek üzerine kurulu.',education:[{school:'Gazi Üniversitesi',dept:'İç Mimarlık ve Çevre Tasarımı',year:'2010-2014'}],certificates:[{name:'LEED Green Associate',org:'US Green Building Council',year:'2016'}],profileImage:null};
+  setData(KEYS.profile, profile);
+}
+
+// INIT
+seedData();
+renderPortfolio();
+lucide.createIcons();
+
+// Update unread badge on load
+const msgs = getData(KEYS.messages,[]);
+const unread = msgs.filter(m=>!m.read).length;
+const badge = document.getElementById('unreadBadge');
+badge.textContent = unread; badge.style.display = unread ? 'inline' : 'none';
+</script>
+</body>
+</html>
