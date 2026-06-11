@@ -1,0 +1,150 @@
+-- categories
+create table categories (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  slug text not null unique,
+  sort_order int not null default 0
+);
+
+-- projects
+create table projects (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  category_id uuid references categories(id) on delete set null,
+  location text not null default '',
+  year int not null default extract(year from now())::int,
+  area_sqm int,
+  description text not null default '',
+  materials text[] not null default '{}',
+  featured boolean not null default false,
+  cover_image_url text,
+  created_at timestamptz not null default now()
+);
+
+-- project_images
+create table project_images (
+  id uuid primary key default gen_random_uuid(),
+  project_id uuid not null references projects(id) on delete cascade,
+  storage_path text not null,
+  url text not null,
+  sort_order int not null default 0,
+  is_cover boolean not null default false
+);
+
+-- packages
+create table packages (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  slogan text not null default '',
+  price text,
+  features text[] not null default '{}',
+  featured boolean not null default false,
+  cta_text text not null default 'Bilgi Al',
+  theme text not null default 'standard',
+  sort_order int not null default 0
+);
+
+-- messages
+create table messages (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  email text not null,
+  phone text,
+  service text,
+  message text not null,
+  is_read boolean not null default false,
+  created_at timestamptz not null default now()
+);
+
+-- profile (single row, id always 1)
+create table profile (
+  id int primary key default 1,
+  full_name text not null default '',
+  title text not null default '',
+  short_bio text not null default '',
+  long_bio text not null default '',
+  avatar_url text,
+  email text not null default '',
+  phone text not null default '',
+  instagram text not null default '',
+  pinterest text not null default '',
+  linkedin text not null default ''
+);
+
+-- site_settings (key-value)
+create table site_settings (
+  key text primary key,
+  value text not null default ''
+);
+
+-- Seed: default profile row
+insert into profile (id) values (1) on conflict do nothing;
+
+-- Seed: default site settings
+insert into site_settings (key, value) values
+  ('site_title', 'Ays Interiors — İç Mimarlık & Danışmanlık'),
+  ('site_description', 'Ankara merkezli lüks iç mimarlık ve danışmanlık stüdyosu.'),
+  ('hero_image_url', 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80'),
+  ('footer_text', '© 2025 Ays Interiors. Tüm hakları saklıdır.'),
+  ('maps_embed_url', '')
+on conflict do nothing;
+
+-- Seed: default categories
+insert into categories (name, slug, sort_order) values
+  ('Salon', 'salon', 1),
+  ('Mutfak', 'mutfak', 2),
+  ('Banyo', 'banyo', 3),
+  ('Yatak Odası', 'yatak-odasi', 4),
+  ('Ofis', 'ofis', 5)
+on conflict do nothing;
+
+-- Enable RLS
+alter table categories enable row level security;
+alter table projects enable row level security;
+alter table project_images enable row level security;
+alter table packages enable row level security;
+alter table messages enable row level security;
+alter table profile enable row level security;
+alter table site_settings enable row level security;
+
+-- Public SELECT policies
+create policy "public read categories" on categories for select using (true);
+create policy "public read projects" on projects for select using (true);
+create policy "public read project_images" on project_images for select using (true);
+create policy "public read packages" on packages for select using (true);
+create policy "public read profile" on profile for select using (true);
+create policy "public read site_settings" on site_settings for select using (true);
+
+-- Authenticated write policies
+create policy "auth all categories" on categories for all using (auth.role() = 'authenticated');
+create policy "auth all projects" on projects for all using (auth.role() = 'authenticated');
+create policy "auth all project_images" on project_images for all using (auth.role() = 'authenticated');
+create policy "auth all packages" on packages for all using (auth.role() = 'authenticated');
+create policy "auth read messages" on messages for select using (auth.role() = 'authenticated');
+create policy "auth update messages" on messages for update using (auth.role() = 'authenticated');
+create policy "auth delete messages" on messages for delete using (auth.role() = 'authenticated');
+create policy "public insert messages" on messages for insert with check (true);
+create policy "auth all profile" on profile for all using (auth.role() = 'authenticated');
+create policy "auth all site_settings" on site_settings for all using (auth.role() = 'authenticated');
+
+-- Storage policies: allow authenticated uploads, public reads
+create policy "public read project-images"
+  on storage.objects for select using (bucket_id = 'project-images');
+create policy "auth upload project-images"
+  on storage.objects for insert with check (bucket_id = 'project-images' and auth.role() = 'authenticated');
+create policy "auth delete project-images"
+  on storage.objects for delete using (bucket_id = 'project-images' and auth.role() = 'authenticated');
+
+create policy "public read profile-images"
+  on storage.objects for select using (bucket_id = 'profile-images');
+create policy "auth upload profile-images"
+  on storage.objects for insert with check (bucket_id = 'profile-images' and auth.role() = 'authenticated');
+create policy "auth delete profile-images"
+  on storage.objects for delete using (bucket_id = 'profile-images' and auth.role() = 'authenticated');
+
+create policy "public read site-assets"
+  on storage.objects for select using (bucket_id = 'site-assets');
+create policy "auth upload site-assets"
+  on storage.objects for insert with check (bucket_id = 'site-assets' and auth.role() = 'authenticated');
+create policy "auth delete site-assets"
+  on storage.objects for delete using (bucket_id = 'site-assets' and auth.role() = 'authenticated');
