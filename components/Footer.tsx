@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { MapPin, Mail, Phone, Instagram, LayoutGrid } from 'lucide-react'
+import { MapPin, Mail, Phone, Camera, LayoutGrid } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 
 export default async function Footer() {
@@ -30,7 +30,7 @@ export default async function Footer() {
             <div className="footer__social" aria-label="Sosyal medya">
               {profile?.instagram && (
                 <a href={`https://instagram.com/${profile.instagram.replace('@', '')}`} className="footer__social-link" aria-label="Instagram">
-                  <Instagram size={16} />
+                  <Camera size={16} />
                 </a>
               )}
               {profile?.pinterest && (
