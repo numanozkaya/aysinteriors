@@ -1,0 +1,118 @@
+<h2>Sistem Mimarisi</h2>
+<p class="subtitle">Ays Interiors — Next.js App Router + Supabase + Vercel</p>
+
+<div class="section" style="margin-top: 32px;">
+  <style>
+    .arch-diagram { display: flex; flex-direction: column; gap: 24px; max-width: 860px; margin: 0 auto; }
+    .arch-row { display: flex; gap: 16px; justify-content: center; align-items: stretch; }
+    .arch-box {
+      background: #fff;
+      border: 1.5px solid #E8E2D9;
+      border-radius: 4px;
+      padding: 16px 20px;
+      flex: 1;
+      min-width: 160px;
+      max-width: 240px;
+    }
+    .arch-box.highlight { border-color: #C8A97A; background: #FFF9F0; }
+    .arch-box.dark { background: #1C1A18; color: #fff; border-color: #1C1A18; }
+    .arch-box.dark .arch-label { color: rgba(255,255,255,0.5); }
+    .arch-box.dark .arch-items li { color: rgba(255,255,255,0.75); }
+    .arch-title { font-weight: 600; font-size: 13px; margin-bottom: 6px; }
+    .arch-label { font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: #8C7B6E; margin-bottom: 8px; }
+    .arch-items { list-style: none; padding: 0; margin: 0; }
+    .arch-items li { font-size: 12px; color: #555; padding: 2px 0; display: flex; align-items: center; gap: 6px; }
+    .arch-items li::before { content: '→'; color: #C8A97A; font-size: 10px; }
+    .arch-arrow { display: flex; align-items: center; justify-content: center; color: #8C7B6E; font-size: 20px; flex: 0 0 auto; width: 32px; }
+    .arch-divider { text-align: center; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #C8A97A; padding: 4px 0; }
+    .arch-wide { max-width: 100%; }
+    .badge { display: inline-block; font-size: 10px; padding: 1px 7px; border-radius: 10px; margin-left: 4px; }
+    .badge-green { background: #d4edda; color: #155724; }
+    .badge-blue { background: #d0e8ff; color: #0055aa; }
+  </style>
+
+  <div class="arch-diagram">
+
+    <!-- Layer 1: Users -->
+    <div class="arch-row">
+      <div class="arch-box" style="max-width:200px; text-align:center;">
+        <div class="arch-label">Ziyaretçi</div>
+        <div style="font-size:28px; margin-bottom:4px;">👤</div>
+        <div style="font-size:12px; color:#555;">Portfolio, Danışmanlık,<br>İletişim Formu</div>
+      </div>
+      <div class="arch-arrow">|</div>
+      <div class="arch-box highlight" style="max-width:200px; text-align:center;">
+        <div class="arch-label">Admin</div>
+        <div style="font-size:28px; margin-bottom:4px;">🔐</div>
+        <div style="font-size:12px; color:#555;">Supabase Auth<br>email + şifre</div>
+      </div>
+    </div>
+
+    <div class="arch-divider">▼ Next.js App Router (Vercel)</div>
+
+    <!-- Layer 2: Next.js Routes -->
+    <div class="arch-row">
+      <div class="arch-box">
+        <div class="arch-label">Public Routes</div>
+        <ul class="arch-items">
+          <li>/ (Ana Sayfa)</li>
+          <li>/portfolio</li>
+          <li>/danismanlik</li>
+          <li>/hakkimda</li>
+          <li>/iletisim</li>
+        </ul>
+      </div>
+      <div class="arch-arrow">|</div>
+      <div class="arch-box highlight">
+        <div class="arch-label">Admin Routes (Korumalı)</div>
+        <ul class="arch-items">
+          <li>/admin/login</li>
+          <li>/admin/portfolio</li>
+          <li>/admin/paketler</li>
+          <li>/admin/mesajlar</li>
+          <li>/admin/ayarlar</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="arch-divider">▼ Supabase</div>
+
+    <!-- Layer 3: Supabase -->
+    <div class="arch-row">
+      <div class="arch-box dark">
+        <div class="arch-label">PostgreSQL DB</div>
+        <ul class="arch-items">
+          <li>projects</li>
+          <li>categories</li>
+          <li>packages</li>
+          <li>messages</li>
+          <li>site_settings</li>
+        </ul>
+      </div>
+      <div class="arch-arrow" style="color:#fff;">|</div>
+      <div class="arch-box dark">
+        <div class="arch-label">Storage Buckets</div>
+        <ul class="arch-items">
+          <li>project-images <span class="badge badge-green">public</span></li>
+          <li>profile-images <span class="badge badge-green">public</span></li>
+          <li>hero-images <span class="badge badge-green">public</span></li>
+        </ul>
+      </div>
+      <div class="arch-arrow" style="color:#fff;">|</div>
+      <div class="arch-box dark">
+        <div class="arch-label">Auth</div>
+        <ul class="arch-items">
+          <li>Email + Şifre</li>
+          <li>JWT Session</li>
+          <li>Middleware</li>
+          <li>RLS Policies</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align:center; font-size:11px; color: #8C7B6E; margin-top: 8px;">
+      Görseller Supabase Storage'da — orijinal kalite, doğrudan URL ile servis edilir
+    </div>
+
+  </div>
+</div>

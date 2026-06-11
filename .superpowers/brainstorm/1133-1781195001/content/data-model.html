@@ -1,0 +1,132 @@
+<h2>Veritabanı Modeli</h2>
+<p class="subtitle">Supabase PostgreSQL — tablolar ve ilişkiler</p>
+
+<div class="section" style="margin-top: 24px;">
+<style>
+  .db-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 900px; margin: 0 auto; }
+  .db-table { background: #fff; border: 1.5px solid #E8E2D9; border-radius: 4px; overflow: hidden; }
+  .db-table.accent { border-color: #C8A97A; }
+  .db-table-head { background: #1C1A18; color: #fff; padding: 10px 14px; font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; justify-content: space-between; }
+  .db-table.accent .db-table-head { background: #C8A97A; }
+  .db-table-body { padding: 10px 14px; }
+  .db-col { display: flex; align-items: center; gap: 8px; padding: 4px 0; border-bottom: 1px solid #F0EDE8; font-size: 12px; }
+  .db-col:last-child { border-bottom: none; }
+  .db-col-name { flex: 1; color: #1C1A18; font-weight: 400; }
+  .db-col-type { font-size: 10px; color: #8C7B6E; background: #F9F6F1; padding: 1px 6px; border-radius: 3px; }
+  .db-col-flag { font-size: 10px; padding: 1px 5px; border-radius: 3px; }
+  .pk { background: #fff3cd; color: #856404; }
+  .fk { background: #d0e8ff; color: #0055aa; }
+  .storage-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; max-width: 900px; margin: 16px auto 0; }
+  .storage-bucket { background: #1C1A18; color: #fff; border-radius: 4px; padding: 14px; }
+  .storage-bucket-name { font-size: 12px; font-weight: 600; color: #C8A97A; margin-bottom: 6px; }
+  .storage-bucket-info { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.6; }
+  .rel-line { text-align: center; font-size: 11px; color: #8C7B6E; margin: 4px 0; }
+</style>
+
+<div class="db-grid">
+
+  <div class="db-table accent">
+    <div class="db-table-head">projects <span style="font-size:10px;opacity:.8;">portfolio</span></div>
+    <div class="db-table-body">
+      <div class="db-col"><span class="db-col-name">id</span><span class="db-col-type">uuid</span><span class="db-col-flag pk">PK</span></div>
+      <div class="db-col"><span class="db-col-name">title</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">category_id</span><span class="db-col-type">uuid</span><span class="db-col-flag fk">FK</span></div>
+      <div class="db-col"><span class="db-col-name">location</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">year</span><span class="db-col-type">int</span></div>
+      <div class="db-col"><span class="db-col-name">area_sqm</span><span class="db-col-type">int?</span></div>
+      <div class="db-col"><span class="db-col-name">description</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">materials</span><span class="db-col-type">text[]</span></div>
+      <div class="db-col"><span class="db-col-name">featured</span><span class="db-col-type">bool</span></div>
+      <div class="db-col"><span class="db-col-name">cover_image_url</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">created_at</span><span class="db-col-type">timestamptz</span></div>
+    </div>
+  </div>
+
+  <div class="db-table accent">
+    <div class="db-table-head">project_images <span style="font-size:10px;opacity:.8;">görseller</span></div>
+    <div class="db-table-body">
+      <div class="db-col"><span class="db-col-name">id</span><span class="db-col-type">uuid</span><span class="db-col-flag pk">PK</span></div>
+      <div class="db-col"><span class="db-col-name">project_id</span><span class="db-col-type">uuid</span><span class="db-col-flag fk">FK</span></div>
+      <div class="db-col"><span class="db-col-name">storage_path</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">url</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">sort_order</span><span class="db-col-type">int</span></div>
+      <div class="db-col"><span class="db-col-name">is_cover</span><span class="db-col-type">bool</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-head">categories</div>
+    <div class="db-table-body">
+      <div class="db-col"><span class="db-col-name">id</span><span class="db-col-type">uuid</span><span class="db-col-flag pk">PK</span></div>
+      <div class="db-col"><span class="db-col-name">name</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">slug</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">sort_order</span><span class="db-col-type">int</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-head">packages <span style="font-size:10px;opacity:.8;">danışmanlık</span></div>
+    <div class="db-table-body">
+      <div class="db-col"><span class="db-col-name">id</span><span class="db-col-type">uuid</span><span class="db-col-flag pk">PK</span></div>
+      <div class="db-col"><span class="db-col-name">title</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">slogan</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">price</span><span class="db-col-type">text?</span></div>
+      <div class="db-col"><span class="db-col-name">features</span><span class="db-col-type">text[]</span></div>
+      <div class="db-col"><span class="db-col-name">featured</span><span class="db-col-type">bool</span></div>
+      <div class="db-col"><span class="db-col-name">cta_text</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">theme</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">sort_order</span><span class="db-col-type">int</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-head">messages <span style="font-size:10px;opacity:.8;">iletişim</span></div>
+    <div class="db-table-body">
+      <div class="db-col"><span class="db-col-name">id</span><span class="db-col-name">uuid</span><span class="db-col-flag pk">PK</span></div>
+      <div class="db-col"><span class="db-col-name">name</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">email</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">phone</span><span class="db-col-type">text?</span></div>
+      <div class="db-col"><span class="db-col-name">service</span><span class="db-col-type">text?</span></div>
+      <div class="db-col"><span class="db-col-name">message</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">is_read</span><span class="db-col-type">bool</span></div>
+      <div class="db-col"><span class="db-col-name">created_at</span><span class="db-col-type">timestamptz</span></div>
+    </div>
+  </div>
+
+  <div class="db-table">
+    <div class="db-table-head">profile <span style="font-size:10px;opacity:.8;">hakkımda</span></div>
+    <div class="db-table-body">
+      <div class="db-col"><span class="db-col-name">id</span><span class="db-col-type">int</span><span class="db-col-flag pk">PK</span></div>
+      <div class="db-col"><span class="db-col-name">full_name</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">title</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">short_bio</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">long_bio</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">avatar_url</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">email / phone</span><span class="db-col-type">text</span></div>
+      <div class="db-col"><span class="db-col-name">instagram / pinterest</span><span class="db-col-type">text</span></div>
+    </div>
+  </div>
+
+</div>
+
+<div style="max-width:900px; margin: 16px auto 0;">
+  <div class="label" style="margin-bottom: 10px;">Supabase Storage Bucket'ları</div>
+  <div class="storage-grid">
+    <div class="storage-bucket">
+      <div class="storage-bucket-name">project-images</div>
+      <div class="storage-bucket-info">🌐 Public<br>Proje fotoğrafları<br>Orijinal kalite, CDN URL</div>
+    </div>
+    <div class="storage-bucket">
+      <div class="storage-bucket-name">profile-images</div>
+      <div class="storage-bucket-info">🌐 Public<br>Profil & hakkımda görseli<br>Admin'den yüklenir</div>
+    </div>
+    <div class="storage-bucket">
+      <div class="storage-bucket-name">site-assets</div>
+      <div class="storage-bucket-info">🌐 Public<br>Hero görseli, OG image<br>Site ayarlarından yönetilir</div>
+    </div>
+  </div>
+</div>
+
+<div style="max-width:900px; margin: 16px auto 0; font-size: 12px; color: #8C7B6E;">
+  <strong>RLS Politikaları:</strong> messages ve project_images yazma işlemleri yalnızca authenticated kullanıcıya açık. Public sayfalar sadece okuma yapar.
+</div>
