@@ -17,7 +17,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
   <link rel="stylesheet" href="css/style.css" />
   <style>
     /* ─── CSS Custom Properties ─── */
@@ -992,15 +991,8 @@
       }
     }
 
-    // IDB image support
-    localforage.config({ name: 'aysinteriors', storeName: 'images' });
-    async function getImgSrc(ref) {
-      if (!ref) return '';
-      if (ref.startsWith('http')) return ref;
-      if (ref.startsWith('idb:')) {
-        try { return (await localforage.getItem(ref.slice(4))) || ''; } catch(e) { return ''; }
-      }
-      return ref;
+    function getImgSrc(ref) {
+      return ref || '';
     }
 
     /* ─── State ─── */
@@ -1083,7 +1075,7 @@
         const coverRef = project.images && project.images.length > 0
           ? project.images[project.coverIndex || 0]
           : 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&q=70';
-        const coverImg = await getImgSrc(coverRef);
+        const coverImg = getImgSrc(coverRef);
 
         const card = document.createElement('article');
         card.className = 'project-card reveal';
@@ -1161,7 +1153,7 @@
       const nextBtn = document.getElementById('lb-next');
 
       img.classList.add('switching');
-      const src = await getImgSrc(images[lbImageIndex] || '');
+      const src = getImgSrc(images[lbImageIndex] || '');
       setTimeout(() => {
         img.src = src;
         img.alt = `${lbProject.title} — Görsel ${lbImageIndex + 1}`;

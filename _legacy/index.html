@@ -53,7 +53,6 @@
 
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
 
   <!-- Global Stylesheet -->
   <link rel="stylesheet" href="css/style.css" />
@@ -700,12 +699,9 @@
         const label = getCatLabel(proj.category);
         const isLarge = index === 0;
 
-        // resolve image: support idb: keys, http urls, and paths
+        // resolve image: http urls and file paths
         const coverRef = (proj.images && proj.images.length) ? proj.images[proj.coverIndex || 0] : (proj.image || '');
-        let coverSrc = coverRef;
-        if (coverRef && coverRef.startsWith('idb:')) {
-          try { coverSrc = (await localforage.getItem(coverRef.slice(4))) || ''; } catch(e) { coverSrc = ''; }
-        }
+        const coverSrc = coverRef;
 
         const card = document.createElement('article');
         card.className = `project-card${isLarge ? ' project-card--large' : ''} reveal delay-${index + 1}`;

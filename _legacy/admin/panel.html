@@ -6,7 +6,6 @@
 <title>Admin Paneli — Ays Interiors</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/localforage@1.10.0/dist/localforage.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -197,11 +196,8 @@ a{text-decoration:none;color:inherit}
               <div class="form-group"><label class="form-label">Pinterest</label><input type="text" class="form-input" id="pPinterest"></div>
               <div class="form-group"><label class="form-label">LinkedIn</label><input type="text" class="form-input" id="pLinkedin"></div>
               <div class="form-group">
-                <label class="form-label">Profil Görseli</label>
-                <div class="img-upload-zone" id="profileUploadZone" style="padding:16px">
-                  <input type="file" id="profileImageInput" accept="image/*" onchange="handleProfileImage(this)">
-                  <div style="font-size:12px;color:#8C7B6E">Tıkla veya sürükle</div>
-                </div>
+                <label class="form-label">Profil Görseli Yolu</label>
+                <input type="text" class="form-input" id="profileImagePath" placeholder="images/genel/profil.jpg" oninput="updateProfileImagePreview(this.value)">
                 <div id="pImagePreview" class="mt-1"></div>
               </div>
             </div>
@@ -247,11 +243,8 @@ a{text-decoration:none;color:inherit}
           <div class="form-group"><label class="form-label">SEO Açıklaması</label><textarea class="form-textarea" id="sSeoDesc" rows="2"></textarea></div>
           <div class="form-group"><label class="form-label">Footer Metni</label><input type="text" class="form-input" id="sFooter"></div>
           <div class="form-group">
-            <label class="form-label">Ana Sayfa Hero Görseli</label>
-            <div class="img-upload-zone" style="padding:16px">
-              <input type="file" id="heroImageInput" accept="image/*" onchange="handleHeroImage(this)">
-              <div style="font-size:12px;color:#8C7B6E">Tıkla veya sürükle — tek görsel</div>
-            </div>
+            <label class="form-label">Ana Sayfa Hero Görseli Yolu</label>
+            <input type="text" class="form-input" id="heroImagePath" placeholder="images/genel/hero.jpg veya https://..." oninput="updateHeroImagePreview(this.value)">
             <div id="sHeroPreview" class="mt-1"></div>
           </div>
           <button onclick="saveSettings()" class="btn btn-primary"><i data-lucide="save" width="13" height="13"></i> Kaydet</button>
@@ -303,26 +296,14 @@ a{text-decoration:none;color:inherit}
 
       <!-- GÖRSELLER -->
       <div>
-        <label class="form-label">Görseller</label>
+        <label class="form-label">Görsel Yolları</label>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <input type="text" class="form-input" id="projImgPathInput" placeholder="images/salon/foto.jpg veya https://...">
+          <button type="button" onclick="addImagePath()" class="btn btn-outline" style="white-space:nowrap;flex-shrink:0">+ Ekle</button>
+        </div>
+        <div style="font-size:11px;color:#8C7B6E;margin-bottom:10px">Görselleri <code>images/[kategori]/</code> klasörüne koyup yolunu gir. Örn: <code>images/salon/foto1.jpg</code></div>
         <div id="projImgCount" class="img-count"></div>
         <div id="projImgGrid" class="img-grid"></div>
-
-        <!-- Upload zone -->
-        <div class="img-upload-zone" id="imgUploadZone">
-          <input type="file" id="projImgInput" accept="image/*" multiple onchange="handleImageUpload(this)">
-          <div class="img-upload-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          </div>
-          <div class="img-upload-text">
-            <strong>Görsel Yükle</strong>
-            Tıkla veya sürükle &amp; bırak<br>
-            <span>Birden fazla seçebilirsin (JPG, PNG, WEBP)</span>
-          </div>
-        </div>
-        <div class="img-progress" id="imgProgress">
-          <div class="img-progress-bar"><div class="img-progress-fill" id="imgProgressFill"></div></div>
-          <div class="img-progress-text" id="imgProgressText"></div>
-        </div>
       </div>
     </div>
     <div class="modal-foot">
@@ -388,9 +369,6 @@ const KEYS={projects:'ays_projects',categories:'ays_categories',packages:'ays_pa
 const getData=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}};
 const setData=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 
-// localforage instance for images (IndexedDB)
-localforage.config({name:'aysinteriors',storeName:'images'});
-
 const notify=msg=>{const e=document.getElementById('notif');e.textContent=msg;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),2800);};
 
 function showSection(name,el){
@@ -410,24 +388,16 @@ function closeModal(id){document.getElementById(id).classList.remove('open');}
 
 // ── IMAGE HELPERS ──
 // Image ref format:
-//   "idb:img_1234"  → stored in IndexedDB
 //   "https://..."   → external URL
 //   "images/..."    → local file path
 
-async function getImgSrc(ref){
+function getImgSrc(ref){
   if(!ref) return '';
-  if(ref.startsWith('http')) return ref;
-  if(ref.startsWith('idb:')){
-    try{
-      const data=await localforage.getItem(ref.slice(4));
-      return data||'';
-    }catch(e){return '';}
-  }
-  return ref; // relative path
+  return ref;
 }
 
-async function renderImgTile(ref, idx, coverIdx, onRemove, onCover){
-  const src = await getImgSrc(ref);
+function renderImgTile(ref, idx, coverIdx, onRemove, onCover){
+  const src = getImgSrc(ref);
   const div=document.createElement('div');
   div.className='img-tile'+(idx===coverIdx?' is-cover':'');
   div.innerHTML=`<img src="${src}" onerror="this.style.opacity='.2'">
@@ -439,17 +409,17 @@ async function renderImgTile(ref, idx, coverIdx, onRemove, onCover){
   return div;
 }
 
-// ── PROJECT IMAGE UPLOAD ──
-let projImages=[]; // array of refs (idb:key or url)
+// ── PROJECT IMAGE PATHS ──
+let projImages=[]; // array of file paths or URLs
 let projCoverIdx=0;
 
-async function renderProjImages(){
+function renderProjImages(){
   const grid=document.getElementById('projImgGrid');
   const count=document.getElementById('projImgCount');
   grid.innerHTML='';
   count.textContent=projImages.length?`${projImages.length} görsel · ★ kapak seçmek için yıldıza tıkla`:'';
   for(let i=0;i<projImages.length;i++){
-    const tile=await renderImgTile(projImages[i],i,projCoverIdx,
+    const tile=renderImgTile(projImages[i],i,projCoverIdx,
       idx=>{projImages.splice(idx,1);if(projCoverIdx>=projImages.length)projCoverIdx=0;renderProjImages();},
       idx=>{projCoverIdx=idx;renderProjImages();}
     );
@@ -457,46 +427,14 @@ async function renderProjImages(){
   }
 }
 
-async function handleImageUpload(input){
-  const files=Array.from(input.files);
-  if(!files.length)return;
-  const progress=document.getElementById('imgProgress');
-  const fill=document.getElementById('imgProgressFill');
-  const txt=document.getElementById('imgProgressText');
-  progress.style.display='block';
-  for(let i=0;i<files.length;i++){
-    txt.textContent=`Yükleniyor: ${i+1} / ${files.length} — ${files[i].name}`;
-    fill.style.width=((i/files.length)*100)+'%';
-    const key='img_'+Date.now()+'_'+i;
-    await new Promise(resolve=>{
-      const reader=new FileReader();
-      reader.onload=async e=>{
-        await localforage.setItem(key,e.target.result);
-        projImages.push('idb:'+key);
-        resolve();
-      };
-      reader.readAsDataURL(files[i]);
-    });
-  }
-  fill.style.width='100%';
-  txt.textContent=`${files.length} görsel yüklendi.`;
-  setTimeout(()=>{progress.style.display='none';fill.style.width='0%';},2000);
+function addImagePath(){
+  const input=document.getElementById('projImgPathInput');
+  const val=input.value.trim();
+  if(!val)return;
+  projImages.push(val);
   input.value='';
-  await renderProjImages();
+  renderProjImages();
 }
-
-// Drag & drop
-const zone=document.getElementById('imgUploadZone');
-zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('dragover');});
-zone.addEventListener('dragleave',()=>zone.classList.remove('dragover'));
-zone.addEventListener('drop',e=>{
-  e.preventDefault();zone.classList.remove('dragover');
-  const dt=e.dataTransfer;
-  if(dt.files.length){
-    const fakeInput={files:dt.files,value:''};
-    handleImageUpload(fakeInput);
-  }
-});
 
 // ── CATEGORIES ──
 function renderCategories(){
@@ -519,7 +457,7 @@ function deleteCategory(id){
 }
 
 // ── PROJECTS ──
-async function renderPortfolio(){
+function renderPortfolio(){
   renderCategories();
   const list=getData(KEYS.projects,[]);
   const el=document.getElementById('projectList');
@@ -527,7 +465,7 @@ async function renderPortfolio(){
   el.innerHTML='';
   for(const p of list){
     const coverRef=(p.images||[])[p.coverIndex||0]||'';
-    const thumbSrc=coverRef?await getImgSrc(coverRef):'';
+    const thumbSrc=coverRef?getImgSrc(coverRef):'';
     const row=document.createElement('div');
     row.className='proj-item';
     row.innerHTML=`
@@ -546,12 +484,11 @@ async function renderPortfolio(){
   lucide.createIcons();
 }
 
-async function openProjectModal(id){
+function openProjectModal(id){
   projImages=[];projCoverIdx=0;
   document.getElementById('projImgGrid').innerHTML='';
   document.getElementById('projImgCount').textContent='';
-  document.getElementById('projImgInput').value='';
-  document.getElementById('imgProgress').style.display='none';
+  document.getElementById('projImgPathInput').value='';
   document.getElementById('projModalTitle').textContent=id?'Proje Düzenle':'Yeni Proje Ekle';
   const cats=getData(KEYS.categories,[]);
   document.getElementById('projCategory').innerHTML='<option value="">Kategori seç</option>'+cats.map(c=>`<option value="${c.slug}">${c.name}</option>`).join('');
@@ -568,7 +505,7 @@ async function openProjectModal(id){
     document.getElementById('projMaterials').value=(p.materials||[]).join(', ');
     projImages=[...(p.images||[])];
     projCoverIdx=p.coverIndex||0;
-    await renderProjImages();
+    renderProjImages();
   }else{
     document.getElementById('projId').value='';
     ['projTitle','projLocation','projYear','projArea','projDesc','projMaterials'].forEach(i=>document.getElementById(i).value='');
@@ -588,9 +525,7 @@ function saveProject(){
   setData(KEYS.projects,projects);closeModal('projModal');renderPortfolio();notify('Proje kaydedildi.');
 }
 function deleteProject(id){
-  if(!confirm('Projeyi ve görsellerini sil?'))return;
-  const p=getData(KEYS.projects,[]).find(x=>x.id===id);
-  if(p)(p.images||[]).filter(r=>r.startsWith('idb:')).forEach(r=>localforage.removeItem(r.slice(4)));
+  if(!confirm('Projeyi sil?'))return;
   setData(KEYS.projects,getData(KEYS.projects,[]).filter(p=>p.id!==id));renderPortfolio();notify('Silindi.');
 }
 
@@ -646,32 +581,23 @@ function deletePackage(id){
 }
 
 // ── PROFILE ──
-async function renderProfile(){
+function renderProfile(){
   const p=getData(KEYS.profile,{});
   const map={pName:'name',pTitle:'title',pEmail:'email',pPhone:'phone',pLocation:'location',pInstagram:'instagram',pPinterest:'pinterest',pLinkedin:'linkedin',pShortBio:'shortBio',pLongBio:'longBio'};
   Object.entries(map).forEach(([id,key])=>document.getElementById(id).value=p[key]||'');
-  if(p.profileImageRef){
-    const src=await getImgSrc(p.profileImageRef);
-    document.getElementById('pImagePreview').innerHTML=src?`<img src="${src}" style="width:72px;height:72px;object-fit:cover">`:'' ;
-  }
+  const imgPath=p.profileImageRef||'';
+  document.getElementById('profileImagePath').value=imgPath;
+  document.getElementById('pImagePreview').innerHTML=imgPath?`<img src="${imgPath}" style="width:72px;height:72px;object-fit:cover" onerror="this.style.opacity='.2'">`:'' ;
   renderEducation();renderCertificates();
 }
-async function handleProfileImage(input){
-  if(!input.files[0])return;
-  const key='profile_img_'+Date.now();
-  const reader=new FileReader();
-  reader.onload=async e=>{
-    await localforage.setItem(key,e.target.result);
-    const p=getData(KEYS.profile,{});p.profileImageRef='idb:'+key;setData(KEYS.profile,p);
-    document.getElementById('pImagePreview').innerHTML=`<img src="${e.target.result}" style="width:72px;height:72px;object-fit:cover">`;
-    notify('Profil görseli yüklendi.');
-  };
-  reader.readAsDataURL(input.files[0]);
+function updateProfileImagePreview(path){
+  document.getElementById('pImagePreview').innerHTML=path?`<img src="${path}" style="width:72px;height:72px;object-fit:cover" onerror="this.style.opacity='.2'">`:'' ;
 }
 function saveProfile(){
   const p=getData(KEYS.profile,{});
   const map={pName:'name',pTitle:'title',pEmail:'email',pPhone:'phone',pLocation:'location',pInstagram:'instagram',pPinterest:'pinterest',pLinkedin:'linkedin',pShortBio:'shortBio',pLongBio:'longBio'};
   Object.entries(map).forEach(([id,key])=>p[key]=document.getElementById(id).value);
+  p.profileImageRef=document.getElementById('profileImagePath').value.trim();
   setData(KEYS.profile,p);notify('Profil kaydedildi.');
 }
 function renderEducation(){
@@ -735,33 +661,24 @@ function deleteCurrentMsg(){
 }
 
 // ── SETTINGS ──
-async function renderSettings(){
+function renderSettings(){
   const s=getData(KEYS.settings,{});
   document.getElementById('sTitle').value=s.siteTitle||'Ays Interiors';
   document.getElementById('sSeoDesc').value=s.seoDesc||'';
   document.getElementById('sFooter').value=s.footerText||'';
-  if(s.heroImageRef){
-    const src=await getImgSrc(s.heroImageRef);
-    if(src)document.getElementById('sHeroPreview').innerHTML=`<img src="${src}" style="max-width:280px;max-height:90px;object-fit:cover;margin-top:6px">`;
-  }
+  const heroPath=s.heroImageRef||'';
+  document.getElementById('heroImagePath').value=heroPath;
+  if(heroPath)document.getElementById('sHeroPreview').innerHTML=`<img src="${heroPath}" style="max-width:280px;max-height:90px;object-fit:cover;margin-top:6px" onerror="this.style.opacity='.2'">`;
 }
-async function handleHeroImage(input){
-  if(!input.files[0])return;
-  const key='hero_img_'+Date.now();
-  const reader=new FileReader();
-  reader.onload=async e=>{
-    await localforage.setItem(key,e.target.result);
-    const s=getData(KEYS.settings,{});s.heroImageRef='idb:'+key;setData(KEYS.settings,s);
-    document.getElementById('sHeroPreview').innerHTML=`<img src="${e.target.result}" style="max-width:280px;max-height:90px;object-fit:cover;margin-top:6px">`;
-    notify('Hero görseli yüklendi.');
-  };
-  reader.readAsDataURL(input.files[0]);
+function updateHeroImagePreview(path){
+  document.getElementById('sHeroPreview').innerHTML=path?`<img src="${path}" style="max-width:280px;max-height:90px;object-fit:cover;margin-top:6px" onerror="this.style.opacity='.2'">`:'' ;
 }
 function saveSettings(){
   const s=getData(KEYS.settings,{});
   s.siteTitle=document.getElementById('sTitle').value;
   s.seoDesc=document.getElementById('sSeoDesc').value;
   s.footerText=document.getElementById('sFooter').value;
+  s.heroImageRef=document.getElementById('heroImagePath').value.trim();
   setData(KEYS.settings,s);notify('Ayarlar kaydedildi.');
 }
 function changePassword(){
