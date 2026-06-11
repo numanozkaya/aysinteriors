@@ -98,6 +98,15 @@ insert into categories (name, slug, sort_order) values
   ('Ofis', 'ofis', 5)
 on conflict do nothing;
 
+-- admins table: only UIDs listed here can write to the database.
+-- After creating your admin user in Supabase Auth, run:
+--   insert into admins (user_id) values ('<your-auth-uid>');
+create table admins (
+  user_id uuid primary key references auth.users(id) on delete cascade
+);
+alter table admins enable row level security;
+create policy "admins read self" on admins for select using (auth.uid() = user_id);
+
 -- Enable RLS
 alter table categories enable row level security;
 alter table projects enable row level security;
@@ -115,36 +124,63 @@ create policy "public read packages" on packages for select using (true);
 create policy "public read profile" on profile for select using (true);
 create policy "public read site_settings" on site_settings for select using (true);
 
--- Authenticated write policies
-create policy "auth all categories" on categories for all using (auth.role() = 'authenticated');
-create policy "auth all projects" on projects for all using (auth.role() = 'authenticated');
-create policy "auth all project_images" on project_images for all using (auth.role() = 'authenticated');
-create policy "auth all packages" on packages for all using (auth.role() = 'authenticated');
-create policy "auth read messages" on messages for select using (auth.role() = 'authenticated');
-create policy "auth update messages" on messages for update using (auth.role() = 'authenticated');
-create policy "auth delete messages" on messages for delete using (auth.role() = 'authenticated');
+-- Admin-only write policies (scoped to admins table, not just any authenticated user)
+create policy "admin all categories" on categories for all
+  using (exists (select 1 from admins where user_id = auth.uid()));
+create policy "admin all projects" on projects for all
+  using (exists (select 1 from admins where user_id = auth.uid()));
+create policy "admin all project_images" on project_images for all
+  using (exists (select 1 from admins where user_id = auth.uid()));
+create policy "admin all packages" on packages for all
+  using (exists (select 1 from admins where user_id = auth.uid()));
+create policy "admin read messages" on messages for select
+  using (exists (select 1 from admins where user_id = auth.uid()));
+create policy "admin update messages" on messages for update
+  using (exists (select 1 from admins where user_id = auth.uid()));
+create policy "admin delete messages" on messages for delete
+  using (exists (select 1 from admins where user_id = auth.uid()));
 create policy "public insert messages" on messages for insert with check (true);
-create policy "auth all profile" on profile for all using (auth.role() = 'authenticated');
-create policy "auth all site_settings" on site_settings for all using (auth.role() = 'authenticated');
+create policy "admin all profile" on profile for all
+  using (exists (select 1 from admins where user_id = auth.uid()));
+create policy "admin all site_settings" on site_settings for all
+  using (exists (select 1 from admins where user_id = auth.uid()));
 
--- Storage policies: allow authenticated uploads, public reads
+-- Storage policies: public reads, admin-only uploads/deletes
 create policy "public read project-images"
   on storage.objects for select using (bucket_id = 'project-images');
-create policy "auth upload project-images"
-  on storage.objects for insert with check (bucket_id = 'project-images' and auth.role() = 'authenticated');
-create policy "auth delete project-images"
-  on storage.objects for delete using (bucket_id = 'project-images' and auth.role() = 'authenticated');
+create policy "admin upload project-images"
+  on storage.objects for insert with check (
+    bucket_id = 'project-images'
+    and exists (select 1 from admins where user_id = auth.uid())
+  );
+create policy "admin delete project-images"
+  on storage.objects for delete using (
+    bucket_id = 'project-images'
+    and exists (select 1 from admins where user_id = auth.uid())
+  );
 
 create policy "public read profile-images"
   on storage.objects for select using (bucket_id = 'profile-images');
-create policy "auth upload profile-images"
-  on storage.objects for insert with check (bucket_id = 'profile-images' and auth.role() = 'authenticated');
-create policy "auth delete profile-images"
-  on storage.objects for delete using (bucket_id = 'profile-images' and auth.role() = 'authenticated');
+create policy "admin upload profile-images"
+  on storage.objects for insert with check (
+    bucket_id = 'profile-images'
+    and exists (select 1 from admins where user_id = auth.uid())
+  );
+create policy "admin delete profile-images"
+  on storage.objects for delete using (
+    bucket_id = 'profile-images'
+    and exists (select 1 from admins where user_id = auth.uid())
+  );
 
 create policy "public read site-assets"
   on storage.objects for select using (bucket_id = 'site-assets');
-create policy "auth upload site-assets"
-  on storage.objects for insert with check (bucket_id = 'site-assets' and auth.role() = 'authenticated');
-create policy "auth delete site-assets"
-  on storage.objects for delete using (bucket_id = 'site-assets' and auth.role() = 'authenticated');
+create policy "admin upload site-assets"
+  on storage.objects for insert with check (
+    bucket_id = 'site-assets'
+    and exists (select 1 from admins where user_id = auth.uid())
+  );
+create policy "admin delete site-assets"
+  on storage.objects for delete using (
+    bucket_id = 'site-assets'
+    and exists (select 1 from admins where user_id = auth.uid())
+  );
