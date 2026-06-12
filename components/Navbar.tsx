@@ -14,6 +14,7 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname()
+  const isHome = pathname === '/'
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -23,9 +24,11 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  const solid = !isHome || scrolled
+
   return (
     <>
-      <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`} aria-label="Ana navigasyon">
+      <nav className={`navbar${solid ? ' navbar--scrolled' : ''}`} aria-label="Ana navigasyon">
         <div className="navbar__inner">
           <Link href="/" className="navbar__logo" aria-label="Ays Interiors Ana Sayfa">
             ays interiors

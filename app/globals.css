@@ -418,6 +418,16 @@ hr.thin-rule.left {
   background: var(--gold);
 }
 
+.navbar--scrolled .navbar__link.active,
+.navbar.scrolled .navbar__link.active {
+  color: var(--gold);
+}
+
+.navbar--scrolled .navbar__link:hover,
+.navbar.scrolled .navbar__link:hover {
+  color: var(--gold);
+}
+
 .navbar__cta {
   margin-left: 20px;
   font-size: 0.75rem;
@@ -654,6 +664,30 @@ hr.thin-rule.left {
   align-items: flex-end;
   overflow: hidden;
   padding-bottom: 60px;
+  background: linear-gradient(135deg, #1C1A18 0%, #2d2b29 100%);
+  padding-top: var(--navbar-h);
+}
+
+.page-hero h1 {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--white);
+  margin: 0 0 8px;
+}
+
+.page-hero p {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0;
+}
+
+.page-hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 40px 60px;
 }
 
 .page-hero__bg {
@@ -1055,7 +1089,8 @@ hr.thin-rule.left {
   transform: translateY(-4px);
 }
 
-.package-card.featured {
+.package-card.featured,
+.package-card--featured {
   border-color: var(--gold);
   background: var(--dark);
   color: var(--white);
@@ -1063,17 +1098,22 @@ hr.thin-rule.left {
   box-shadow: var(--shadow-lg);
 }
 
-.package-card.featured:hover {
+.package-card.featured:hover,
+.package-card--featured:hover {
   transform: scale(1.03) translateY(-4px);
 }
 
 .package-card.featured h3,
-.package-card.featured h4 {
+.package-card.featured h4,
+.package-card--featured h3,
+.package-card--featured h4 {
   color: var(--white);
 }
 
 .package-card.featured p,
-.package-card.featured li {
+.package-card.featured li,
+.package-card--featured p,
+.package-card--featured li {
   color: rgba(255, 255, 255, 0.65);
 }
 
@@ -1154,6 +1194,52 @@ hr.thin-rule.left {
   flex-shrink: 0;
   color: var(--gold);
   margin-top: 2px;
+}
+
+.package-card__cta {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+}
+
+.package-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.package-card__features li {
+  font-size: 0.88rem;
+  color: var(--taupe);
+  padding-left: 16px;
+  position: relative;
+}
+
+.package-card__features li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+}
+
+.package-card--featured .package-card__features li,
+.package-card.featured .package-card__features li {
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.package-card--featured .package-card__divider,
+.package-card.featured .package-card__divider {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.package-card--featured .package-card__cta,
+.package-card.featured .package-card__cta {
+  border-color: var(--gold);
+  color: var(--gold);
 }
 
 /* ── Accordion ───────────────────────────────────────────── */
@@ -1955,9 +2041,50 @@ hr.thin-rule.left {
 @media(max-width:1024px){.portfolio-grid--3col{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:640px){.portfolio-grid--3col{grid-template-columns:1fr;}}
 
+/* ── About / Hakkımda ── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 5rem;
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+.about-content h2 {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  margin-bottom: 8px;
+  color: var(--dark);
+}
+.about-title {
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+}
+.about-bio {
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: var(--taupe);
+}
+
 /* ── Contact ── */
-.contact-info__item{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:14px;}
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+.contact-info { padding-top: 16px; }
+.contact-info__item{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:14px;color:var(--dark);}
 .contact-info__item a{color:var(--dark);text-decoration:none;}
 .contact-info__item a:hover{color:var(--gold);}
 .form-success{text-align:center;padding:40px 20px;}
-.form-success h3{font-family:var(--font-heading);font-style:italic;font-size:1.8rem;margin-bottom:12px;}
+.form-success h3{font-family:var(--font-heading);font-style:italic;font-size:1.8rem;margin-bottom:12px;color:var(--dark);}
+.form-success p{color:var(--taupe);}

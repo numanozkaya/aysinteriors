@@ -24,7 +24,7 @@ export default async function IletisimPage({ searchParams }: { searchParams: Pro
       </section>
       <section className="section">
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'start' }}>
+          <div className="contact-grid">
             <div>
               <div className="section-header reveal">
                 <span className="section-label">Mesaj Gönderin</span>
