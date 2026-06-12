@@ -8,13 +8,21 @@ import type { Category, Project, ProjectImage } from '@/lib/types'
 
 type ProjectWithImages = Project & { images: ProjectImage[]; category: Category | null }
 
+function slugify(text: string) {
+  return text.trim().toLowerCase()
+    .replace(/ğ/g, 'g').replace(/ü/g, 'u').replace(/ş/g, 's')
+    .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ç/g, 'c')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+}
+
 export default function AdminPortfolioPage() {
   const supabase = createClient()
   const [projects, setProjects] = useState<ProjectWithImages[]>([])
   const [categories, setCategories] = useState<Category[]>([])
   const [modalProject, setModalProject] = useState<ProjectWithImages | null | undefined>(undefined)
   const [newCatName, setNewCatName] = useState('')
-  const [newCatSlug, setNewCatSlug] = useState('')
 
   const load = useCallback(async () => {
     const [{ data: p }, { data: c }] = await Promise.all([
@@ -32,13 +40,15 @@ export default function AdminPortfolioPage() {
 
   async function addCategory() {
     if (!newCatName.trim()) return
-    await supabase.from('categories').insert({
+    const { error } = await supabase.from('categories').insert({
       name: newCatName.trim(),
-      slug: newCatSlug.trim() || newCatName.trim().toLowerCase().replace(/\s+/g, '-'),
+      slug: slugify(newCatName),
+      sort_order: categories.length + 1,
     })
-    setNewCatName('')
-    setNewCatSlug('')
-    load()
+    if (!error) {
+      setNewCatName('')
+      load()
+    }
   }
 
   async function deleteCategory(id: string) {
@@ -68,8 +78,17 @@ export default function AdminPortfolioPage() {
           ))}
         </div>
         <div className="gap-row">
-          <input className="form-input" value={newCatName} onChange={e => setNewCatName(e.target.value)} placeholder="Kategori adı" style={{ maxWidth: 180 }} />
-          <input className="form-input" value={newCatSlug} onChange={e => setNewCatSlug(e.target.value)} placeholder="slug" style={{ maxWidth: 140 }} />
+          <input
+            className="form-input"
+            value={newCatName}
+            onChange={e => setNewCatName(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && addCategory()}
+            placeholder="Kategori adı (örn: Oturma Odası)"
+            style={{ maxWidth: 240 }}
+          />
+          {newCatName && (
+            <span style={{ fontSize: 11, color: 'var(--taupe)' }}>slug: {slugify(newCatName)}</span>
+          )}
           <button className="btn btn-primary" onClick={addCategory}><Plus size={13} /> Ekle</button>
         </div>
       </div>
