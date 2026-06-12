@@ -84,7 +84,7 @@ export default async function HakkimdaPage() {
               )}
 
               {bioParagraphs.length > 0
-                ? bioParagraphs.map((para, i) => (
+                ? bioParagraphs.map((para: string, i: number) => (
                     <p key={i} style={{ marginBottom: '1.2rem', lineHeight: 1.85, color: 'var(--taupe)' }}>
                       {para}
                     </p>
