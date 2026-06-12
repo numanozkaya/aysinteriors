@@ -5,6 +5,16 @@ import { MapPin, Mail, Phone } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 import type { Metadata } from 'next'
 
+function IgIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
 export const metadata: Metadata = {
   title: 'İletişim — Ays Interiors | İç Mimarlık Danışmanlık',
   description: 'Ays Interiors ile iletişime geçin. İç mimarlık projeleriniz için ücretsiz keşif görüşmesi talep edin. Türkiye geneli ve online danışmanlık hizmetleri.',
@@ -21,7 +31,7 @@ export const metadata: Metadata = {
 export default async function IletisimPage({ searchParams }: { searchParams: Promise<{ paket?: string }> }) {
   const supabase = await createClient()
   const params = await searchParams
-  const { data: profile } = await supabase.from('profile').select('email,phone').eq('id', 1).single()
+  const { data: profile } = await supabase.from('profile').select('email,phone,instagram').eq('id', 1).single()
   const { data: settingsRows } = await supabase.from('site_settings').select('key,value')
   const s: Record<string, string> = Object.fromEntries((settingsRows ?? []).map((r: any) => [r.key, r.value]))
 
@@ -65,10 +75,46 @@ export default async function IletisimPage({ searchParams }: { searchParams: Pro
                   <iframe src={s.maps_embed_url} width="100%" height="300" style={{ border: 0 }} loading="lazy" title="Konum" />
                 </div>
               )}
+
+              {/* Instagram CTA */}
+              {profile?.instagram && (
+                <a
+                  href={`https://instagram.com/${profile.instagram.replace('@', '')}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ig-contact-cta"
+                >
+                  <IgIcon />
+                  <div>
+                    <span className="ig-contact-cta__label">Instagram</span>
+                    <span className="ig-contact-cta__handle">@{profile.instagram.replace('@', '')}</span>
+                  </div>
+                </a>
+              )}
             </div>
           </div>
         </div>
       </section>
+
+      {/* ── Instagram banner ── */}
+      {profile?.instagram && (
+        <section className="ig-banner">
+          <IgIcon />
+          <div className="ig-banner__text">
+            <span className="ig-banner__eyebrow">İlham almak için</span>
+            <span className="ig-banner__handle">@{profile.instagram.replace('@', '')}</span>
+          </div>
+          <a
+            href={`https://instagram.com/${profile.instagram.replace('@', '')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ig-follow-btn"
+          >
+            Takip Et
+          </a>
+        </section>
+      )}
+
       <Footer />
     </>
   )
