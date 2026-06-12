@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import StatsCounter from '@/components/StatsCounter'
+import HomeFeaturedProjects from '@/components/HomeFeaturedProjects'
 import { createClient } from '@/lib/supabase/server'
 import { ArrowRight, MessageCircle, CheckCircle2, Pencil, Ruler, Box } from 'lucide-react'
 import type { Metadata } from 'next'
@@ -38,9 +39,11 @@ const jsonLd = {
 
 // Fallback projects if DB empty
 const FALLBACK_PROJECTS = [
-  { id: 'f1', title: 'Modern Salon Tasarımı', cat: 'Salon', img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80' },
-  { id: 'f2', title: 'Minimalist Mutfak', cat: 'Mutfak', img: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80' },
-  { id: 'f3', title: 'Lüks Banyo Konsepti', cat: 'Banyo', img: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80' },
+  { id: 'f1', title: 'Modern Salon Tasarımı',   category: { id: '', name: 'Salon',      slug: 'salon'     }, location: 'Ankara', year: 2024, area_sqm: null, description: '', materials: [], featured: true, cover_image_url: null, created_at: '', images: [{ id: 'i1', project_id: 'f1', storage_path: '', url: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&q=80', sort_order: 0, is_cover: true }] },
+  { id: 'f2', title: 'Minimalist Mutfak',        category: { id: '', name: 'Mutfak',     slug: 'mutfak'    }, location: 'Ankara', year: 2024, area_sqm: null, description: '', materials: [], featured: true, cover_image_url: null, created_at: '', images: [{ id: 'i2', project_id: 'f2', storage_path: '', url: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80', sort_order: 0, is_cover: true }] },
+  { id: 'f3', title: 'Lüks Banyo Konsepti',      category: { id: '', name: 'Banyo',      slug: 'banyo'     }, location: 'Ankara', year: 2024, area_sqm: null, description: '', materials: [], featured: true, cover_image_url: null, created_at: '', images: [{ id: 'i3', project_id: 'f3', storage_path: '', url: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80', sort_order: 0, is_cover: true }] },
+  { id: 'f4', title: 'Ofis Yenileme',            category: { id: '', name: 'Ofis',       slug: 'ofis'      }, location: 'Ankara', year: 2023, area_sqm: null, description: '', materials: [], featured: true, cover_image_url: null, created_at: '', images: [{ id: 'i4', project_id: 'f4', storage_path: '', url: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80', sort_order: 0, is_cover: true }] },
+  { id: 'f5', title: 'Yatak Odası Konsepti',     category: { id: '', name: 'Yatak Odası', slug: 'yatak-odasi' }, location: 'Ankara', year: 2023, area_sqm: null, description: '', materials: [], featured: true, cover_image_url: null, created_at: '', images: [{ id: 'i5', project_id: 'f5', storage_path: '', url: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=800&q=80', sort_order: 0, is_cover: true }] },
 ]
 
 const FALLBACK_PACKAGES = [
@@ -137,7 +140,7 @@ export default async function HomePage() {
   const supabase = await createClient()
 
   const [{ data: featuredProjects }, { data: packages }, { data: settings }, { data: blogPosts }] = await Promise.all([
-    supabase.from('projects').select('*, category:categories(name,slug), images:project_images(url,is_cover,sort_order)').eq('featured', true).order('created_at', { ascending: false }).limit(3),
+    supabase.from('projects').select('*, category:categories(id,name,slug), images:project_images(id,url,storage_path,is_cover,sort_order)').eq('featured', true).order('created_at', { ascending: false }).limit(5),
     supabase.from('packages').select('*').order('sort_order').limit(3),
     supabase.from('site_settings').select('key,value'),
     supabase.from('blog_posts').select('id,title,slug,excerpt,tags,cover_image_url,created_at').eq('published', true).order('created_at', { ascending: false }).limit(3),
@@ -173,11 +176,7 @@ export default async function HomePage() {
   const renderBullets = [1,2,3,4,5].map(i => v(`render_bullet${i}`)).filter(Boolean)
 
   const displayProjects = (featuredProjects && featuredProjects.length > 0)
-    ? featuredProjects.map((p: any) => ({
-        id: p.id, title: p.title,
-        cat: p.category?.name ?? '',
-        img: p.images?.find((i: any) => i.is_cover)?.url ?? p.images?.[0]?.url ?? null,
-      }))
+    ? (featuredProjects as any[])
     : FALLBACK_PROJECTS
 
   const displayPackages = (packages && packages.length > 0) ? packages : FALLBACK_PACKAGES
@@ -291,19 +290,7 @@ export default async function HomePage() {
             <h2 className="section-header__title">Öne Çıkan Projeler</h2>
             <p className="section-header__desc">Her mekan, sahibinin ruhunu yansıtır. İşte öne çıkan tasarımlarımızdan bir seçki.</p>
           </header>
-          <div className="hp-projects-grid">
-            {displayProjects.map((p, i) => (
-              <Link key={p.id} href="/portfolio" className={`hp-project-card reveal delay-${i + 1}`}>
-                <div className="hp-project-card__img">
-                  {p.img && <Image src={p.img} alt={p.title} fill sizes="(max-width:768px) 100vw, 40vw" style={{ objectFit: 'cover' }} />}
-                </div>
-                <div className="hp-project-card__info">
-                  <span className="hp-project-card__cat">{p.cat}</span>
-                  <span className="hp-project-card__title">{p.title}</span>
-                </div>
-              </Link>
-            ))}
-          </div>
+          <HomeFeaturedProjects projects={displayProjects as any} />
           <div style={{ textAlign: 'center', marginTop: '48px' }} className="reveal">
             <Link href="/portfolio" className="btn btn-ghost--dark btn-ghost">Tüm Projeleri Gör <ArrowRight size={14} /></Link>
           </div>
