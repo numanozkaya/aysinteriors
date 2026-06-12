@@ -28,7 +28,7 @@
   --container-max: 1200px;
   --section-pad-v: 100px;
   --section-pad-v-sm: 60px;
-  --navbar-h: 80px;
+  --navbar-h: 96px;
 }
 
 /* ── Reset & Base ────────────────────────────────────────── */
@@ -2098,9 +2098,9 @@ hr.thin-rule.left {
 
 /* ── Logo image ── */
 .navbar__logo-img {
-  height: 40px;
+  height: 64px;
   width: auto;
-  max-width: 130px;
+  max-width: 260px;
   object-fit: contain;
   filter: brightness(0) invert(1);
   transition: filter var(--transition);
@@ -2110,9 +2110,9 @@ hr.thin-rule.left {
   filter: none;
 }
 .footer__logo-img {
-  height: 36px;
+  height: 56px;
   width: auto;
-  max-width: 110px;
+  max-width: 220px;
   object-fit: contain;
   filter: brightness(0) invert(1);
   opacity: 0.85;
