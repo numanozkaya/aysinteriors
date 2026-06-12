@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { MapPin, Mail, Phone, Camera, LayoutGrid } from 'lucide-react'
 import { createClient } from '@/lib/supabase/server'
 
@@ -23,7 +24,9 @@ export default async function Footer() {
       <div className="container">
         <div className="footer__grid">
           <div>
-            <Link href="/" className="footer__logo">ays interiors</Link>
+            <Link href="/" className="footer__logo" aria-label="Ays Interiors Ana Sayfa">
+              <Image src="/ays-logo.png" alt="Ays Interiors" width={110} height={44} className="footer__logo-img" />
+            </Link>
             <p className="footer__tagline">
               İç mimarlık ve danışmanlık hizmetleri. Her mekân bir hikâye taşır; o hikâyeyi birlikte yazalım.
             </p>

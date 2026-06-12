@@ -5,8 +5,16 @@ import { createClient } from '@/lib/supabase/server'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Portfolyo — Ays Interiors',
-  description: 'Ays Interiors iç mimarlık portfolyosu. Salon, mutfak, banyo, yatak odası ve ofis tasarım projelerimizi inceleyin.',
+  title: 'Portfolyo — Ays Interiors | İç Mimarlık Projeleri',
+  description: 'Ays Interiors iç mimarlık proje portfolyosu. Tamamlanan salon, mutfak, banyo, yatak odası, ofis ve ticari mekan iç tasarım projelerimizi inceleyin.',
+  keywords: ['iç mimarlık proje', 'iç tasarım portfolyo', 'salon tasarımı', 'mutfak tasarımı', 'iç mimarlık örnekleri', 'interior design portfolio turkey'],
+  openGraph: {
+    title: 'Portfolyo — Ays Interiors | İç Mimarlık Projeleri',
+    description: 'Tamamlanan iç mimarlık ve tasarım projelerimiz. Konut, ofis ve ticari mekan iç tasarım örnekleri.',
+    type: 'website',
+    locale: 'tr_TR',
+  },
+  alternates: { canonical: 'https://aysinteriors.com/portfolio' },
 }
 
 export default async function PortfolioPage() {

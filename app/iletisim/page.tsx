@@ -6,7 +6,16 @@ import { createClient } from '@/lib/supabase/server'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'İletişim — Ays Interiors',
+  title: 'İletişim — Ays Interiors | İç Mimarlık Danışmanlık',
+  description: 'Ays Interiors ile iletişime geçin. İç mimarlık projeleriniz için ücretsiz keşif görüşmesi talep edin. Türkiye geneli ve online danışmanlık hizmetleri.',
+  keywords: ['iç mimar iletişim', 'iç tasarım teklif', 'iç mimarlık randevu', 'online iç mimarlık danışmanlık', 'interior design contact'],
+  openGraph: {
+    title: 'İletişim — Ays Interiors',
+    description: 'İç mimarlık projeniz için bizimle iletişime geçin. Türkiye geneli ve online danışmanlık.',
+    type: 'website',
+    locale: 'tr_TR',
+  },
+  alternates: { canonical: 'https://aysinteriors.com/iletisim' },
 }
 
 export default async function IletisimPage({ searchParams }: { searchParams: Promise<{ paket?: string }> }) {
@@ -30,7 +39,9 @@ export default async function IletisimPage({ searchParams }: { searchParams: Pro
                 <span className="section-label">Mesaj Gönderin</span>
                 <h2>Benimle İletişime Geçin</h2>
               </div>
-              <ContactForm defaultService={params.paket} />
+              <div className="contact-form-wrapper">
+                <ContactForm defaultService={params.paket} />
+              </div>
             </div>
             <div className="contact-info">
               {profile?.email && (

@@ -6,7 +6,16 @@ import { createClient } from '@/lib/supabase/server'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Hakkımda — Ays Interiors',
+  title: 'Hakkımda — Ays Interiors | İç Mimar & Tasarım Danışmanı',
+  description: 'Ays Interiors kurucusu hakkında. 8+ yıl deneyimli iç mimar, 127 tamamlanan proje. Lüks konut, ofis ve ticari mekan tasarımı uzmanı. Türkiye ve yurt dışı projeler.',
+  keywords: ['iç mimar', 'iç mimarlık uzmanı', 'iç tasarım danışmanı', 'luxury interior designer turkey', 'iç mimar portfolio'],
+  openGraph: {
+    title: 'Hakkımda — Ays Interiors | İç Mimar & Tasarım Danışmanı',
+    description: '8+ yıllık deneyim, 127 tamamlanan proje. Lüks konut ve ofis tasarımı uzmanı.',
+    type: 'profile',
+    locale: 'tr_TR',
+  },
+  alternates: { canonical: 'https://aysinteriors.com/hakkimda' },
 }
 
 export default async function HakkimdaPage() {

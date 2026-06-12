@@ -5,8 +5,16 @@ import { createClient } from '@/lib/supabase/server'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Danışmanlık — Ays Interiors',
-  description: 'Ays Interiors danışmanlık paketleri.',
+  title: 'Danışmanlık Paketleri — Ays Interiors | İç Mimarlık Hizmetleri',
+  description: 'Ays Interiors iç mimarlık danışmanlık paketleri. Konsept tasarım, 3D görselleştirme ve uçtan uca uygulama takibi. Türkiye geneli ve yurt dışı projelerde mimari çözüm.',
+  keywords: ['iç mimarlık danışmanlık', 'uçtan uca iç mimari çözüm', 'mimari çözüm', 'iç tasarım paketi', '3d render', 'interior design consultancy turkey'],
+  openGraph: {
+    title: 'Danışmanlık Paketleri — Ays Interiors',
+    description: 'Uçtan uca iç mimari çözüm paketleri. Konsept tasarımdan 3D render\'a, uygulamaya kadar her adım.',
+    type: 'website',
+    locale: 'tr_TR',
+  },
+  alternates: { canonical: 'https://aysinteriors.com/danismanlik' },
 }
 
 export default async function DanismanlikPage() {

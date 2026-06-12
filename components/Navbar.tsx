@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { X } from 'lucide-react'
@@ -31,7 +32,14 @@ export default function Navbar() {
       <nav className={`navbar${solid ? ' navbar--scrolled' : ''}`} aria-label="Ana navigasyon">
         <div className="navbar__inner">
           <Link href="/" className="navbar__logo" aria-label="Ays Interiors Ana Sayfa">
-            ays interiors
+            <Image
+              src="/ays-logo.png"
+              alt="Ays Interiors"
+              width={120}
+              height={48}
+              className="navbar__logo-img"
+              priority
+            />
           </Link>
           <div className="navbar__nav" role="list">
             {links.map(l => (
