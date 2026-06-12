@@ -388,7 +388,7 @@ export default async function HomePage() {
                 <ul className="package-card__features">
                   {pkg.features.map((f: string) => <li key={f}>{f}</li>)}
                 </ul>
-                <Link href="/iletisim" className="btn btn-ghost package-card__cta">{pkg.cta_text}</Link>
+                <Link href="/iletisim" className={`btn package-card__cta${pkg.featured ? ' btn-ghost' : ' btn-ghost--dark'}`}>{pkg.cta_text}</Link>
               </div>
             ))}
           </div>
