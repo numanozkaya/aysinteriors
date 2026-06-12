@@ -184,3 +184,37 @@ create policy "admin delete site-assets"
     bucket_id = 'site-assets'
     and exists (select 1 from admins where user_id = auth.uid())
   );
+
+-- blog_posts
+create table blog_posts (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  slug text not null unique,
+  excerpt text not null default '',
+  content text not null default '',
+  cover_image_url text,
+  cover_storage_path text,
+  published boolean not null default false,
+  tags text[] not null default '{}',
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table blog_posts enable row level security;
+create policy "public read published blog_posts" on blog_posts for select using (published = true);
+create policy "admin all blog_posts" on blog_posts for all
+  using (exists (select 1 from admins where user_id = auth.uid()));
+
+-- blog-images storage bucket policies
+create policy "public read blog-images"
+  on storage.objects for select using (bucket_id = 'blog-images');
+create policy "admin upload blog-images"
+  on storage.objects for insert with check (
+    bucket_id = 'blog-images'
+    and exists (select 1 from admins where user_id = auth.uid())
+  );
+create policy "admin delete blog-images"
+  on storage.objects for delete using (
+    bucket_id = 'blog-images'
+    and exists (select 1 from admins where user_id = auth.uid())
+  );

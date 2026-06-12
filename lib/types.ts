@@ -73,3 +73,17 @@ export type ProjectWithImages = Project & {
   images: ProjectImage[]
   category: Category | null
 }
+
+export type BlogPost = {
+  id: string
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  cover_image_url: string | null
+  cover_storage_path: string | null
+  published: boolean
+  tags: string[]
+  created_at: string
+  updated_at: string
+}
