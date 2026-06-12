@@ -2041,6 +2041,52 @@ hr.thin-rule.left {
 @media(max-width:1024px){.portfolio-grid--3col{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:640px){.portfolio-grid--3col{grid-template-columns:1fr;}}
 
+/* ── Portfolio Card ── */
+.portfolio-card{
+  position:relative;
+  cursor:pointer;
+  overflow:hidden;
+  border-radius:2px;
+  background:var(--border);
+}
+.portfolio-card__img-wrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:4/3;
+  overflow:hidden;
+}
+.portfolio-card__img{
+  object-fit:cover;
+  transition:transform .5s ease;
+}
+.portfolio-card:hover .portfolio-card__img{
+  transform:scale(1.04);
+}
+.portfolio-card__placeholder{
+  width:100%;height:100%;
+  background:linear-gradient(135deg,var(--border) 0%,var(--taupe) 100%);
+  opacity:.3;
+}
+.portfolio-card__overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(28,26,24,.82) 0%,rgba(28,26,24,.1) 60%,transparent 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:18px 16px;
+  opacity:0;transition:opacity .3s ease;
+}
+.portfolio-card:hover .portfolio-card__overlay{opacity:1;}
+.portfolio-card__cat{
+  font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:4px;
+}
+.portfolio-card__title{
+  font-family:var(--font-heading);font-size:1.1rem;font-style:italic;
+  color:#fff;line-height:1.2;
+}
+.portfolio-card__city{
+  font-size:11px;color:rgba(255,255,255,.6);margin-top:3px;
+}
+
 /* ── About / Hakkımda ── */
 .about-grid {
   display: grid;
