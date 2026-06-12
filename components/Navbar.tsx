@@ -35,8 +35,8 @@ export default function Navbar() {
             <Image
               src="/ays-logo.png"
               alt="Ays Interiors"
-              width={260}
-              height={104}
+              width={480}
+              height={192}
               className="navbar__logo-img"
               priority
             />

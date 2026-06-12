@@ -28,7 +28,7 @@
   --container-max: 1200px;
   --section-pad-v: 100px;
   --section-pad-v-sm: 60px;
-  --navbar-h: 96px;
+  --navbar-h: 80px;
 }
 
 /* ── Reset & Base ────────────────────────────────────────── */
@@ -2098,9 +2098,9 @@ hr.thin-rule.left {
 
 /* ── Logo image ── */
 .navbar__logo-img {
-  height: 64px;
+  height: 180px;
   width: auto;
-  max-width: 260px;
+  max-width: 480px;
   object-fit: contain;
   filter: brightness(0) invert(1);
   transition: filter var(--transition);
