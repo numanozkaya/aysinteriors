@@ -5,12 +5,24 @@ import { X, Upload, Star } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import type { Project, Category, ProjectImage } from '@/lib/types'
 
-interface PendingImage {
-  file?: File
+// Existing DB image
+interface SavedImage {
+  kind: 'saved'
+  id: string
   storagePath: string
   url: string
   isCover: boolean
 }
+
+// File picked by user, not yet uploaded
+interface LocalImage {
+  kind: 'local'
+  file: File
+  previewUrl: string
+  isCover: boolean
+}
+
+type AnyImage = SavedImage | LocalImage
 
 interface Props {
   project: (Project & { images: ProjectImage[] }) | null
@@ -22,56 +34,43 @@ interface Props {
 export default function ProjectModal({ project, categories, onClose, onSaved }: Props) {
   const supabase = createClient()
   const [saving, setSaving] = useState(false)
-  const [uploading, setUploading] = useState(false)
-  const [pending, setPending] = useState<PendingImage[]>(
-    (project?.images ?? []).map((img, i) => ({
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  const [images, setImages] = useState<AnyImage[]>(
+    (project?.images ?? []).map(img => ({
+      kind: 'saved' as const,
+      id: img.id,
       storagePath: img.storage_path,
       url: img.url,
       isCover: img.is_cover,
     }))
   )
-  const inputRef = useRef<HTMLInputElement>(null)
 
-  async function handleFiles(files: FileList) {
-    setUploading(true)
-    const added: PendingImage[] = []
-
-    for (const file of Array.from(files)) {
-      const ext = file.name.split('.').pop()
-      const tempPath = `pending/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
-
-      const { error } = await supabase.storage
-        .from('project-images')
-        .upload(tempPath, file, { upsert: false })
-
-      if (error) { console.error(error); continue }
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('project-images')
-        .getPublicUrl(tempPath)
-
-      added.push({
-        file,
-        storagePath: tempPath,
-        url: publicUrl,
-        isCover: pending.length === 0 && added.length === 0,
-      })
-    }
-
-    setPending(prev => [...prev, ...added])
-    setUploading(false)
+  function pickFiles(files: FileList) {
+    const added: LocalImage[] = Array.from(files).map((file, i) => ({
+      kind: 'local' as const,
+      file,
+      previewUrl: URL.createObjectURL(file),
+      isCover: images.length === 0 && i === 0,
+    }))
+    setImages(prev => [...prev, ...added])
   }
 
   function removeImage(idx: number) {
-    setPending(prev => {
-      const next = prev.filter((_, i) => i !== idx)
-      if (prev[idx].isCover && next.length > 0) next[0].isCover = true
+    setImages(prev => {
+      const next = [...prev]
+      const removed = next.splice(idx, 1)[0]
+      if (removed.kind === 'local') URL.revokeObjectURL(removed.previewUrl)
+      // ensure at least one cover
+      if (removed.isCover && next.length > 0 && !next.some(i => i.isCover)) {
+        next[0] = { ...next[0], isCover: true }
+      }
       return next
     })
   }
 
   function setCover(idx: number) {
-    setPending(prev => prev.map((img, i) => ({ ...img, isCover: i === idx })))
+    setImages(prev => prev.map((img, i) => ({ ...img, isCover: i === idx })))
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -79,7 +78,9 @@ export default function ProjectModal({ project, categories, onClose, onSaved }: 
     setSaving(true)
     const fd = new FormData(e.currentTarget)
 
-    const cover = pending.find(i => i.isCover) ?? pending[0]
+    const cover = images.find(i => i.isCover) ?? images[0]
+    const coverPreviewUrl = cover?.kind === 'local' ? cover.previewUrl : cover?.url ?? null
+
     const payload = {
       title: fd.get('title') as string,
       category_id: (fd.get('category_id') as string) || null,
@@ -89,7 +90,7 @@ export default function ProjectModal({ project, categories, onClose, onSaved }: 
       description: fd.get('description') as string,
       materials: (fd.get('materials') as string).split(',').map(s => s.trim()).filter(Boolean),
       featured: (fd.get('featured') as string) === 'on',
-      cover_image_url: cover?.url ?? null,
+      cover_image_url: null as string | null, // updated after uploads
     }
 
     let projectId = project?.id
@@ -101,55 +102,68 @@ export default function ProjectModal({ project, categories, onClose, onSaved }: 
       projectId = newProj?.id
     }
 
-    if (projectId) {
-      // Move pending images from pending/ to projectId/ folder and insert DB rows
-      for (let i = 0; i < pending.length; i++) {
-        const img = pending[i]
-        let finalPath = img.storagePath
+    if (!projectId) { setSaving(false); return }
 
-        // If it's a new upload (still in pending/ folder), move it
-        if (img.storagePath.startsWith('pending/')) {
-          const newPath = `${projectId}/${img.storagePath.split('/').pop()}`
-          await supabase.storage.from('project-images').move(img.storagePath, newPath)
-          const { data: { publicUrl } } = supabase.storage.from('project-images').getPublicUrl(newPath)
-          finalPath = newPath
+    // Upload local files and insert DB rows
+    let finalCoverUrl: string | null = null
 
-          // Check if DB row already exists (for existing projects)
-          const existing = project?.images.find(im => im.storage_path === img.storagePath)
-          if (!existing) {
-            await supabase.from('project_images').insert({
-              project_id: projectId,
-              storage_path: finalPath,
-              url: publicUrl,
-              sort_order: i,
-              is_cover: img.isCover,
-            })
-          }
-        } else {
-          // Existing image — update is_cover
-          const dbImg = project?.images.find(im => im.storage_path === img.storagePath)
-          if (dbImg) {
-            await supabase.from('project_images').update({ is_cover: img.isCover, sort_order: i }).eq('id', dbImg.id)
-          }
-        }
+    for (let i = 0; i < images.length; i++) {
+      const img = images[i]
+
+      if (img.kind === 'local') {
+        const ext = img.file.name.split('.').pop() ?? 'jpg'
+        const path = `${projectId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`
+
+        const { error } = await supabase.storage
+          .from('project-images')
+          .upload(path, img.file, { upsert: false })
+
+        if (error) { console.error('upload error', error); continue }
+
+        const { data: { publicUrl } } = supabase.storage
+          .from('project-images')
+          .getPublicUrl(path)
+
+        await supabase.from('project_images').insert({
+          project_id: projectId,
+          storage_path: path,
+          url: publicUrl,
+          sort_order: i,
+          is_cover: img.isCover,
+        })
+
+        if (img.isCover) finalCoverUrl = publicUrl
+      } else {
+        // Existing saved image — update sort_order and is_cover
+        await supabase.from('project_images')
+          .update({ is_cover: img.isCover, sort_order: i })
+          .eq('id', img.id)
+
+        if (img.isCover) finalCoverUrl = img.url
       }
+    }
 
-      // Delete removed images
-      if (project) {
-        const removedImgs = project.images.filter(dbImg =>
-          !pending.some(p => p.storagePath === dbImg.storage_path)
-        )
-        for (const rm of removedImgs) {
-          await supabase.storage.from('project-images').remove([rm.storage_path])
-          await supabase.from('project_images').delete().eq('id', rm.id)
-        }
+    // Delete removed saved images
+    if (project) {
+      const removedIds = project.images
+        .filter(dbImg => !images.some(i => i.kind === 'saved' && i.id === dbImg.id))
+      for (const rm of removedIds) {
+        await supabase.storage.from('project-images').remove([rm.storage_path])
+        await supabase.from('project_images').delete().eq('id', rm.id)
       }
+    }
+
+    // Update cover_image_url on project
+    if (finalCoverUrl) {
+      await supabase.from('projects').update({ cover_image_url: finalCoverUrl }).eq('id', projectId)
     }
 
     setSaving(false)
     onSaved()
     onClose()
   }
+
+  const imgSrcs = images.map(i => i.kind === 'saved' ? i.url : i.previewUrl)
 
   return (
     <div className="modal-overlay open">
@@ -158,7 +172,7 @@ export default function ProjectModal({ project, categories, onClose, onSaved }: 
           <span className="modal-head-title">{project ? 'Projeyi Düzenle' : 'Yeni Proje'}</span>
           <button className="modal-close" onClick={onClose} type="button"><X size={18} /></button>
         </div>
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1 }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', minHeight: 0, flex: 1, overflow: 'hidden' }}>
           <div className="modal-body">
             <div className="form-row">
               <div className="form-group">
@@ -200,14 +214,13 @@ export default function ProjectModal({ project, categories, onClose, onSaved }: 
               <label htmlFor="featured">Anasayfada öne çıkar</label>
             </div>
 
-            {/* Image upload */}
             <div className="form-group" style={{ marginTop: 16 }}>
               <label className="form-label">Görseller</label>
               <div
                 className="img-upload-zone"
                 onClick={() => inputRef.current?.click()}
                 onDragOver={e => e.preventDefault()}
-                onDrop={e => { e.preventDefault(); handleFiles(e.dataTransfer.files) }}
+                onDrop={e => { e.preventDefault(); pickFiles(e.dataTransfer.files) }}
               >
                 <input
                   ref={inputRef}
@@ -215,21 +228,21 @@ export default function ProjectModal({ project, categories, onClose, onSaved }: 
                   accept="image/*"
                   multiple
                   style={{ display: 'none' }}
-                  onChange={e => e.target.files && handleFiles(e.target.files)}
+                  onChange={e => e.target.files && pickFiles(e.target.files)}
                 />
                 <Upload size={24} className="img-upload-icon" />
                 <div className="img-upload-text">
-                  <strong>Görsel yükle</strong>
+                  <strong>Görsel seç</strong>
                   <span>Tıkla veya sürükle · JPG, PNG, WebP</span>
                 </div>
-                {uploading && <p style={{ marginTop: 8, fontSize: 12, color: 'var(--gold)' }}>Yükleniyor…</p>}
               </div>
 
-              {pending.length > 0 && (
+              {images.length > 0 && (
                 <div className="img-grid">
-                  {pending.map((img, idx) => (
-                    <div key={img.storagePath} className={`img-tile${img.isCover ? ' is-cover' : ''}`}>
-                      <Image src={img.url} alt="" fill sizes="96px" style={{ objectFit: 'cover' }} />
+                  {images.map((img, idx) => (
+                    <div key={idx} className={`img-tile${img.isCover ? ' is-cover' : ''}`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={imgSrcs[idx]} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                       {img.isCover && <span className="cover-label">Kapak</span>}
                       <button type="button" className="rm-btn" onClick={() => removeImage(idx)}><X size={12} /></button>
                       {!img.isCover && (
@@ -239,11 +252,14 @@ export default function ProjectModal({ project, categories, onClose, onSaved }: 
                   ))}
                 </div>
               )}
+              {saving && images.some(i => i.kind === 'local') && (
+                <p style={{ fontSize: 12, color: 'var(--gold)', marginTop: 8 }}>Görseller yükleniyor…</p>
+              )}
             </div>
           </div>
           <div className="modal-foot">
             <button type="button" className="btn btn-outline" onClick={onClose}>İptal</button>
-            <button type="submit" className="btn btn-primary" disabled={saving || uploading}>
+            <button type="submit" className="btn btn-primary" disabled={saving}>
               {saving ? 'Kaydediliyor…' : 'Kaydet'}
             </button>
           </div>
