@@ -10,6 +10,7 @@ const links = [
   { href: '/portfolio', label: 'Portfolyo' },
   { href: '/danismanlik', label: 'Danışmanlık' },
   { href: '/hakkimda', label: 'Hakkımda' },
+  { href: '/blog', label: 'Instagram' },
   { href: '/iletisim', label: 'İletişim' },
 ]
 
