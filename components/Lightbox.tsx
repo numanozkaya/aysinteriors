@@ -10,48 +10,107 @@ interface Props {
   onClose: () => void
   onPrev: () => void
   onNext: () => void
+  onJump: (idx: number) => void
 }
 
-export default function Lightbox({ project, imageIndex, onClose, onPrev, onNext }: Props) {
+export default function Lightbox({ project, imageIndex, onClose, onPrev, onNext, onJump }: Props) {
+  const images = project.images.slice().sort((a, b) => a.sort_order - b.sort_order)
+  const img = images[imageIndex]
+  const total = images.length
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
       if (e.key === 'ArrowLeft') onPrev()
       if (e.key === 'ArrowRight') onNext()
     }
+    document.body.style.overflow = 'hidden'
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+    }
   }, [onClose, onPrev, onNext])
 
-  const img = project.images[imageIndex]
-
   return (
-    <div className="lightbox" onClick={onClose} role="dialog" aria-modal="true">
-      <div className="lightbox__inner" onClick={e => e.stopPropagation()}>
-        <button className="lightbox__close" onClick={onClose} aria-label="Kapat"><X size={20} /></button>
-        <div className="lightbox__img-wrap">
-          {img?.url && (
-            <Image src={img.url} alt={project.title} fill sizes="90vw" style={{ objectFit: 'contain' }} />
-          )}
-          {project.images.length > 1 && (
-            <>
-              <button className="lightbox__prev" onClick={onPrev} aria-label="Önceki"><ChevronLeft size={28} /></button>
-              <button className="lightbox__next" onClick={onNext} aria-label="Sonraki"><ChevronRight size={28} /></button>
-            </>
-          )}
-        </div>
-        <div className="lightbox__meta">
-          <h3 className="lightbox__title">{project.title}</h3>
-          {project.category && <span className="lightbox__cat">{project.category.name}</span>}
-          <p className="lightbox__info">{project.location} · {project.year}{project.area_sqm ? ` · ${project.area_sqm} m²` : ''}</p>
-          {project.description && <p className="lightbox__desc">{project.description}</p>}
-          {project.materials.length > 0 && (
-            <ul className="lightbox__materials">
-              {project.materials.map(m => <li key={m}>{m}</li>)}
-            </ul>
-          )}
-        </div>
+    <div className="lb" onClick={onClose} role="dialog" aria-modal="true" aria-label={project.title}>
+
+      {/* ── main image area ── */}
+      <div className="lb__stage" onClick={e => e.stopPropagation()}>
+        {img?.url && (
+          <Image
+            src={img.url}
+            alt={project.title}
+            fill
+            sizes="100vw"
+            style={{ objectFit: 'contain' }}
+            priority
+          />
+        )}
+
+        {/* close */}
+        <button className="lb__close" onClick={onClose} aria-label="Kapat"><X size={20} /></button>
+
+        {/* counter */}
+        {total > 1 && (
+          <span className="lb__counter">{imageIndex + 1} / {total}</span>
+        )}
+
+        {/* arrows */}
+        {total > 1 && (
+          <>
+            <button
+              className="lb__arrow lb__arrow--prev"
+              onClick={e => { e.stopPropagation(); onPrev() }}
+              aria-label="Önceki"
+              disabled={imageIndex === 0}
+            >
+              <ChevronLeft size={32} />
+            </button>
+            <button
+              className="lb__arrow lb__arrow--next"
+              onClick={e => { e.stopPropagation(); onNext() }}
+              aria-label="Sonraki"
+              disabled={imageIndex === total - 1}
+            >
+              <ChevronRight size={32} />
+            </button>
+          </>
+        )}
       </div>
+
+      {/* ── bottom info bar ── */}
+      <div className="lb__bar" onClick={e => e.stopPropagation()}>
+        <div className="lb__bar-left">
+          {project.category && <span className="lb__bar-cat">{project.category.name}</span>}
+          <span className="lb__bar-title">{project.title}</span>
+          <span className="lb__bar-meta">
+            {[project.location, project.year, project.area_sqm ? `${project.area_sqm} m²` : null]
+              .filter(Boolean).join(' · ')}
+          </span>
+        </div>
+        {project.materials.length > 0 && (
+          <div className="lb__bar-materials">
+            {project.materials.map(m => <span key={m} className="lb__mat">{m}</span>)}
+          </div>
+        )}
+      </div>
+
+      {/* ── thumbnail strip ── */}
+      {total > 1 && (
+        <div className="lb__thumbs" onClick={e => e.stopPropagation()}>
+          {images.map((im, i) => (
+            <button
+              key={im.id}
+              className={`lb__thumb${i === imageIndex ? ' active' : ''}`}
+              onClick={() => onJump(i)}
+              aria-label={`Görsel ${i + 1}`}
+            >
+              <Image src={im.url} alt="" fill sizes="72px" style={{ objectFit: 'cover' }} />
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

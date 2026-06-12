@@ -88,6 +88,7 @@ export default function PortfolioGrid({ projects, categories }: Props) {
           onClose={() => setLightboxProject(null)}
           onPrev={() => setLightboxImageIndex(i => Math.max(0, i - 1))}
           onNext={() => setLightboxImageIndex(i => Math.min(lightboxProject.images.length - 1, i + 1))}
+          onJump={setLightboxImageIndex}
         />
       )}
     </>
