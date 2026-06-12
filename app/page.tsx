@@ -34,51 +34,7 @@ const jsonLd = {
   address: { '@type': 'PostalAddress', addressLocality: 'Çankaya', addressRegion: 'Ankara', addressCountry: 'TR' },
   areaServed: ['Ankara', 'İstanbul', 'Türkiye'],
   priceRange: '₺₺₺',
-  image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&q=80',
 }
-
-// Static services — always visible
-const SERVICES = [
-  {
-    title: 'Konsept Geliştirme & İç Mekan Tasarımı',
-    desc: 'Konut, ofis ve ticari alanlar için yaşam tarzınıza özel, özgün iç tasarım çözümleri.',
-    img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80',
-  },
-  {
-    title: '3D Modelleme & Görselleştirme',
-    desc: 'Projeyi hayata geçirmeden önce gerçekçi 3D render ve sanal tur ile tam olarak görün.',
-    img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80',
-  },
-  {
-    title: 'Proje Yönetimi & Uygulama',
-    desc: 'Müteahhit ve tedarikçi koordinasyonu, şantiye denetimi — anahtar teslim çözümler.',
-    img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=80',
-  },
-  {
-    title: 'Mobilya & Aksesuar Seçimi',
-    desc: 'Mekânınıza özel mobilya, kumaş, aydınlatma ve aksesuar seçimi ile stili tamamlıyoruz.',
-    img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=80',
-  },
-  {
-    title: 'Danışmanlık & Renovasyon',
-    desc: 'Mevcut mekanınızı minimal bütçeyle maksimum etki yaratacak şekilde dönüştürüyoruz.',
-    img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80',
-  },
-  {
-    title: 'Online Tasarım Hizmeti',
-    desc: 'Türkiye ve yurt dışından müşterilerimize video görüşme ile uzaktan danışmanlık.',
-    img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80',
-  },
-]
-
-// Static gallery strip
-const GALLERY = [
-  'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80',
-  'https://images.unsplash.com/photo-1615529328331-f8917597711f?w=600&q=80',
-  'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=80',
-  'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80',
-  'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&q=80',
-]
 
 // Fallback projects if DB empty
 const FALLBACK_PROJECTS = [
@@ -87,7 +43,6 @@ const FALLBACK_PROJECTS = [
   { id: 'f3', title: 'Lüks Banyo Konsepti', cat: 'Banyo', img: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80' },
 ]
 
-// Fallback packages if DB empty
 const FALLBACK_PACKAGES = [
   {
     id: 'p1', title: 'Temel Danışmanlık', slogan: 'Hızlı ve etkili çözümler', price: 'Teklif Alın',
@@ -106,6 +61,78 @@ const FALLBACK_PACKAGES = [
   },
 ]
 
+// Default values (mirrors admin/anasayfa/page.tsx DEFAULTS)
+const D: Record<string, string> = {
+  hero_eyebrow: 'ays interiors',
+  hero_title: 'Mekânlar,\nHikâye Anlatır',
+  hero_subtitle: 'Uçtan uca iç mimarlık & danışmanlık — Türkiye & Dünya',
+  hero_image_url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80',
+  hero_btn1_text: 'Portfolyoyu Keşfet',
+  hero_btn2_text: 'Danışmanlık Al',
+
+  about_title: 'Zarafeti Mekânınıza\nTaşıyoruz',
+  about_text1: 'Ays Interiors, yaşam alanlarınızı ihtiyaçlarınıza, zevkinize ve ruhunuza uygun biçimde dönüştürmek için kuruldu. Konsept tasarımdan anahtar teslim uygulamaya, her adımda profesyonel, kişiselleştirilmiş ve estetik çözümler sunuyoruz.',
+  about_text2: 'Türkiye geneli ve uluslararası projelerde 8 yılı aşkın deneyimimizle, konut, ofis ve ticari mekânları yaşayan birer sanat eserine dönüştürüyoruz.',
+  about_img_main: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80',
+  about_img_accent: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=80',
+
+  svc_1_title: 'Konsept Geliştirme & İç Mekan Tasarımı',
+  svc_1_desc: 'Konut, ofis ve ticari alanlar için yaşam tarzınıza özel, özgün iç tasarım çözümleri.',
+  svc_1_img: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=700&q=80',
+  svc_2_title: '3D Modelleme & Görselleştirme',
+  svc_2_desc: 'Projeyi hayata geçirmeden önce gerçekçi 3D render ve sanal tur ile tam olarak görün.',
+  svc_2_img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=700&q=80',
+  svc_3_title: 'Proje Yönetimi & Uygulama',
+  svc_3_desc: 'Müteahhit ve tedarikçi koordinasyonu, şantiye denetimi — anahtar teslim çözümler.',
+  svc_3_img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=80',
+  svc_4_title: 'Mobilya & Aksesuar Seçimi',
+  svc_4_desc: 'Mekânınıza özel mobilya, kumaş, aydınlatma ve aksesuar seçimi ile stili tamamlıyoruz.',
+  svc_4_img: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=700&q=80',
+  svc_5_title: 'Danışmanlık & Renovasyon',
+  svc_5_desc: 'Mevcut mekanınızı minimal bütçeyle maksimum etki yaratacak şekilde dönüştürüyoruz.',
+  svc_5_img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=700&q=80',
+  svc_6_title: 'Online Tasarım Hizmeti',
+  svc_6_desc: 'Türkiye ve yurt dışından müşterilerimize video görüşme ile uzaktan danışmanlık.',
+  svc_6_img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=700&q=80',
+
+  render_title: 'Projenizi İnşa\nEtmeden Önce Görün',
+  render_img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1400&q=80',
+  render_bullet1: 'Fotorealistik 3D render görseller',
+  render_bullet2: '360° sanal tur deneyimi',
+  render_bullet3: 'Malzeme & renk simülasyonu',
+  render_bullet4: 'Farklı konsept alternatifleri',
+  render_bullet5: 'Sunum hazır çizimler & planlar',
+
+  stat_1_count: '127', stat_1_suffix: '+', stat_1_label: 'Tamamlanan Proje',
+  stat_2_count: '8',   stat_2_suffix: '+', stat_2_label: 'Yıl Deneyim',
+  stat_3_count: '4',   stat_3_suffix: '',  stat_3_label: 'Şehir',
+  stat_4_count: '100', stat_4_suffix: '%', stat_4_label: 'Müşteri Memnuniyeti',
+
+  gallery_1: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=600&q=80',
+  gallery_2: 'https://images.unsplash.com/photo-1615529328331-f8917597711f?w=600&q=80',
+  gallery_3: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=80',
+  gallery_4: 'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=80',
+  gallery_5: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=600&q=80',
+
+  process_1_title: 'Keşif & Analiz',    process_1_desc: 'İhtiyaçlarınızı, zevklerinizi ve bütçenizi birlikte değerlendiriyoruz.',
+  process_2_title: 'Konsept & 2D Plan', process_2_desc: 'Moodboard, renk paleti ve 2D zemin planı hazırlıyoruz.',
+  process_3_title: '3D Görselleştirme', process_3_desc: 'Gerçekçi 3D render ve sanal tur ile projeyi yaşıyorsunuz.',
+  process_4_title: 'Uygulama & Teslim', process_4_desc: 'Şantiye yönetimi ve koordinasyonla anahtar teslim bitiriyoruz.',
+
+  cta_eyebrow: 'Hayalinizi Gerçekleştirelim',
+  cta_title: 'Hayaliniz\nGerçek Olsun',
+  cta_text: 'Projenizi konuşmak için bize ulaşın — ilk görüşme ücretsiz.',
+  cta_img: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=80',
+  cta_btn1_text: 'Ücretsiz Görüşme Talep Et',
+  cta_btn2_text: 'Projelerimizi İncele',
+}
+
+function renderLines(text: string) {
+  return text.split('\n').map((line, i, arr) => (
+    <span key={i}>{line}{i < arr.length - 1 && <br />}</span>
+  ))
+}
+
 export default async function HomePage() {
   const supabase = await createClient()
 
@@ -116,8 +143,34 @@ export default async function HomePage() {
     supabase.from('blog_posts').select('id,title,slug,excerpt,tags,cover_image_url,created_at').eq('published', true).order('created_at', { ascending: false }).limit(3),
   ])
 
-  const s: Record<string, string> = Object.fromEntries((settings ?? []).map((r: any) => [r.key, r.value]))
-  const heroUrl = s.hero_image_url || 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1920&q=80'
+  // Merge DB values over defaults
+  const s: Record<string, string> = { ...D }
+  ;(settings ?? []).forEach((r: any) => { s[r.key] = r.value })
+
+  const v = (key: string) => s[key] ?? D[key] ?? ''
+
+  const services = [1,2,3,4,5,6].map(i => ({
+    title: v(`svc_${i}_title`),
+    desc:  v(`svc_${i}_desc`),
+    img:   v(`svc_${i}_img`),
+  }))
+
+  const gallery = [1,2,3,4,5].map(i => v(`gallery_${i}`)).filter(Boolean)
+
+  const stats = [1,2,3,4].map(i => ({
+    count:  parseInt(v(`stat_${i}_count`)) || 0,
+    suffix: v(`stat_${i}_suffix`),
+    label:  v(`stat_${i}_label`),
+  }))
+
+  const processSteps = [
+    { n: '01', icon: <MessageCircle size={20} />, title: v('process_1_title'), desc: v('process_1_desc') },
+    { n: '02', icon: <Pencil size={20} />,        title: v('process_2_title'), desc: v('process_2_desc') },
+    { n: '03', icon: <Box size={20} />,           title: v('process_3_title'), desc: v('process_3_desc') },
+    { n: '04', icon: <Ruler size={20} />,         title: v('process_4_title'), desc: v('process_4_desc') },
+  ]
+
+  const renderBullets = [1,2,3,4,5].map(i => v(`render_bullet${i}`)).filter(Boolean)
 
   const displayProjects = (featuredProjects && featuredProjects.length > 0)
     ? featuredProjects.map((p: any) => ({
@@ -136,16 +189,16 @@ export default async function HomePage() {
 
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="hero" aria-label="Hero">
-        <div className="hero__bg" style={{ backgroundImage: `url('${heroUrl}')` }} />
+        <div className="hero__bg" style={{ backgroundImage: `url('${v('hero_image_url')}')` }} />
         <div className="hero__overlay" />
         <div className="hero__content">
-          <span className="hero__eyebrow">ays interiors</span>
-          <h1 className="hero__title">Mekânlar,<br />Hikâye Anlatır</h1>
+          <span className="hero__eyebrow">{v('hero_eyebrow')}</span>
+          <h1 className="hero__title">{renderLines(v('hero_title'))}</h1>
           <hr className="hero__rule" />
-          <p className="hero__subtitle">Uçtan uca iç mimarlık & danışmanlık — Türkiye & Dünya</p>
+          <p className="hero__subtitle">{v('hero_subtitle')}</p>
           <div className="hero__buttons">
-            <Link href="/portfolio" className="btn btn-ghost">Portfolyoyu Keşfet</Link>
-            <Link href="/iletisim" className="btn btn-solid"><MessageCircle size={15} /> Danışmanlık Al</Link>
+            <Link href="/portfolio" className="btn btn-ghost">{v('hero_btn1_text')}</Link>
+            <Link href="/iletisim" className="btn btn-solid"><MessageCircle size={15} /> {v('hero_btn2_text')}</Link>
           </div>
         </div>
         <span className="hero__vertical-text" aria-hidden="true">Interior Design & Consultancy</span>
@@ -157,24 +210,17 @@ export default async function HomePage() {
           <div className="hp-about__grid">
             <div className="hp-about__imgs reveal reveal--left">
               <div className="hp-about__img-main">
-                <Image src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=900&q=80" alt="İç mimarlık proje" fill sizes="45vw" style={{ objectFit: 'cover' }} />
+                <Image src={v('about_img_main')} alt="İç mimarlık proje" fill sizes="45vw" style={{ objectFit: 'cover' }} />
               </div>
               <div className="hp-about__img-accent">
-                <Image src="https://images.unsplash.com/photo-1600210492493-0946911123ea?w=600&q=80" alt="Tasarım detayı" fill sizes="25vw" style={{ objectFit: 'cover' }} />
+                <Image src={v('about_img_accent')} alt="Tasarım detayı" fill sizes="25vw" style={{ objectFit: 'cover' }} />
               </div>
             </div>
             <div className="hp-about__text reveal reveal--right">
               <span className="section-header__eyebrow">Ays Interiors</span>
-              <h2>Zarafeti Mekânınıza<br />Taşıyoruz</h2>
-              <p>
-                Ays Interiors, yaşam alanlarınızı ihtiyaçlarınıza, zevkinize ve ruhunuza uygun
-                biçimde dönüştürmek için kuruldu. Konsept tasarımdan anahtar teslim uygulamaya,
-                her adımda profesyonel, kişiselleştirilmiş ve estetik çözümler sunuyoruz.
-              </p>
-              <p style={{ marginTop: '1rem' }}>
-                Türkiye geneli ve uluslararası projelerde 8 yılı aşkın deneyimimizle,
-                konut, ofis ve ticari mekânları yaşayan birer sanat eserine dönüştürüyoruz.
-              </p>
+              <h2>{renderLines(v('about_title'))}</h2>
+              <p>{v('about_text1')}</p>
+              <p style={{ marginTop: '1rem' }}>{v('about_text2')}</p>
               <Link href="/hakkimda" className="btn btn-ghost--dark btn-ghost" style={{ marginTop: '2rem' }}>
                 Daha Fazla Öğren <ArrowRight size={14} />
               </Link>
@@ -194,8 +240,8 @@ export default async function HomePage() {
             </p>
           </header>
           <div className="hp-services-grid">
-            {SERVICES.map((svc, i) => (
-              <article key={svc.title} className={`hp-service-card reveal delay-${(i % 3) + 1}`}>
+            {services.map((svc, i) => (
+              <article key={i} className={`hp-service-card reveal delay-${(i % 3) + 1}`}>
                 <div className="hp-service-card__img">
                   <Image src={svc.img} alt={svc.title} fill sizes="(max-width:640px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
                   <div className="hp-service-card__overlay" />
@@ -215,7 +261,7 @@ export default async function HomePage() {
       <section className="hp-render-section" aria-label="3D Görselleştirme">
         <div className="hp-render-section__img">
           <Image
-            src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1400&q=80"
+            src={v('render_img')}
             alt="3D render iç mimarlık görselleştirme"
             fill
             sizes="60vw"
@@ -225,15 +271,9 @@ export default async function HomePage() {
         </div>
         <div className="hp-render-section__content reveal reveal--right">
           <span className="section-header__eyebrow">3D Modelleme & Görselleştirme</span>
-          <h2>Projenizi İnşa<br />Etmeden Önce Görün</h2>
+          <h2>{renderLines(v('render_title'))}</h2>
           <ul className="hp-render-list">
-            {[
-              'Fotorealistik 3D render görseller',
-              '360° sanal tur deneyimi',
-              'Malzeme & renk simülasyonu',
-              'Farklı konsept alternatifleri',
-              'Sunum hazır çizimler & planlar',
-            ].map(item => (
+            {renderBullets.map(item => (
               <li key={item}><CheckCircle2 size={15} />{item}</li>
             ))}
           </ul>
@@ -274,12 +314,7 @@ export default async function HomePage() {
       <section className="stats-band" aria-label="İstatistikler">
         <div className="container">
           <div className="stats-grid">
-            {[
-              { count: 127, suffix: '+', label: 'Tamamlanan Proje' },
-              { count: 8, suffix: '+', label: 'Yıl Deneyim' },
-              { count: 4, suffix: '', label: 'Şehir' },
-              { count: 100, suffix: '%', label: 'Müşteri Memnuniyeti' },
-            ].map(stat => (
+            {stats.map(stat => (
               <div key={stat.label} className="stat-item reveal">
                 <span className="stat-item__number"><StatsCounter target={stat.count} suffix={stat.suffix} /></span>
                 <span className="stat-item__label">{stat.label}</span>
@@ -291,7 +326,7 @@ export default async function HomePage() {
 
       {/* ── Gallery strip ─────────────────────────────── */}
       <section className="hp-gallery" aria-label="İlham galerisi">
-        {GALLERY.map((src, i) => (
+        {gallery.map((src, i) => (
           <div key={i} className="hp-gallery__item reveal" style={{ transitionDelay: `${i * 0.08}s` }}>
             <Image src={src} alt={`İç mimarlık ilham ${i + 1}`} fill sizes="20vw" style={{ objectFit: 'cover' }} />
           </div>
@@ -307,12 +342,7 @@ export default async function HomePage() {
             <p className="section-header__desc">İlk görüşmeden teslimata kadar şeffaf, adım adım bir deneyim.</p>
           </header>
           <div className="hp-process-grid">
-            {[
-              { n: '01', icon: <MessageCircle size={20} />, title: 'Keşif & Analiz', desc: 'İhtiyaçlarınızı, zevklerinizi ve bütçenizi birlikte değerlendiriyoruz.' },
-              { n: '02', icon: <Pencil size={20} />, title: 'Konsept & 2D Plan', desc: 'Moodboard, renk paleti ve 2D zemin planı hazırlıyoruz.' },
-              { n: '03', icon: <Box size={20} />, title: '3D Görselleştirme', desc: 'Gerçekçi 3D render ve sanal tur ile projeyi yaşıyorsunuz.' },
-              { n: '04', icon: <Ruler size={20} />, title: 'Uygulama & Teslim', desc: 'Şantiye yönetimi ve koordinasyonla anahtar teslim bitiriyoruz.' },
-            ].map((step, i) => (
+            {processSteps.map((step, i) => (
               <article key={step.n} className={`hp-process-step reveal delay-${i + 1}`}>
                 <span className="hp-process-step__n">{step.n}</span>
                 <div className="hp-process-step__icon">{step.icon}</div>
@@ -327,16 +357,16 @@ export default async function HomePage() {
       {/* ── CTA dark banner ───────────────────────────── */}
       <section className="hp-cta-banner" aria-label="Harekete geçin">
         <div className="hp-cta-banner__bg">
-          <Image src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=1600&q=80" alt="Lüks iç tasarım" fill sizes="100vw" style={{ objectFit: 'cover' }} />
+          <Image src={v('cta_img')} alt="Lüks iç tasarım" fill sizes="100vw" style={{ objectFit: 'cover' }} />
           <div className="hp-cta-banner__overlay" />
         </div>
         <div className="hp-cta-banner__content reveal">
-          <span className="section-header__eyebrow">Hayalinizi Gerçekleştirelim</span>
-          <h2>Hayaliniz<br /><em>Gerçek Olsun</em></h2>
-          <p>Projenizi konuşmak için bize ulaşın — ilk görüşme ücretsiz.</p>
+          <span className="section-header__eyebrow">{v('cta_eyebrow')}</span>
+          <h2>{renderLines(v('cta_title'))}</h2>
+          <p>{v('cta_text')}</p>
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap', marginTop: '2rem' }}>
-            <Link href="/iletisim" className="btn btn-solid">Ücretsiz Görüşme Talep Et</Link>
-            <Link href="/portfolio" className="btn btn-ghost">Projelerimizi İncele</Link>
+            <Link href="/iletisim" className="btn btn-solid">{v('cta_btn1_text')}</Link>
+            <Link href="/portfolio" className="btn btn-ghost">{v('cta_btn2_text')}</Link>
           </div>
         </div>
       </section>

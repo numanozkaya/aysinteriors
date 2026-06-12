@@ -1,11 +1,12 @@
 'use client'
 import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Folder, Package, MessageSquare, Settings, LogOut, ExternalLink, FileText } from 'lucide-react'
+import { Folder, Package, MessageSquare, Settings, LogOut, ExternalLink, FileText, LayoutDashboard } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { useEffect, useState } from 'react'
 
 const navItems = [
+  { href: '/admin/anasayfa', icon: <LayoutDashboard size={15} />, label: 'Ana Sayfa' },
   { href: '/admin/portfolio', icon: <Folder size={15} />, label: 'Portfolyo' },
   { href: '/admin/paketler', icon: <Package size={15} />, label: 'Danışmanlık Paketleri' },
   { href: '/admin/blog', icon: <FileText size={15} />, label: 'Blog Yazıları' },
