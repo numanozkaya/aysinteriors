@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { createClient } from '@/lib/supabase/client'
-import { Plus, Trash2, Instagram } from 'lucide-react'
+import { Plus, Trash2, Link2 } from 'lucide-react'
 
 interface IGPost { id: string; url: string; sort_order: number }
 
@@ -72,7 +72,7 @@ export default function AdminInstagramPage() {
         {posts.map((post, i) => (
           <div key={post.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
             <span style={{ fontSize: 11, color: 'var(--gold)', fontWeight: 600, minWidth: 20 }}>{i + 1}</span>
-            <Instagram size={16} style={{ color: '#E1306C', flexShrink: 0 }} />
+            <Link2 size={16} style={{ color: '#E1306C', flexShrink: 0 }} />
             <a href={post.url} target="_blank" rel="noopener noreferrer"
               style={{ flex: 1, fontSize: 12, color: 'var(--taupe)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
               {post.url}
