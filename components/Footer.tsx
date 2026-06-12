@@ -26,6 +26,7 @@ export default async function Footer() {
           <div>
             <Link href="/" className="footer__logo" aria-label="Ays Interiors Ana Sayfa">
               <Image src="/ays-logo.png" alt="Ays Interiors" width={220} height={88} className="footer__logo-img" />
+              <span className="footer__logo-text">ays interiors</span>
             </Link>
             <p className="footer__tagline">
               İç mimarlık ve danışmanlık hizmetleri. Her mekân bir hikâye taşır; o hikâyeyi birlikte yazalım.

@@ -1,0 +1,186 @@
+- generic [active] [ref=e1]:
+  - navigation "Ana navigasyon" [ref=e2]:
+    - generic [ref=e3]:
+      - link "Ays Interiors Ana Sayfa" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img "Ays Interiors" [ref=e5]
+      - list [ref=e6]:
+        - listitem [ref=e7] [cursor=pointer]: Ana Sayfa
+        - listitem [ref=e8] [cursor=pointer]: Portfolyo
+        - listitem [ref=e9] [cursor=pointer]: Danışmanlık
+        - listitem [ref=e10] [cursor=pointer]: Hakkımda
+        - listitem [ref=e11] [cursor=pointer]: İletişim
+        - link "Danışmanlık Al" [ref=e12] [cursor=pointer]:
+          - /url: /danismanlik
+  - dialog:
+    - button "Menüyü kapat":
+      - img
+      - generic: Kapat
+    - link "Ana Sayfa":
+      - /url: /
+    - link "Portfolyo":
+      - /url: /portfolio
+    - link "Danışmanlık":
+      - /url: /danismanlik
+    - link "Hakkımda":
+      - /url: /hakkimda
+    - link "İletişim":
+      - /url: /iletisim
+  - region "Hero bölümü" [ref=e13]:
+    - generic [ref=e16]:
+      - generic [ref=e17]: ays interiors
+      - heading "Mekânlar, Hikâye Anlatır" [level=1] [ref=e18]:
+        - text: Mekânlar,
+        - text: Hikâye Anlatır
+      - separator [ref=e19]
+      - paragraph [ref=e20]: Uçtan uca iç mimarlık ve danışmanlık — Türkiye & Dünya
+      - generic [ref=e21]:
+        - link "Portfolyoyu Keşfet" [ref=e22] [cursor=pointer]:
+          - /url: /portfolio
+          - img [ref=e23]
+          - text: Portfolyoyu Keşfet
+        - link "Danışmanlık Al" [ref=e25] [cursor=pointer]:
+          - /url: /danismanlik
+          - img [ref=e26]
+          - text: Danışmanlık Al
+    - generic [ref=e28]: Interior Design & Consultancy — Ankara
+  - region "Öne çıkan projeler" [ref=e29]:
+    - generic [ref=e30]:
+      - generic [ref=e31]:
+        - generic [ref=e32]: Seçkin Çalışmalar
+        - heading "Öne Çıkan Projeler" [level=2] [ref=e33]
+        - paragraph [ref=e34]: Her mekan, sahibinin ruhunu ve yaşam biçimini yansıtır. İşte en çok konuşulan tasarımlarımızdan bir seçki.
+      - generic [ref=e35]:
+        - link "Modern Salon Tasarımı SalonModern Salon Tasarımı" [ref=e36] [cursor=pointer]:
+          - /url: /portfolio
+          - generic [ref=e37]:
+            - img "Modern Salon Tasarımı" [ref=e38]
+            - generic [ref=e39]: SalonModern Salon Tasarımı
+        - link "Minimalist Mutfak MutfakMinimalist Mutfak" [ref=e40] [cursor=pointer]:
+          - /url: /portfolio
+          - generic [ref=e41]:
+            - img "Minimalist Mutfak" [ref=e42]
+            - generic [ref=e43]: MutfakMinimalist Mutfak
+        - link "Lüks Banyo Konsepti BanyoLüks Banyo Konsepti" [ref=e44] [cursor=pointer]:
+          - /url: /portfolio
+          - generic [ref=e45]:
+            - img "Lüks Banyo Konsepti" [ref=e46]
+            - generic [ref=e47]: BanyoLüks Banyo Konsepti
+      - link "Tüm Projeleri Gör" [ref=e49] [cursor=pointer]:
+        - /url: /portfolio
+        - text: Tüm Projeleri Gör
+        - img [ref=e50]
+  - region "Hizmetler" [ref=e52]:
+    - generic [ref=e53]:
+      - generic [ref=e54]:
+        - generic [ref=e55]: Ne Yapıyoruz
+        - heading "Hizmetlerimiz" [level=2] [ref=e56]
+        - paragraph [ref=e57]: Ankara iç mimarlık sektöründe 2D çizimden 3D görselleştirmeye, uygulama takibine kadar her adımda yanınızdayız.
+      - generic [ref=e58]:
+        - article [ref=e59]:
+          - img [ref=e60]
+          - heading "Konsept Tasarım" [level=3] [ref=e66]
+          - paragraph [ref=e67]: Yaşam alışkanlıklarınızı dinleyerek size özel bir tasarım dili ve 2D/3D proje görseli oluşturuyoruz.
+        - article [ref=e68]:
+          - img [ref=e69]
+          - heading "Uygulama Takibi" [level=3] [ref=e73]
+          - paragraph [ref=e74]: Müteahhit, tedarikçi ve usta koordinasyonunu üstlenerek uçtan uca iç mimari çözüm sunuyoruz.
+        - article [ref=e75]:
+          - img [ref=e76]
+          - heading "Online Danışmanlık" [level=3] [ref=e79]
+          - paragraph [ref=e80]: Video görüşme ve 3 boyutlu görselleştirme aracılığıyla nereden olursanız olun hizmetinizdeyiz.
+  - region "Çalışma süreci" [ref=e81]:
+    - generic [ref=e82]:
+      - generic [ref=e83]:
+        - generic [ref=e84]: Nasıl Çalışıyoruz
+        - heading "Sürecimiz" [level=2] [ref=e85]
+        - paragraph [ref=e86]: İlk görüşmeden teslimata kadar şeffaf, adım adım bir iç mimarlık deneyimi.
+      - generic [ref=e87]:
+        - article [ref=e88]:
+          - generic [ref=e89]: "01"
+          - img [ref=e91]
+          - heading "Keşif & Analiz" [level=3] [ref=e93]
+          - paragraph [ref=e94]: Yaşam alışkanlıklarınızı, beklentilerinizi ve mekânınızın potansiyelini birlikte keşfediyoruz.
+        - article [ref=e95]:
+          - generic [ref=e96]: "02"
+          - img [ref=e98]
+          - heading "Konsept Tasarım" [level=3] [ref=e101]
+          - paragraph [ref=e102]: Ruh halinize ve zevkinize özel bir tasarım dili oluşturuyoruz; moodboard ve 2D planlar hazırlıyoruz.
+        - article [ref=e103]:
+          - generic [ref=e104]: "03"
+          - img [ref=e106]
+          - heading "3D Görselleştirme" [level=3] [ref=e112]
+          - paragraph [ref=e113]: Projenizi hayata geçirmeden önce gerçekçi 3D render'larla tam olarak görmenizi sağlıyoruz.
+        - article [ref=e114]:
+          - generic [ref=e115]: "04"
+          - img [ref=e117]
+          - heading "Uygulama & Teslim" [level=3] [ref=e120]
+          - paragraph [ref=e121]: Müteahhit ve tedarikçi koordinasyonunu üstlenerek projeyi eksiksiz teslim ediyoruz.
+  - region "İstatistikler" [ref=e122]:
+    - generic [ref=e124]:
+      - generic [ref=e125]:
+        - generic [ref=e126]: "0"
+        - generic [ref=e127]: Tamamlanan Proje
+      - generic [ref=e128]:
+        - generic [ref=e129]: "0"
+        - generic [ref=e130]: Yıl Deneyim
+      - generic [ref=e131]:
+        - generic [ref=e132]: "0"
+        - generic [ref=e133]: Şehir
+      - generic [ref=e134]:
+        - generic [ref=e136]: 0%
+        - generic [ref=e137]: Müşteri Memnuniyeti
+  - region "Tasarımcı hakkında" [ref=e138]:
+    - generic [ref=e140]:
+      - img "Ays Interiors iç mimar Ankara" [ref=e142]
+      - generic [ref=e143]:
+        - generic [ref=e144]: Tasarımcı Hakkında
+        - heading "Mekânları Yaşayan Sanatlar Olarak Tasarlıyorum" [level=2] [ref=e145]:
+          - text: Mekânları
+          - text: Yaşayan Sanatlar
+          - text: Olarak Tasarlıyorum
+        - paragraph [ref=e146]: Her projeye biricik bir bakış açısı getiriyorum. Yaşam kalitesini artıran, estetik ile işlevselliği harmanlayan tasarımlar için 8 yılı aşkın deneyimimi ve tutkumu her detaya yansıtıyorum.
+        - link "Daha Fazla Öğren" [ref=e147] [cursor=pointer]:
+          - /url: /hakkimda
+          - text: Daha Fazla Öğren
+          - img [ref=e148]
+  - region "Danışmanlık paketleri" [ref=e150]:
+    - generic [ref=e151]:
+      - generic [ref=e152]:
+        - generic [ref=e153]: Hizmet Paketleri
+        - heading "İhtiyacınıza Özel Paket" [level=2] [ref=e154]
+      - link "Tüm Paketleri İncele" [ref=e156] [cursor=pointer]:
+        - /url: /danismanlik
+        - text: Tüm Paketleri İncele
+        - img [ref=e157]
+  - contentinfo "Site altbilgisi" [ref=e159]:
+    - generic [ref=e160]:
+      - generic [ref=e161]:
+        - generic [ref=e162]:
+          - link "Ays Interiors Ana Sayfa" [ref=e163] [cursor=pointer]:
+            - /url: /
+            - img "Ays Interiors" [ref=e164]
+          - paragraph [ref=e165]: İç mimarlık ve danışmanlık hizmetleri. Her mekân bir hikâye taşır; o hikâyeyi birlikte yazalım.
+          - generic "Sosyal medya"
+        - generic [ref=e166]:
+          - paragraph [ref=e167]: Hızlı Bağlantılar
+          - navigation [ref=e168]:
+            - link "Ana Sayfa" [ref=e169] [cursor=pointer]:
+              - /url: /
+            - link "Portfolyo" [ref=e170] [cursor=pointer]:
+              - /url: /portfolio
+            - link "Danışmanlık" [ref=e171] [cursor=pointer]:
+              - /url: /danismanlik
+            - link "Hakkımda" [ref=e172] [cursor=pointer]:
+              - /url: /hakkimda
+            - link "İletişim" [ref=e173] [cursor=pointer]:
+              - /url: /iletisim
+        - generic [ref=e174]:
+          - paragraph [ref=e175]: İletişim
+          - generic [ref=e176]:
+            - img [ref=e177]
+            - generic [ref=e180]: Çankaya, Ankara, Türkiye
+      - generic [ref=e181]:
+        - generic [ref=e182]: © 2025 Ays Interiors.
+        - link "Yönetici" [ref=e183] [cursor=pointer]:
+          - /url: /admin/login

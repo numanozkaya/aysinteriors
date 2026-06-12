@@ -40,6 +40,7 @@ export default function Navbar() {
               className="navbar__logo-img"
               priority
             />
+            <span className="navbar__logo-text">ays interiors</span>
           </Link>
           <div className="navbar__nav" role="list">
             {links.map(l => (

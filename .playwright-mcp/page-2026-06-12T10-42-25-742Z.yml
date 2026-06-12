@@ -1,0 +1,259 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - link "Skip to content" [ref=e3] [cursor=pointer]:
+      - /url: "#main"
+    - banner [ref=e4]:
+      - generic [ref=e12]:
+        - link "SV İnteriors" [ref=e16] [cursor=pointer]:
+          - /url: https://svinteriors.com.tr/
+          - img "SV İnteriors" [ref=e17]
+        - navigation "Primary" [ref=e21]:
+          - list [ref=e23]:
+            - listitem [ref=e24]:
+              - link "Anasayfa" [ref=e25] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/
+            - listitem [ref=e26]:
+              - link "Kurumsal" [ref=e27] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/kurumsal/
+            - listitem [ref=e28]:
+              - link "Hizmetlerimiz" [ref=e29] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/hizmetlerimiz/
+                - generic [ref=e30]:
+                  - text: Hizmetlerimiz
+                  - img [ref=e33]
+              - button "Child menu of Hizmetlerimiz"
+            - listitem [ref=e35]:
+              - link "Projelerimiz" [ref=e36] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/projelerimiz/
+            - listitem [ref=e37]:
+              - link "İletişim" [ref=e38] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/iletisim/
+        - link "0 532 275 06 83" [ref=e44] [cursor=pointer]:
+          - /url: tel:05322750683
+    - main [ref=e45]:
+      - article [ref=e50]:
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - region [ref=e55]:
+              - generic [ref=e56]:
+                - group "1 of 3" [ref=e57]
+                - group [ref=e59]
+                - group [ref=e61]
+            - generic [ref=e66]:
+              - generic [ref=e67]: Hayalİnİzdekİ Yaşam Alanları, Bİzİmle Gerçek
+              - heading "SV INTERIORS" [level=1] [ref=e68]
+              - img [ref=e72]
+          - generic [ref=e77]:
+            - generic [ref=e79]:
+              - generic [ref=e80]: SV INTERIORS
+              - heading "Hakkımızda" [level=2] [ref=e81]
+            - separator [ref=e86]
+          - generic [ref=e88]:
+            - figure [ref=e91]
+            - generic [ref=e94]:
+              - region "Photo Gallery Carousel" [ref=e97]:
+                - generic [ref=e98]:
+                  - group [ref=e99]:
+                    - figure [ref=e102]
+                  - group [ref=e105]:
+                    - figure [ref=e108]
+                  - group [ref=e111]:
+                    - figure [ref=e114]
+                  - group [ref=e117]:
+                    - figure [ref=e120]
+                  - group [ref=e123]:
+                    - figure [ref=e126]
+                  - group [ref=e129]:
+                    - figure [ref=e132]
+                  - group "1 of 4" [ref=e135]:
+                    - figure [ref=e138]
+                  - group "2 of 4" [ref=e141]:
+                    - figure [ref=e144]
+                  - group "3 of 4" [ref=e147]:
+                    - figure [ref=e150]
+                  - group [ref=e153]:
+                    - figure [ref=e156]
+                  - group [ref=e159]:
+                    - figure [ref=e162]
+                  - group [ref=e165]:
+                    - figure [ref=e168]
+                  - group [ref=e171]:
+                    - figure [ref=e174]
+                  - group [ref=e177]:
+                    - figure [ref=e180]
+                  - group [ref=e183]:
+                    - figure [ref=e186]
+                  - group [ref=e189]:
+                    - figure [ref=e192]
+              - heading "Zarafeti Mekânınıza Taşıyoruz" [level=4] [ref=e195]:
+                - emphasis [ref=e196]: Zarafeti Mekânınıza Taşıyoruz
+              - paragraph [ref=e197]:
+                - text: SV Interiors, yaşam alanlarınızı sıradanlıktan uzaklaştırarak kişisel ve zamansız tasarımlara dönüştürmek için kuruldu.
+                - text: Bizim için tasarım sadece estetik değil; yaşam biçiminizin, hayallerinizin ve beklentilerinizin mekana yansımasıdır.
+              - link "Devamı İçin Tıklayın" [ref=e199] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/kurumsal/
+                - generic [ref=e200]: Devamı İçin Tıklayın
+          - generic [ref=e202]:
+            - generic [ref=e204]:
+              - strong [ref=e208]: Konsept Geliştirme ve İç Mekan Tasarımı
+              - paragraph [ref=e209]: Konut, ofis ve ticari alanlar için kişiye ve mekana özel tasarım çözümleri.
+              - link "Keşfet" [ref=e211] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/konsept-gelistirme-ve-ic-mekan-tasarimi/
+                - generic [ref=e212]: Keşfet
+            - generic [ref=e214]:
+              - generic [ref=e217]:
+                - strong [ref=e218]: Mobilya Tasarımı
+                - strong [ref=e219]: ve Üretimi
+              - paragraph [ref=e220]: Kişiye ve mekana özel mobilya tasarımı, üretimi ve montajı.
+              - link "Keşfet" [ref=e222] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/mobilya-tasarimi/
+                - generic [ref=e223]: Keşfet
+            - generic [ref=e225]:
+              - generic [ref=e228]:
+                - strong [ref=e229]: Proje Yönetimi
+                - strong [ref=e230]: ve Uygulama
+              - paragraph [ref=e231]: Tasarım sürecinden uygulamaya kadar her aşamada profesyonel yönetim.
+              - link "Keşfet" [ref=e233] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/proje-yonetimi/
+                - generic [ref=e234]: Keşfet
+          - generic [ref=e236]:
+            - generic [ref=e238]:
+              - strong [ref=e242]: Danışmanlık
+              - paragraph [ref=e243]: Mekanlara yönelik mobilya, malzeme, renk, doku, aksesuar vb. seçimlerde uzman tavsiyeleri
+              - link "Keşfet" [ref=e245] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/danismanlik/
+                - generic [ref=e246]: Keşfet
+            - generic [ref=e248]:
+              - strong [ref=e252]: 3D Modelleme ve Görselleştirme
+              - paragraph [ref=e253]: Dijital modelleme yapılarak 3 boyutlu görsellerin hazırlanması. Bu sayede projenin bitmiş halini önceden görebilme fırsatı.
+              - link "Keşfet" [ref=e255] [cursor=pointer]:
+                - /url: https://svinteriors.com.tr/3d-modelleme-ve-gorsellestime/
+                - generic [ref=e256]: Keşfet
+          - generic [ref=e260]:
+            - generic [ref=e261]: SV İÇ MİMARLIK
+            - region "Photo Gallery Carousel" [ref=e264]:
+              - generic [ref=e265]:
+                - group [ref=e266]:
+                  - figure [ref=e269]
+                - group [ref=e272]:
+                  - figure [ref=e275]
+                - group [ref=e278]:
+                  - figure [ref=e281]
+                - group [ref=e284]:
+                  - figure [ref=e287]
+                - group [ref=e290]:
+                  - figure [ref=e293]
+                - group [ref=e296]:
+                  - figure [ref=e299]
+                - group [ref=e302]:
+                  - figure [ref=e305]
+                - group [ref=e308]:
+                  - figure [ref=e311]
+                - group "1 of 5" [ref=e314]:
+                  - figure [ref=e317]
+                - group "2 of 5" [ref=e320]:
+                  - figure [ref=e323]
+                - group "3 of 5" [ref=e326]:
+                  - figure [ref=e329]
+                - group "4 of 5" [ref=e332]:
+                  - figure [ref=e335]
+                - group [ref=e338]:
+                  - figure [ref=e341]
+                - group [ref=e344]:
+                  - figure [ref=e347]
+                - group [ref=e350]:
+                  - figure [ref=e353]
+                - group [ref=e356]:
+                  - figure [ref=e359]
+                - group [ref=e362]:
+                  - figure [ref=e365]
+                - group [ref=e368]:
+                  - figure [ref=e371]
+                - group [ref=e374]:
+                  - figure [ref=e377]
+                - group [ref=e380]:
+                  - figure [ref=e383]
+                - group [ref=e386]:
+                  - figure [ref=e389]
+          - generic [ref=e396]:
+            - heading "Hayaliniz Gerçek Olsun" [level=2] [ref=e397]:
+              - text: Hayaliniz
+              - emphasis [ref=e398]: Gerçek
+              - text: Olsun
+            - paragraph [ref=e399]:
+              - text: Hayalinizdeki yaşam alanı için ilk adımı birlikte atalım. İster detaylı bir proje ister küçük bir dokunuş… Tasarımla yeniden şekillenen bir yaşam sizi bekliyor.
+              - link:
+                - /url: tel:05322750683
+            - link "Bizimle İletişime Geçin" [ref=e401] [cursor=pointer]:
+              - /url: tel:05322750683
+              - generic [ref=e402]: Bizimle İletişime Geçin
+          - paragraph
+    - contentinfo [ref=e403]:
+      - generic [ref=e404]:
+        - generic [ref=e408]:
+          - generic [ref=e411]:
+            - figure [ref=e414]
+            - generic:
+              - paragraph
+          - generic [ref=e418]:
+            - heading "Menü" [level=2] [ref=e419]
+            - list [ref=e421]:
+              - listitem [ref=e422]:
+                - link "Kurumsal" [ref=e423] [cursor=pointer]:
+                  - /url: https://svinteriors.com.tr/kurumsal/
+              - listitem [ref=e424]:
+                - link "Hizmetlerimiz" [ref=e425] [cursor=pointer]:
+                  - /url: https://svinteriors.com.tr/hizmetlerimiz/
+              - listitem [ref=e426]:
+                - link "Projelerimiz" [ref=e427] [cursor=pointer]:
+                  - /url: https://svinteriors.com.tr/projelerimiz/
+              - listitem [ref=e428]:
+                - link "İletişim" [ref=e429] [cursor=pointer]:
+                  - /url: https://svinteriors.com.tr/iletisim/
+              - listitem [ref=e430]:
+                - link "KVKK" [ref=e431] [cursor=pointer]:
+                  - /url: https://svinteriors.com.tr/kvkk/
+          - generic [ref=e435]:
+            - heading "HİZMETLERİMİZ" [level=2] [ref=e436]
+            - list [ref=e438]:
+              - listitem [ref=e439]:
+                - link "Konsept Geliştirme ve İç Mekan Tasarımı" [ref=e440] [cursor=pointer]:
+                  - /url: https://svinteriors.com.tr/konsept-gelistirme-ve-ic-mekan-tasarimi/
+              - listitem [ref=e441]:
+                - link "Mobilya Tasarımı ve Üretimi" [ref=e442] [cursor=pointer]:
+                  - /url: https://svinteriors.com.tr/mobilya-tasarimi/
+              - listitem [ref=e443]:
+                - link "Proje Yönetimi ve Uygulama" [ref=e444] [cursor=pointer]:
+                  - /url: https://svinteriors.com.tr/proje-yonetimi/
+              - listitem [ref=e445]:
+                - link "Danışmanlık" [ref=e446] [cursor=pointer]:
+                  - /url: https://svinteriors.com.tr/danismanlik/
+              - listitem [ref=e447]:
+                - link "3D Modelleme ve Görselleştirme" [ref=e448] [cursor=pointer]:
+                  - /url: https://svinteriors.com.tr/3d-modelleme-ve-gorsellestime/
+          - generic [ref=e451]:
+            - generic [ref=e452]:
+              - heading "İLETİŞİM" [level=2] [ref=e453]
+              - list [ref=e455]:
+                - listitem [ref=e456]:
+                  - link "0 532 275 06 83" [ref=e457] [cursor=pointer]:
+                    - /url: tel:05322750683
+                - listitem [ref=e458]:
+                  - link "Ankara" [ref=e459] [cursor=pointer]:
+                    - /url: "#"
+            - list [ref=e461]:
+              - listitem [ref=e462]:
+                - link "Instagram" [ref=e463] [cursor=pointer]:
+                  - /url: https://www.instagram.com/svinteriors_ankara/
+                  - img [ref=e464]
+                  - generic [ref=e466]: Instagram
+              - listitem [ref=e467]:
+                - link "Facebook" [ref=e468] [cursor=pointer]:
+                  - /url: https://www.facebook.com/profile.php?id=61577708469286
+                  - img [ref=e469]
+                  - generic [ref=e471]: Facebook
+        - paragraph [ref=e481]:
+          - text: © 2026 SV İnteriors Powered by
+          - link "Vegasis Medya" [ref=e482] [cursor=pointer]:
+            - /url: http://vegasismedya.com
+  - img [ref=e483]
