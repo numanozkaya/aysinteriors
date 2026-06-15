@@ -2807,45 +2807,70 @@ hr.thin-rule.left {
   pointer-events: none;
 }
 
-/* Navigation */
-.mag-nav {
+/* Magazine book + side arrows container */
+.magazine-book-wrap {
+  position: relative;
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 28px;
-  padding: 28px 0 4px;
+  user-select: none;
+  cursor: grab;
+}
+.magazine-book-wrap:active {
+  cursor: grabbing;
 }
 
-.mag-nav__arrow {
-  width: 48px;
-  height: 48px;
-  border: 1px solid var(--border);
-  background: transparent;
-  color: var(--taupe);
-  font-size: 26px;
+/* Side navigation arrows */
+.mag-side-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 56px;
+  height: 80px;
+  background: rgba(28,26,24,0.72);
+  border: 1px solid rgba(200,169,122,0.35);
+  color: var(--gold);
+  font-size: 36px;
   line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  flex-shrink: 0;
-  transition: border-color var(--transition), color var(--transition);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background var(--transition), border-color var(--transition),
+    color var(--transition), opacity var(--transition), transform var(--transition);
+  opacity: 0.85;
 }
-.mag-nav__arrow:hover:not(:disabled) {
+.mag-side-arrow--left {
+  left: -28px;
+}
+.mag-side-arrow--right {
+  right: -28px;
+}
+.mag-side-arrow:hover {
+  background: rgba(200,169,122,0.18);
   border-color: var(--gold);
-  color: var(--gold);
+  color: var(--white);
+  opacity: 1;
 }
-.mag-nav__arrow:disabled {
-  opacity: 0.22;
-  cursor: not-allowed;
+.mag-side-arrow--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.mag-side-arrow span {
+  display: block;
+  line-height: 1;
+  margin-top: -2px;
 }
 
-.mag-nav__center {
+/* Navigation */
+.mag-nav {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10px;
-  min-width: 280px;
+  padding: 24px 0 4px;
 }
 
 .mag-nav__label {
@@ -2920,6 +2945,8 @@ hr.thin-rule.left {
   .mag-left__title {
     font-size: clamp(1.5rem, 2.5vw, 2.4rem);
   }
+  .mag-side-arrow--left { left: -4px; }
+  .mag-side-arrow--right { right: -4px; }
 }
 
 @media (max-width: 768px) {
@@ -2953,9 +2980,17 @@ hr.thin-rule.left {
     min-height: 240px;
     perspective: none;
   }
-  .mag-nav__center {
-    min-width: 180px;
+  /* On mobile, arrows sit at the bottom corners of the image */
+  .mag-side-arrow {
+    top: auto;
+    bottom: 12px;
+    transform: none;
+    width: 44px;
+    height: 52px;
+    font-size: 28px;
   }
+  .mag-side-arrow--left { left: 12px; }
+  .mag-side-arrow--right { right: 12px; }
   .mag-nav__tracks {
     gap: 8px;
   }
