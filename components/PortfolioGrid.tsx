@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function PortfolioGrid({ projects, categories }: Props) {
-  const [viewMode, setViewMode] = useState<'grid' | 'magazine'>('grid')
+  const [viewMode, setViewMode] = useState<'grid' | 'magazine'>('magazine')
   const [activeSlug, setActiveSlug] = useState<string | null>(null)
   const [lightboxProject, setLightboxProject] = useState<ProjectWithImages | null>(null)
   const [lightboxImageIndex, setLightboxImageIndex] = useState(0)
@@ -40,7 +40,7 @@ export default function PortfolioGrid({ projects, categories }: Props) {
             <rect x="0" y="8" width="6" height="6" fill="currentColor" />
             <rect x="8" y="8" width="6" height="6" fill="currentColor" />
           </svg>
-          Grid
+          Liste Görünümü
         </button>
         <button
           className={`view-toggle-btn${viewMode === 'magazine' ? ' active' : ''}`}
